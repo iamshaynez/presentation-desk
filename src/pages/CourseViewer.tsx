@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, Globe, ChevronLeft } from 'lucide-react';
+import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft } from 'lucide-react';
 import { ApiResponse, UnitContent } from '@/types';
 import clsx from 'clsx';
 
@@ -12,10 +12,9 @@ export function CourseViewer() {
   const [units, setUnits] = useState<string[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [content, setContent] = useState<UnitContent | null>(null);
-  const [activeTab, setActiveTab] = useState<'content' | 'notes' | 'browser'>('content');
+  const [activeTab, setActiveTab] = useState<'content' | 'notes'>('content');
   const [noteContent, setNoteContent] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [browserUrl, setBrowserUrl] = useState('https://bing.com');
   const [showNotePreview, setShowNotePreview] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -76,10 +75,11 @@ export function CourseViewer() {
       {/* Sidebar */}
       <div 
         className={clsx(
-          "bg-white dark:bg-zinc-800 border-r border-gray-200 dark:border-zinc-700 transition-all duration-300 flex flex-col",
-          sidebarOpen ? "w-64" : "w-0 overflow-hidden"
+          "bg-white dark:bg-zinc-800 border-r border-gray-200 dark:border-zinc-700 transition-all duration-500 ease-in-out flex flex-col overflow-hidden",
+          (sidebarOpen && !isFullscreen) ? "w-64 opacity-100" : "w-0 opacity-0"
         )}
       >
+        <div className="min-w-[16rem]"> {/* Prevent content reflow during transition */}
         <div className="p-4 border-b border-gray-200 dark:border-zinc-700 flex items-center justify-between bg-gray-50 dark:bg-zinc-800">
           <h2 className="font-bold truncate" title={courseName}>{courseName}</h2>
         </div>
@@ -99,7 +99,8 @@ export function CourseViewer() {
             </Link>
           ))}
         </div>
-        <div className="p-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800">
+        </div>
+        <div className="p-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 min-w-[16rem]">
             <Link to="/" className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
                 <ChevronLeft size={16} /> Back to Courses
             </Link>
@@ -118,11 +119,11 @@ export function CourseViewer() {
 
         {/* Content Area */}
         <div className="flex-1 flex overflow-hidden">
-          {/* Image Viewer (Left 30%) */}
+          {/* Image Viewer (Left 30% -> 70%) */}
           <div 
             className={clsx(
-              "bg-black relative transition-all duration-300 flex items-center justify-center",
-              isFullscreen ? "fixed inset-0 z-50 w-full h-full" : "w-[30%]"
+              "bg-black relative transition-all duration-500 ease-in-out flex items-center justify-center",
+              isFullscreen ? "w-[70%]" : "w-[30%]"
             )}
           >
             {content?.image ? (
@@ -144,7 +145,7 @@ export function CourseViewer() {
           </div>
 
           {/* Right Tabs (Remaining width) */}
-          <div className={clsx("flex-1 flex flex-col bg-white dark:bg-zinc-900 border-l border-gray-200 dark:border-zinc-700", isFullscreen && "hidden")}>
+          <div className={clsx("flex-1 flex flex-col bg-white dark:bg-zinc-900 border-l border-gray-200 dark:border-zinc-700 transition-all duration-500 ease-in-out")}>
             {/* Tab Headers */}
             <div className="flex border-b border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800">
               <button 
@@ -158,12 +159,6 @@ export function CourseViewer() {
                 onClick={() => setActiveTab('notes')}
               >
                 Notes
-              </button>
-              <button 
-                className={clsx("px-6 py-3 text-sm font-medium transition-colors focus:outline-none", activeTab === 'browser' ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400 bg-white dark:bg-zinc-900" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}
-                onClick={() => setActiveTab('browser')}
-              >
-                Browser
               </button>
             </div>
 
@@ -212,33 +207,6 @@ export function CourseViewer() {
                             placeholder="Type your notes here... (Markdown supported)"
                         />
                     )}
-                </div>
-              )}
-
-              {activeTab === 'browser' && (
-                <div className="h-full flex flex-col p-2">
-                    <div className="flex gap-2 mb-2">
-                        <input 
-                            type="text" 
-                            className="flex-1 border border-gray-300 dark:border-zinc-700 px-3 py-2 rounded dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value={browserUrl}
-                            onChange={(e) => setBrowserUrl(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    // Enter triggers re-render with new URL
-                                }
-                            }}
-                        />
-                        <button className="p-2 bg-gray-200 dark:bg-zinc-700 rounded hover:bg-gray-300 dark:hover:bg-zinc-600 transition-colors">
-                            <Globe size={16} />
-                        </button>
-                    </div>
-                    <iframe 
-                        src={browserUrl} 
-                        className="flex-1 w-full border border-gray-200 dark:border-zinc-700 rounded bg-white"
-                        sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-                        title="Embedded Browser"
-                    />
                 </div>
               )}
             </div>
