@@ -13,6 +13,17 @@ export default {
         sans: ['ui-sans-serif', 'system-ui', 'sans-serif', '"Noto Serif SC"'],
         serif: ['ui-serif', 'Georgia', 'serif', '"Noto Serif SC"'],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            'pre:has(.mermaid-diagram)': {
+              backgroundColor: 'transparent !important',
+              padding: 0,
+              boxShadow: 'none',
+            },
+          }
+        }
+      }
     },
   },
   plugins: [

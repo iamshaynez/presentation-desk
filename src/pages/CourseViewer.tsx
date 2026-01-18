@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft } from 'lucide-react';
 import { ApiResponse, UnitContent } from '@/types';
+import { Mermaid } from '@/components/Mermaid';
 import clsx from 'clsx';
 
 export function CourseViewer() {
@@ -167,7 +168,33 @@ export function CourseViewer() {
               {activeTab === 'content' && (
                 <div className="h-full overflow-auto p-6">
                   <div className="prose dark:prose-invert max-w-none">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        pre({ children }: any) {
+                          // Check if children is a mermaid code block
+                          if (children?.props?.className?.includes('language-mermaid')) {
+                            return <>{children}</>; // Render code block content directly without pre wrapper
+                          }
+                          return <pre>{children}</pre>;
+                        },
+                        code({ node, inline, className, children, ...props }: any) {
+                          const match = /language-(\w+)/.exec(className || '');
+                          if (!inline && match && match[1] === 'mermaid') {
+                            return (
+                              <div className="bg-transparent">
+                                <Mermaid chart={String(children).replace(/\n$/, '')} />
+                              </div>
+                            );
+                          }
+                          return (
+                            <code className={className} {...props}>
+                              {children}
+                            </code>
+                          );
+                        }
+                      }}
+                    >
                       {content?.readme || ''}
                     </ReactMarkdown>
                   </div>
@@ -195,7 +222,32 @@ export function CourseViewer() {
                     </div>
                     {showNotePreview ? (
                         <div className="prose dark:prose-invert max-w-none flex-1 overflow-auto border border-gray-200 dark:border-zinc-700 p-4 rounded bg-gray-50 dark:bg-zinc-800/50">
-                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                             <ReactMarkdown 
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                     pre({ children }: any) {
+                                       if (children?.props?.className?.includes('language-mermaid')) {
+                                         return <>{children}</>;
+                                       }
+                                       return <pre>{children}</pre>;
+                                     },
+                                     code({ node, inline, className, children, ...props }: any) {
+                                       const match = /language-(\w+)/.exec(className || '');
+                                       if (!inline && match && match[1] === 'mermaid') {
+                                         return (
+                                           <div className="bg-transparent">
+                                             <Mermaid chart={String(children).replace(/\n$/, '')} />
+                                           </div>
+                                         );
+                                       }
+                                       return (
+                                         <code className={className} {...props}>
+                                           {children}
+                                         </code>
+                                       );
+                                     }
+                                   }}
+                             >
                                 {noteContent}
                             </ReactMarkdown>
                         </div>
