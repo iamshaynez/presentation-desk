@@ -6,7 +6,7 @@ import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, Globe, ChevronLeft } fro
 import { ApiResponse, UnitContent } from '@/types';
 import clsx from 'clsx';
 
-export default function CourseViewer() {
+export function CourseViewer() {
   const { courseName, unitName } = useParams();
   const navigate = useNavigate();
   const [units, setUnits] = useState<string[]>([]);

@@ -89,6 +89,13 @@ router.get('/:courseName/:unitName', async (req, res) => {
     // Encode components to handle spaces and special characters in URL
     const encodedCourseName = encodeURIComponent(courseName);
     const encodedUnitName = encodeURIComponent(unitName);
+    // For static files served by express.static, we don't need to double encode if the browser handles it,
+    // but here we are constructing a URL path.
+    // express.static serves files directly. If we request /courses-static/A B/C.png, express looks for "A B/C.png".
+    // Browser will request /courses-static/A%20B/C.png.
+    // So we should return the path with encoded segments.
+    
+    // HOWEVER, if imageFile itself has spaces, we need to be careful.
     const encodedImageFile = imageFile ? encodeURIComponent(imageFile) : null;
 
     res.json({

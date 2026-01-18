@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ApiResponse } from '@/types';
 import { BookOpen } from 'lucide-react';
 
-export default function CourseList() {
+export function CourseList() {
   const [courses, setCourses] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 

@@ -28,7 +28,7 @@ app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
 // Serve courses directory as static files
-app.use('/courses-static', express.static(path.join(__dirname, '../../courses')))
+app.use('/courses-static', express.static(path.join(__dirname, '../courses')))
 
 /**
  * API Routes
