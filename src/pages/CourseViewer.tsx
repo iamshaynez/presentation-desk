@@ -79,31 +79,31 @@ export function CourseViewer() {
           (sidebarOpen && !isFullscreen) ? "w-64 opacity-100" : "w-0 opacity-0"
         )}
       >
-        <div className="min-w-[16rem]"> {/* Prevent content reflow during transition */}
-        <div className="p-4 border-b border-gray-200 dark:border-zinc-700 flex items-center justify-between bg-gray-50 dark:bg-zinc-800">
-          <h2 className="font-bold truncate" title={courseName}>{courseName}</h2>
-        </div>
-        <div className="flex-1 overflow-y-auto p-2">
-          {units.map(unit => (
-            <Link
-              key={unit}
-              to={`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(unit)}`}
-              className={clsx(
-                "block p-2 rounded mb-1 truncate text-sm transition-colors",
-                unit === unitName 
-                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-100 font-medium" 
-                  : "hover:bg-gray-100 dark:hover:bg-zinc-700"
-              )}
-            >
-              {unit}
-            </Link>
-          ))}
-        </div>
-        </div>
-        <div className="p-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 min-w-[16rem]">
-            <Link to="/" className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
-                <ChevronLeft size={16} /> Back to Courses
-            </Link>
+        <div className="flex flex-col h-full min-w-[16rem]"> {/* Prevent content reflow during transition */}
+          <div className="p-4 border-b border-gray-200 dark:border-zinc-700 flex items-center justify-between bg-gray-50 dark:bg-zinc-800">
+            <h2 className="font-bold truncate" title={courseName}>{courseName}</h2>
+          </div>
+          <div className="flex-1 overflow-y-auto p-2">
+            {units.map(unit => (
+              <Link
+                key={unit}
+                to={`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(unit)}`}
+                className={clsx(
+                  "block p-2 rounded mb-1 truncate text-sm transition-colors",
+                  unit === unitName 
+                    ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-100 font-medium" 
+                    : "hover:bg-gray-100 dark:hover:bg-zinc-700"
+                )}
+              >
+                {unit}
+              </Link>
+            ))}
+          </div>
+          <div className="p-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800">
+              <Link to="/" className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+                  <ChevronLeft size={16} /> Back to Courses
+              </Link>
+          </div>
         </div>
       </div>
 
@@ -130,7 +130,7 @@ export function CourseViewer() {
               <img 
                 src={content.image} 
                 alt="Presentation" 
-                className="max-w-full max-h-full object-contain"
+                className="max-w-full max-h-full object-contain pointer-events-none select-none"
               />
             ) : (
               <div className="text-gray-500">No Image</div>
@@ -138,7 +138,7 @@ export function CourseViewer() {
             
             <button 
               onClick={() => setIsFullscreen(!isFullscreen)}
-              className="absolute top-4 right-4 p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
+              className="absolute top-4 right-4 p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors z-30"
             >
               {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
             </button>
