@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 爆发纪元：从 ChatGPT 到智能体时代 (2022-2026)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            margin: 0 auto;
+        }
+
+        /* Timeline Graphics */
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #f1f5f9;
+        }
+
+        @media (min-width: 1024px) {
+            .timeline-line { left: 50%; transform: translateX(-50%); }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #e2e8f0;
+            z-index: 10;
+        }
+
+        /* Custom Tags */
+        .tag-usa { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+        .tag-china { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .tag-open { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+        .tag-closed { background: #f8fafb; color: #475569; border: 1px solid #e2e8f0; }
+        
+        .layer-box {
+            transition: all 0.3s ease;
+        }
+        .layer-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 
+        NARRATIVE STRUCTURE:
+        1. Intro: The 3-year explosion summary.
+        2. Detailed Timeline: 2022-2026 (Country/Openness markers).
+        3. Reasoning Era focus (o1 vs R1).
+        4. Data Analysis: Capability benchmarks and context window trends.
+        5. AI Ecosystem Stack: From Infrastructure to Agents.
+        6. Conclusion.
+    -->
+
+    <header class="bg-slate-50 border-b border-slate-100 py-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-flex items-center space-x-2 bg-white px-3 py-1 rounded-full border border-slate-200 text-xs font-bold text-blue-600 mb-6 uppercase tracking-widest">
+                <span>调研报告 · 2026.01 版</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tighter mb-8">
+                AI 爆发纪元全景图
+            </h1>
+            <p class="text-xl text-slate-500 leading-relaxed max-w-3xl mx-auto">
+                复盘 2022 年底至今的中美 AI 竞争格局。从单纯的“生成式对话”到具备“思考与推理”能力的智能体，全维度梳理关键技术跃迁。
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-20">
+
+        <!-- Metrics Overview -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+            <div class="p-8 border border-slate-100 rounded-3xl bg-white shadow-sm text-center">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">推理成本降幅</p>
+                <div class="text-5xl font-extrabold text-blue-600">-99.1%</div>
+                <p class="text-sm text-slate-500 mt-4 leading-relaxed">2026 年顶尖模型推理成本仅为 2023 年 GPT-4 的百分之一。</p>
+            </div>
+            <div class="p-8 border border-slate-100 rounded-3xl bg-white shadow-sm text-center">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">平均逻辑能力</p>
+                <div class="text-5xl font-extrabold text-blue-600">+450%</div>
+                <p class="text-sm text-slate-500 mt-4 leading-relaxed">通过思维链(CoT)强化学习，模型数学推导能力产生质变。</p>
+            </div>
+            <div class="p-8 border border-slate-100 rounded-3xl bg-white shadow-sm text-center">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">开源生态占比</p>
+                <div class="text-5xl font-extrabold text-blue-600">54%</div>
+                <p class="text-sm text-slate-500 mt-4 leading-relaxed">2025 年起，以 DeepSeek 为首的开源推理模型成为行业主流。</p>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="mb-40 relative">
+            <div class="text-center mb-24">
+                <h2 class="text-3xl font-bold text-slate-900">2022 - 2026 关键事件时间线</h2>
+                <p class="text-slate-400 mt-4">系统复盘中美双雄、开源与闭源的史诗长跑</p>
+            </div>
+
+            <div class="relative">
+                <div class="timeline-line"></div>
+
+                <!-- 2022: Genesis -->
+                <div class="relative mb-24 flex flex-col lg:flex-row items-start lg:items-center">
+                    <div class="timeline-dot bg-blue-600 left-[15px] lg:left-1/2 lg:-ml-[6px]"></div>
+                    <div class="lg:w-1/2 lg:pr-16 pl-12 lg:text-right lg:pl-0">
+                        <span class="text-xs font-bold text-blue-600 mb-2 block">2022年 11月</span>
+                        <h4 class="text-xl font-bold text-slate-900">ChatGPT (GPT-3.5) 惊世发布</h4>
+                        <div class="flex flex-wrap lg:justify-end gap-2 mt-2">
+                            <span class="tag-usa tag">美国</span>
+                            <span class="tag-closed tag">闭源</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">OpenAI 发布。5 天用户破百万，标志着生成式 AI 范式的全球确立。</p>
+                    </div>
+                    <div class="lg:w-1/2 lg:pl-16 mt-6 lg:mt-0 pl-12">
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-500 leading-relaxed italic">
+                            “AI 的 iPhone 时刻”，人们第一次意识到大语言模型（LLM）具备通用对话能力。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2023 Q1: Double Peak -->
+                <div class="relative mb-24 flex flex-col lg:flex-row-reverse items-start lg:items-center">
+                    <div class="timeline-dot bg-red-600 left-[15px] lg:left-1/2 lg:-ml-[6px]"></div>
+                    <div class="lg:w-1/2 lg:pl-16 pl-12">
+                        <span class="text-xs font-bold text-red-600 mb-2 block">2023年 3月</span>
+                        <h4 class="text-xl font-bold text-slate-900">GPT-4 与 文心一言</h4>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="tag-usa tag">美国</span>
+                            <span class="tag-china tag">中国</span>
+                            <span class="tag-closed tag">闭源</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">GPT-4 确立行业性能基准。百度发布**文心一言**，开启中国“百模大战”序幕。</p>
+                    </div>
+                    <div class="lg:w-1/2 lg:pr-16 mt-6 lg:mt-0 pl-12 lg:text-right">
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-500 leading-relaxed italic">
+                            中国科技企业迅速响应，展现出极强的追赶韧性。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2023 Q3: Open Source Revolution -->
+                <div class="relative mb-24 flex flex-col lg:flex-row items-start lg:items-center">
+                    <div class="timeline-dot bg-emerald-600 left-[15px] lg:left-1/2 lg:-ml-[6px]"></div>
+                    <div class="lg:w-1/2 lg:pr-16 pl-12 lg:text-right lg:pl-0">
+                        <span class="text-xs font-bold text-emerald-600 mb-2 block">2023年 7月</span>
+                        <h4 class="text-xl font-bold text-slate-900">Llama 2 开源大航海</h4>
+                        <div class="flex flex-wrap lg:justify-end gap-2 mt-2">
+                            <span class="tag-usa tag">美国</span>
+                            <span class="tag-open tag">开源</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">Meta 发布 Llama 2。全球开发者进入“私有化部署”元年，极大地促进了开源生态。</p>
+                    </div>
+                    <div class="lg:w-1/2 lg:pl-16 mt-6 lg:mt-0 pl-12">
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-500 leading-relaxed italic">
+                            同年底，阿里的**通义千问 (中国, 开源)** 深度参与开源贡献，成为国内开发者首选。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2024 Mid: Multimodal & Context -->
+                <div class="relative mb-24 flex flex-col lg:flex-row-reverse items-start lg:items-center">
+                    <div class="timeline-dot bg-amber-500 left-[15px] lg:left-1/2 lg:-ml-[6px]"></div>
+                    <div class="lg:w-1/2 lg:pl-16 pl-12">
+                        <span class="text-xs font-bold text-amber-600 mb-2 block">2024年 2月 - 5月</span>
+                        <h4 class="text-xl font-bold text-slate-900">Sora 震撼与 GPT-4o 实时化</h4>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="tag-usa tag">美国</span>
+                            <span class="tag-closed tag">闭源</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">视频生成与原生多模态爆发。中国**快手“可灵” (中国, 闭源)**在视频生成领域率先实现商业化领先。</p>
+                    </div>
+                    <div class="lg:w-1/2 lg:pr-16 mt-6 lg:mt-0 pl-12 lg:text-right">
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-500 leading-relaxed italic">
+                            长文本战场：**Kimi (中国, 闭源)** 率先推出 200万字上下文，引爆国内应用层。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2024 Q4: Reasoning Milestone 1 -->
+                <div class="relative mb-24 flex flex-col lg:flex-row items-start lg:items-center">
+                    <div class="timeline-dot bg-indigo-600 !w-5 !h-5 left-[12px] lg:left-1/2 lg:-ml-[10px] border-indigo-200"></div>
+                    <div class="lg:w-1/2 lg:pr-16 pl-12 lg:text-right lg:pl-0">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-700 mb-2 uppercase tracking-tighter">关键节点：推理范式开启</span>
+                        <h4 class="text-2xl font-black text-indigo-900">OpenAI o1 (Strawberry)</h4>
+                        <div class="flex flex-wrap lg:justify-end gap-2 mt-2">
+                            <span class="tag-usa tag">美国</span>
+                            <span class="tag-closed tag">闭源</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-4 leading-relaxed">
+                            **推理革命开启**。通过思维链(CoT)强化学习，o1 解决了复杂逻辑、数学、代码难题。AI 从“快速直觉”进化到“深度思考”。
+                        </p>
+                    </div>
+                    <div class="lg:w-1/2 lg:pl-16 mt-6 lg:mt-0 pl-12">
+                        <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-3xl">
+                            <h5 class="text-xs font-bold text-indigo-900 uppercase mb-3 tracking-widest">o1 技术特征</h5>
+                            <ul class="text-xs text-indigo-700 space-y-2 list-disc list-inside">
+                                <li>System 2 思维：自发分步推导</li>
+                                <li>强化学习驱动的思维链优化</li>
+                                <li>数学测试 AIME 分数质变</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025 Q1: Reasoning Milestone 2 -->
+                <div class="relative mb-24 flex flex-col lg:flex-row-reverse items-start lg:items-center">
+                    <div class="timeline-dot bg-red-600 !w-5 !h-5 left-[12px] lg:left-1/2 lg:-ml-[10px] border-red-200"></div>
+                    <div class="lg:w-1/2 lg:pl-16 pl-12">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-700 mb-2 uppercase tracking-tighter">关键节点：推理能力平权</span>
+                        <h4 class="text-2xl font-black text-red-900">DeepSeek R1 / V3</h4>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="tag-china tag">中国</span>
+                            <span class="tag-open tag">开源</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-4 leading-relaxed">
+                            **震撼全球的开源奇迹**。DeepSeek 以极低成本实现对标 o1 的推理性能，并毫无保留开源权重与技术文档。彻底重塑了全球 AI 算力与经济逻辑。
+                        </p>
+                    </div>
+                    <div class="lg:w-1/2 lg:pr-16 mt-6 lg:mt-0 pl-12 lg:text-right">
+                        <div class="bg-red-50 border border-red-100 p-6 rounded-3xl">
+                            <h5 class="text-xs font-bold text-red-900 uppercase mb-3 tracking-widest">R1 颠覆性贡献</h5>
+                            <ul class="text-xs text-red-700 space-y-2 list-disc list-inside">
+                                <li>强化学习冷启动技术 (DeepSeek-R1-Zero)</li>
+                                <li>极致的 FP8 训练效率优化</li>
+                                <li>推理能力平权：全行业均可部署顶级智能</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2026: Today -->
+                <div class="relative flex flex-col lg:flex-row items-start lg:items-center">
+                    <div class="timeline-dot bg-black left-[15px] lg:left-1/2 lg:-ml-[6px]"></div>
+                    <div class="lg:w-1/2 lg:pr-16 pl-12 lg:text-right lg:pl-0">
+                        <span class="text-xs font-bold text-slate-900 mb-2 block">2026年 1月 (今天)</span>
+                        <h4 class="text-xl font-bold text-slate-900">智能体 (Agents) 深度融合</h4>
+                        <p class="text-sm text-slate-500 mt-3">模型作为底层操作系统，自主规划、执行复杂任务。中美进入“具身智能”与“原生智能体”的全量应用期。</p>
+                    </div>
+                    <div class="lg:w-1/2 lg:pl-16 mt-6 lg:mt-0 pl-12">
+                        <div class="p-4 bg-black rounded-2xl text-[10px] text-white font-mono leading-relaxed">
+                            // Current Status: Jan 2026<br>
+                            // Intelligence distributed across the web<br>
+                            // Autonomous loop initialized...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="bg-slate-50 py-24 px-8 rounded-[3rem] mb-40">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Benchmark Progress -->
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-bold text-slate-900 mb-8 border-l-4 border-blue-600 pl-4">能力飞跃：MATH 基准分趋势</h3>
+                    <div class="chart-container">
+                        <canvas id="benchmarkChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-8 italic">
+                        *从 GPT-3.5 到 R1，逻辑推理能力提升了 8 倍。这标志着模型从“语言模型”进化为“思维引擎”。
+                    </p>
+                </div>
+                <!-- Context Window -->
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-bold text-slate-900 mb-8 border-l-4 border-blue-600 pl-4">记忆扩容：上下文窗口 (Tokens)</h3>
+                    <div class="chart-container">
+                        <canvas id="contextChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-8 italic">
+                        *注意：Y轴为对数刻度。千万级 token 上下文已使“处理整本书或整库代码”成为日常。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Layered Stack (Requested Section) -->
+        <section class="mb-40">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl font-bold text-slate-900">2026 AI 全栈生态架构</h2>
+                <p class="text-slate-400 mt-4">从底层算力到顶层应用，理解智能时代的产业分层</p>
+            </div>
+
+            <div class="flex flex-col space-y-4 max-w-5xl mx-auto">
+                <!-- Layer 4: Application & Agents -->
+                <div class="layer-box bg-blue-50 border border-blue-100 p-8 rounded-3xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div class="md:w-1/3">
+                            <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Layer 04</span>
+                            <h4 class="text-xl font-bold text-blue-900 mt-1">智能体与垂直应用</h4>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-sm text-blue-700 leading-relaxed">
+                                自主智能体 (Personal Agents)、自动化工作流、原生 AI 应用 (豆包, Copilot)。AI 不再是对话框，而是能够直接操作 UI 执行任务的数字员工。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 3: Orchestration & Memory -->
+                <div class="layer-box bg-slate-50 border border-slate-200 p-8 rounded-3xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div class="md:w-1/3">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Layer 03</span>
+                            <h4 class="text-xl font-bold text-slate-900 mt-1">编排与缓存记忆</h4>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                向量数据库、长文本缓存、RAG (检索增强生成)。解决基础模型的“长期记忆”问题，确保 AI 能够实时检索海量知识并保持上下文连贯。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 2: Foundation Models (LLM) -->
+                <div class="layer-box bg-slate-900 p-8 rounded-3xl shadow-xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div class="md:w-1/3">
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Layer 02</span>
+                            <h4 class="text-xl font-bold text-white mt-1">基础大模型 (LLM)</h4>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                推理模型 (o1, R1)、通用大模型 (GPT-5, Llama 4)。这是 AI 的“大脑核心”，通过大规模强化学习和思维链训练，提供核心逻辑与语言处理能力。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 1: Infrastructure -->
+                <div class="layer-box bg-slate-100 border border-slate-200 p-8 rounded-3xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div class="md:w-1/3">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Layer 01</span>
+                            <h4 class="text-xl font-bold text-slate-900 mt-1">基础设施与 GPU</h4>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                算力集群 (NVIDIA B200, 国产算力芯片)、CUDA/ROCm 生态、高带宽内存 (HBM3)。智能时代的“电力工厂”，支撑万亿级参数模型的训练与推理。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-16 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-slate-400 text-xs font-mono mb-4 uppercase tracking-widest">© 2026 Global AI Research Snapshot</p>
+            <p class="text-slate-500 text-sm italic">
+                “智能是二十一世纪的新型电力，而推理是开启这一力量的电容。”
+            </p>
+            <div class="mt-8 text-[10px] text-slate-300">
+                Created using Tailwind CSS & Chart.js. No SVG or Mermaid assets were used in this immersive.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- HELPER: Label Wrapping (16 chars) ---
+        const wrapLabel = (label) => {
+            if (label.length <= 16) return label;
+            return label.match(/.{1,16}/g);
+        };
+
+        // --- HELPER: Tooltip Config ---
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    return Array.isArray(label) ? label.join(' ') : label;
+                }
+            }
+        };
+
+        // --- CHART 1: Benchmark ---
+        const benchmarkCtx = document.getElementById('benchmarkChart').getContext('2d');
+        new Chart(benchmarkCtx, {
+            type: 'bar',
+            data: {
+                labels: ['GPT-3.5 (Pre-Era)', 'GPT-4 (Peak-V1)', 'Claude 3.5 (Expert)', 'OpenAI o1 (Reasoning)', 'DeepSeek R1 (Reasoning)'].map(wrapLabel),
+                datasets: [{
+                    label: 'MATH 测试分 (0-100)',
+                    data: [12, 54, 71, 94.8, 94.3],
+                    backgroundColor: ['#e2e8f0', '#94a3b8', '#64748b', '#4f46e5', '#ef4444'],
+                    borderRadius: 8,
+                    barThickness: 40
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 100, grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } },
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                }
+            }
+        });
+
+        // --- CHART 2: Context Window (Log Scale) ---
+        const contextCtx = document.getElementById('contextChart').getContext('2d');
+        new Chart(contextCtx, {
+            type: 'line',
+            data: {
+                labels: ['Nov 2022', 'Mar 2023', 'Oct 2023', 'Feb 2024', 'Jan 2025', 'Jan 2026'].map(wrapLabel),
+                datasets: [{
+                    label: 'Tokens (K)',
+                    data: [4, 32, 200, 1000, 2000, 10000],
+                    borderColor: '#0f172a',
+                    backgroundColor: 'rgba(15, 23, 42, 0.05)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    y: { 
+                        type: 'logarithmic', 
+                        grid: { color: '#f1f5f9' },
+                        ticks: {
+                            callback: function(value) {
+                                if (value === 4) return '4K';
+                                if (value === 100) return '100K';
+                                if (value === 1000) return '1M';
+                                if (value === 10000) return '10M+';
+                                return null;
+                            },
+                            font: { size: 10 }
+                        }
+                    },
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

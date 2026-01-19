@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown 进阶扩展与可视化指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Mermaid 渲染引擎 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <!-- 引入 MathJax 渲染数学公式 -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: #f1f5f9;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #d33;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 0.75rem;
+        }
+
+        /* 自定义公式样式 */
+        .math-display {
+            font-size: 1.1rem;
+            padding: 1rem;
+            background: #fdfdfd;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto mb-12 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+            Markdown <span class="gradient-text">进阶扩展</span> 全解
+        </h1>
+        <p class="text-slate-500 text-lg">
+            实时渲染演示：图表、公式与高级排版
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Mermaid Section: Flowchart -->
+        <section class="lg:col-span-2 glass-card p-6 md:p-8">
+            <div class="flex items-center mb-6">
+                <div class="p-3 bg-indigo-100 rounded-xl text-indigo-600 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">Mermaid 流程图 (Flowchart)</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div class="space-y-4">
+                    <p class="text-sm text-slate-600 font-medium">源码：</p>
+                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-xl text-xs overflow-x-auto">
+```mermaid
+graph LR
+    A[用户输入] --> B{AI 分析}
+    B -->|文本| C[生成回答]
+    B -->|指令| D[执行任务]
+    C --> E[结束]
+    D --> E
+```</pre>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-sm text-slate-600 font-medium">渲染预览：</p>
+                    <div class="mermaid">
+                        graph LR
+                            A[用户输入] --> B{AI 分析}
+                            B -->|文本| C[生成回答]
+                            B -->|指令| D[执行任务]
+                            C --> E[结束]
+                            D --> E
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Math Section -->
+        <section class="glass-card p-6 md:p-8">
+            <div class="flex items-center mb-6">
+                <div class="p-3 bg-rose-100 rounded-xl text-rose-600 mr-4">
+                    <span class="text-xl font-bold">∑</span>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">数学公式 (Math)</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <div>
+                    <p class="text-sm font-semibold text-slate-500 mb-2">标准正态分布</p>
+                    <div class="math-display">
+                        $$ f(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}} $$
+                    </div>
+                </div>
+                <div>
+                    <p class="text-sm font-semibold text-slate-500 mb-2">矩阵表达</p>
+                    <div class="math-display">
+                        $$ A = \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix} $$
+                    </div>
+                </div>
+                <p class="text-[11px] text-slate-400 italic">基于 MathJax 的标准 LaTeX 渲染</p>
+            </div>
+        </section>
+
+        <!-- Sequence Diagram -->
+        <section class="lg:col-span-2 glass-card p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">交互时序图 (Sequence Diagram)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="mermaid">
+                    sequenceDiagram
+                        participant User as 用户
+                        participant AI as 助理
+                        participant DB as 知识库
+                        User->>AI: 询问复杂问题
+                        AI->>DB: 检索向量数据
+                        DB-->>AI: 返回上下文
+                        AI-->>User: 生成准确回答
+                </div>
+                <div class="flex flex-col justify-center">
+                    <ul class="space-y-4 text-sm text-slate-600">
+                        <li class="flex items-center">
+                            <span class="w-6 h-6 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mr-2 text-[10px]">1</span>
+                            <span>使用 <code>sequenceDiagram</code> 关键词声明。</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-6 h-6 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mr-2 text-[10px]">2</span>
+                            <span><code>->></code> 表示同步消息，<code>-->></code> 表示虚线返回。</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-6 h-6 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mr-2 text-[10px]">3</span>
+                            <span>可以使用 <code>participant</code> 重命名或定义别名。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Extensions -->
+        <section class="glass-card p-6 md:p-8 space-y-8">
+            <div>
+                <h3 class="font-bold text-slate-800 mb-4 flex items-center">
+                    <span class="mr-2">📝</span> 注脚 (Footnotes)
+                </h3>
+                <div class="text-xs space-y-2 p-3 bg-slate-50 rounded-lg">
+                    <p>正文引用：<code>AI 是未来[^1]</code></p>
+                    <p class="text-slate-400">[^1]: 这是一条来自 2024 的预言。</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-slate-800 mb-4 flex items-center">
+                    <span class="mr-2">💡</span> 提示框 (Admonitions)
+                </h3>
+                <div class="border-l-4 border-sky-500 bg-sky-50 p-3 rounded-r-lg">
+                    <p class="text-[10px] font-bold text-sky-700 uppercase tracking-wider">Note</p>
+                    <p class="text-xs text-sky-900 mt-1">
+                        提示框语法通常为 <code>> [!NOTE]</code>，在 Obsidian 和 GitHub 中被广泛支持。
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-slate-800 mb-4 flex items-center">
+                    <span class="mr-2">🎯</span> 甘特图 (Gantt)
+                </h3>
+                <div class="mermaid">
+                    gantt
+                        title AI 开发周期
+                        dateFormat  YYYY-MM-DD
+                        section 研究
+                        模型调研 :a1, 2024-01-01, 10d
+                        section 开发
+                        数据清洗 :2024-01-11, 12d
+                        模型微调 :2024-01-23, 15d
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="max-w-6xl mx-auto mt-16 text-center text-slate-400 text-sm pb-12">
+        <p>支持 Mermaid v10.x & MathJax v3.x | 由专业渲染引擎动态驱动</p>
+    </footer>
+
+    <script>
+        // 初始化 Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+            securityLevel: 'loose',
+        });
+    </script>
+</body>
+</html>

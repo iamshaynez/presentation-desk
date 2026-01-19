@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent 运行架构深度图解</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f8fafc;
+        }
+        .agent-node {
+            transition: all 0.3s ease;
+        }
+        .agent-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .connector-line {
+            stroke-dasharray: 8;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
+        }
+        .pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 text-slate-800">
+
+    <div class="max-w-5xl mx-auto bg-white border border-slate-200 shadow-2xl rounded-[2rem] overflow-hidden">
+        <!-- Title Header -->
+        <header class="bg-gradient-to-r from-blue-700 to-indigo-800 p-10 text-center text-white">
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight">AI Agent 运行架构深度图解</h1>
+            <p class="text-blue-100 text-lg opacity-90 font-light">揭秘智能体如何像人类一样思考、记忆与行动</p>
+        </header>
+
+        <section class="p-6 md:p-12">
+            <!-- Central Architecture Diagram -->
+            <div class="mb-20">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-blue-600 pl-4">核心运行架构：协同中枢</h2>
+                    <span class="hidden md:block px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full uppercase tracking-wider">Runtime Interaction</span>
+                </div>
+                
+                <div class="relative bg-slate-50 rounded-[2.5rem] p-8 border border-slate-100 overflow-hidden">
+                    <!-- Background Grid -->
+                    <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#2563eb 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+                        
+                        <!-- Left Column: Planning & Memory -->
+                        <div class="space-y-8">
+                            <!-- Planning -->
+                            <div class="agent-node bg-white p-6 rounded-2xl border-l-4 border-indigo-500 shadow-sm">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-slate-800">规划层 (Planning)</h3>
+                                </div>
+                                <ul class="text-sm text-slate-500 space-y-2 list-disc pl-4">
+                                    <li><strong>任务拆解：</strong>将大目标分解为子任务</li>
+                                    <li><strong>自我反思：</strong>检查并修正之前的错误</li>
+                                    <li><strong>思维链 (CoT)：</strong>逐步推理逻辑</li>
+                                </ul>
+                            </div>
+                            <!-- Memory -->
+                            <div class="agent-node bg-white p-6 rounded-2xl border-l-4 border-emerald-500 shadow-sm">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-slate-800">存储层 (Memory)</h3>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 text-xs">
+                                    <div class="p-2 bg-slate-50 rounded-lg">
+                                        <span class="font-bold block text-emerald-700">短期记忆</span>
+                                        当前对话的上下文
+                                    </div>
+                                    <div class="p-2 bg-slate-50 rounded-lg">
+                                        <span class="font-bold block text-emerald-700">长期记忆</span>
+                                        外部知识库索引 (RAG)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Center: Brain (LLM) -->
+                        <div class="flex flex-col items-center">
+                            <div class="relative">
+                                <div class="absolute -inset-4 bg-blue-500 rounded-full blur-2xl opacity-20 pulse-slow"></div>
+                                <div class="relative w-48 h-48 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-full flex flex-col items-center justify-center text-white shadow-2xl border-4 border-white">
+                                    <svg class="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    <span class="text-xl font-black">LLM 大脑</span>
+                                    <span class="text-[10px] opacity-75 uppercase tracking-widest mt-1">Controller</span>
+                                </div>
+                                <!-- Animated Connection SVGs (Desktop Only) -->
+                                <svg class="hidden lg:block absolute top-1/2 left-0 -translate-x-full w-24 h-2" style="transform: translateY(-50%) rotate(180deg)">
+                                    <path d="M0,1 L100,1" stroke="#cbd5e1" stroke-width="2" class="connector-line" fill="none"/>
+                                </svg>
+                                <svg class="hidden lg:block absolute top-1/2 right-0 translate-x-full w-24 h-2" style="transform: translateY(-50%)">
+                                    <path d="M0,1 L100,1" stroke="#cbd5e1" stroke-width="2" class="connector-line" fill="none"/>
+                                </svg>
+                            </div>
+                            <div class="mt-8 text-center px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold">
+                                输入 (Prompt) ⮕ 迭代推理 ⮕ 输出 (Result)
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Tools & Environment -->
+                        <div class="space-y-8">
+                            <!-- Tools -->
+                            <div class="agent-node bg-white p-6 rounded-2xl border-l-4 border-orange-500 shadow-sm">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="p-2 bg-orange-50 text-orange-600 rounded-lg">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 011 1V4z"></path></svg>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-slate-800">工具箱 (Tools/Action)</h3>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-slate-100 rounded text-[11px] font-medium">搜索 API</span>
+                                    <span class="px-2 py-1 bg-slate-100 rounded text-[11px] font-medium">Python 解释器</span>
+                                    <span class="px-2 py-1 bg-slate-100 rounded text-[11px] font-medium">数据库接口</span>
+                                    <span class="px-2 py-1 bg-slate-100 rounded text-[11px] font-medium">第三方服务</span>
+                                </div>
+                            </div>
+                            <!-- Perception -->
+                            <div class="agent-node bg-white p-6 rounded-2xl border-l-4 border-pink-500 shadow-sm">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="p-2 bg-pink-50 text-pink-600 rounded-lg">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-slate-800">环境感知 (Perception)</h3>
+                                </div>
+                                <p class="text-xs text-slate-500">
+                                    实时接收行动反馈 (Observation)，作为下一轮思考的输入。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Execution Flow (ReAct) -->
+            <div class="mb-20">
+                <h2 class="text-2xl font-bold text-slate-900 mb-8 border-l-4 border-indigo-600 pl-4">ReAct 运行闭环：它是如何运作的？</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Step 1 -->
+                    <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                        <span class="text-blue-600 font-black text-4xl block mb-2 opacity-30">01</span>
+                        <h4 class="font-bold text-blue-900 mb-1">思考 (Thought)</h4>
+                        <p class="text-sm text-blue-700 font-light">大脑分析任务：我们需要做什么？第一步是什么？</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="p-6 bg-indigo-50 rounded-2xl border border-indigo-100">
+                        <span class="text-indigo-600 font-black text-4xl block mb-2 opacity-30">02</span>
+                        <h4 class="font-bold text-indigo-900 mb-1">行动 (Action)</h4>
+                        <p class="text-sm text-indigo-700 font-light">确定需要调用的工具（例如：执行搜索引擎查询）。</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="p-6 bg-orange-50 rounded-2xl border border-orange-100">
+                        <span class="text-orange-600 font-black text-4xl block mb-2 opacity-30">03</span>
+                        <h4 class="font-bold text-orange-900 mb-1">执行 (Exec)</h4>
+                        <p class="text-sm text-orange-700 font-light">工具返回结果（例如：找到了三篇相关文档）。</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+                        <span class="text-emerald-600 font-black text-4xl block mb-2 opacity-30">04</span>
+                        <h4 class="font-bold text-emerald-900 mb-1">观察 (Observation)</h4>
+                        <p class="text-sm text-emerald-700 font-light">大脑处理反馈：任务完成了吗？是否需要下一步？</p>
+                    </div>
+                </div>
+                
+                <!-- Internal Monologue Example -->
+                <div class="mt-8 bg-slate-900 rounded-2xl p-6 text-indigo-300 font-mono text-xs overflow-hidden shadow-inner">
+                    <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2 text-slate-500">
+                        <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                        <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                        <span class="ml-2">Agent_Internal_Log.txt</span>
+                    </div>
+                    <p class="mb-1"><span class="text-emerald-400">[THOUGHT]</span> 任务是获取今天英伟达股价并分析。首先需要使用搜索引擎。</p>
+                    <p class="mb-1"><span class="text-blue-400">[ACTION]</span> google_search("NVIDIA stock price today")</p>
+                    <p class="mb-1"><span class="text-slate-500">[OBSERVATION]</span> NVIDIA (NVDA) is trading at $132.50 (+2.1%).</p>
+                    <p class="mb-1"><span class="text-emerald-400">[THOUGHT]</span> 已经拿到股价，现在需要结合昨天的收盘价计算涨幅原因分析...</p>
+                    <p class="animate-pulse">_</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Comparison -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200">
+                    <h3 class="font-bold text-xl mb-6 text-slate-800 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path></svg>
+                        普通 LLM (对话模式)
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-300 flex-shrink-0"></div>
+                            <div class="bg-white p-3 rounded-lg text-sm shadow-sm border border-slate-100">帮我买一张去伦敦的机票。</div>
+                        </div>
+                        <div class="flex gap-3 justify-end">
+                            <div class="bg-blue-600 text-white p-3 rounded-lg text-sm shadow-sm">对不起，我无法操作购买，但我可以告诉你如何购买...</div>
+                            <div class="w-8 h-8 rounded-full bg-blue-500 flex-shrink-0"></div>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-4 text-center italic">仅限于知识检索和文本生成</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                    <h3 class="font-bold text-xl mb-6 text-blue-900 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                        AI Agent (自主模式)
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-300 flex-shrink-0"></div>
+                            <div class="bg-white p-3 rounded-lg text-sm shadow-sm border border-slate-100">帮我买一张去伦敦的机票。</div>
+                        </div>
+                        <div class="flex gap-3 flex-row-reverse">
+                            <div class="w-full flex flex-col gap-2">
+                                <div class="bg-white p-3 rounded-lg text-[11px] text-blue-700 border-dashed border-2 border-blue-200">
+                                    ⚙️ 正在调用携程 API 搜索最低价...
+                                </div>
+                                <div class="bg-white p-3 rounded-lg text-[11px] text-blue-700 border-dashed border-2 border-blue-200">
+                                    ⚙️ 正在验证您的支付授权...
+                                </div>
+                                <div class="bg-blue-600 text-white p-3 rounded-lg text-sm shadow-sm">
+                                    机票已购！确认邮件已发送至您的邮箱。
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-blue-400 mt-4 text-center italic">能够跨越数字边界执行闭环任务</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Takeaway -->
+        <footer class="bg-slate-50 p-10 border-t border-slate-100">
+            <div class="max-w-2xl mx-auto text-center">
+                <h4 class="text-lg font-bold text-slate-900 mb-2">总结：Agent 是具有“主观能动性”的 AI</h4>
+                <p class="text-slate-500 text-sm leading-relaxed">
+                    Agent 不再是一个被动的问答机，而是一个拥有<strong>规划能力</strong>、<strong>记忆能力</strong>和<strong>工具使用能力</strong>的独立系统。它能够在复杂的、不确定的环境中，通过不断观察与反思，自主达成人类设定的宏大目标。
+                </p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

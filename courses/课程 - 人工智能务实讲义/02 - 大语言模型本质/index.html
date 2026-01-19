@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM 的本质：概率预测而非逻辑思考</title>
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Lucide 图标库 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .prob-bar { transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            大语言模型（LLM）的本质
+        </h1>
+        <p class="text-lg text-slate-600">
+            概率预测而非逻辑思考：揭开“AI大脑”的神秘面纱
+        </p>
+    </header>
+
+    <main class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left Column: Interactive Explanation -->
+        <div class="lg:col-span-2 space-y-6">
+            
+            <!-- Section 1: The Core Mechanism Visualizer -->
+            <div class="bg-white rounded-3xl shadow-xl p-6 border border-slate-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-2 bg-blue-100 text-blue-600 rounded-lg">
+                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-800">实时预测演示：概率接龙</h2>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-6 mb-6 text-white font-mono">
+                    <div class="text-slate-400 mb-2 text-sm">// 模型输入 (Prompt)</div>
+                    <div id="demo-prefix" class="text-xl mb-4 text-blue-300">"人工智能的未来是..."</div>
+                    
+                    <div class="text-slate-400 mb-2 text-sm">// 模型计算出的“下一个字”概率：</div>
+                    <div id="probability-list" class="space-y-3">
+                        <!-- 动态生成的概率条 -->
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <p class="text-sm text-slate-500 italic">
+                        模型不理解物理规律，它只知道在语境下，出现某个词的概率最高。
+                    </p>
+                    <button 
+                        onclick="nextDemo()"
+                        class="px-4 py-2 bg-slate-800 text-white rounded-xl hover:bg-slate-700 transition flex items-center gap-2 text-sm whitespace-nowrap"
+                    >
+                        切换案例 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section 2: Comparison Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-emerald-50 rounded-3xl p-6 border border-emerald-100">
+                    <h3 class="text-emerald-800 font-bold mb-3 flex items-center gap-2">
+                        <i data-lucide="brain" class="w-5 h-5"></i> 看起来像：
+                    </h3>
+                    <ul class="space-y-2 text-emerald-700 text-sm">
+                        <li class="flex gap-2">● 渊博的智者，无所不知</li>
+                        <li class="flex gap-2">● 具有缜密的逻辑推理能力</li>
+                        <li class="flex gap-2">● 能够产生原创的思想</li>
+                        <li class="flex gap-2">● 拥有类似人类的情感理解</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800 rounded-3xl p-6 text-slate-200">
+                    <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                        <i data-lucide="database" class="w-5 h-5"></i> 实际上是：
+                    </h3>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li class="flex gap-2">● 巨型统计表，基于历史数据</li>
+                        <li class="flex gap-2">● 复杂的“字词匹配”概率游戏</li>
+                        <li class="flex gap-2">● 对已有知识的重组和压缩</li>
+                        <li class="flex gap-2">● 无意识、无肉身的计算过程</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Key Principles -->
+        <div class="space-y-6">
+            <!-- Step 1 -->
+            <div class="p-6 rounded-3xl bg-white shadow-md border border-blue-100 hover:scale-105 transition-transform duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-blue-500 text-white flex items-center justify-center mb-4">
+                    <i data-lucide="message-square"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">本质：超级接龙玩家</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    大模型并不‘理解’语言，它只是一个极度精确的预测器。学会了在任何给定的词后面，接什么词最像‘人话’。
+                </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="p-6 rounded-3xl bg-white shadow-md border border-purple-100 hover:scale-105 transition-transform duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-purple-500 text-white flex items-center justify-center mb-4">
+                    <i data-lucide="dice-5"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">过程：计算概率分布</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    当你输入一个词，模型会给所有可能的词打分。它不是在寻找‘真理’，而是在寻找‘统计概率’。
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="p-6 rounded-3xl bg-white shadow-md border border-amber-100 hover:scale-105 transition-transform duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center mb-4">
+                    <i data-lucide="alert-triangle"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">幻觉：逻辑的缺失</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    因为它只是做预测，所以会一本正经地胡说八道。它没有推理引擎，只有模仿能力。
+                </p>
+            </div>
+
+            <!-- Limitation Warning -->
+            <div class="bg-red-50 p-6 rounded-3xl border border-red-100 mt-4">
+                <h3 class="text-red-800 font-bold mb-3 flex items-center gap-2">
+                    <i data-lucide="zap" class="w-5 h-5"></i> 核心局限性：
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-sm font-bold text-red-700">不具备事实核查能力</div>
+                        <div class="text-xs text-red-600">它只关心接什么词顺口，而不关心内容是否属实。</div>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-red-700">没有真实的因果逻辑</div>
+                        <div class="text-xs text-red-600">它通过统计学“模仿”逻辑，但在处理全新问题时极易出错。</div>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-red-700">封闭系统的局限</div>
+                        <div class="text-xs text-red-600">它的知识停留在训练截止日，无法感知现实世界的即时变化。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Info -->
+    <footer class="max-w-4xl mx-auto mt-12 text-center text-slate-400 text-sm">
+        <p>理解 LLM：它更像是一个极其博学的“自动补全”系统，而非真正的“人工智能”。</p>
+        <div class="mt-4 flex justify-center gap-8 flex-wrap">
+            <div class="flex items-center gap-1"><i data-lucide="search" class="w-4 h-4"></i> 关键词：Token, Transformer, 概率分布</div>
+        </div>
+    </footer>
+
+    <script>
+        // 模拟预测演示数据
+        const predictionDemo = [
+            { 
+                prefix: "人工智能的未来是", 
+                predictions: [ 
+                    { word: "无限的", prob: "45%" }, 
+                    { word: "充满挑战的", prob: "30%" }, 
+                    { word: "由数据驱动的", prob: "15%" }, 
+                    { word: "不可预测的", prob: "10%" } 
+                ] 
+            },
+            { 
+                prefix: "床前明月", 
+                predictions: [ 
+                    { word: "光", prob: "99.9%" }, 
+                    { word: "影", prob: "0.05%" }, 
+                    { word: "灯", prob: "0.01%" } 
+                ] 
+            },
+            { 
+                prefix: "1 + 1 等于", 
+                predictions: [ 
+                    { word: "2", prob: "99.9%" }, 
+                    { word: "二", prob: "0.08%" }, 
+                    { word: "Window", prob: "0.01%" } 
+                ] 
+            }
+        ];
+
+        let demoIndex = 0;
+
+        function renderDemo(index) {
+            const demo = predictionDemo[index];
+            document.getElementById('demo-prefix').innerText = `"${demo.prefix}..."`;
+            
+            const listContainer = document.getElementById('probability-list');
+            listContainer.innerHTML = ''; // 清空
+
+            demo.predictions.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'relative h-10 bg-slate-800 rounded-lg overflow-hidden flex items-center px-4';
+                item.innerHTML = `
+                    <div class="prob-bar absolute left-0 top-0 h-full bg-blue-600" style="width: 0%"></div>
+                    <div class="relative z-10 flex justify-between w-full font-sans text-sm">
+                        <span class="font-bold">${p.word}</span>
+                        <span class="text-slate-300">${p.prob}</span>
+                    </div>
+                `;
+                listContainer.appendChild(item);
+                
+                // 延迟触发动画以确保护送动画效果
+                setTimeout(() => {
+                    item.querySelector('.prob-bar').style.width = p.prob;
+                }, 50);
+            });
+        }
+
+        function nextDemo() {
+            demoIndex = (demoIndex + 1) % predictionDemo.length;
+            renderDemo(demoIndex);
+        }
+
+        // 初始化
+        window.onload = () => {
+            lucide.createIcons(); // 初始化图标
+            renderDemo(0); // 渲染第一个 Demo
+        };
+    </script>
+</body>
+</html>

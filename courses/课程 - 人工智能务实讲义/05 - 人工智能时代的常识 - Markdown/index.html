@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工智能中的常识 Markdown 语法</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(229, 231, 235, 1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border-color: #3b82f6;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background-color: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #ef4444;
+        }
+
+        .syntax-preview {
+            background-color: #f9fafb;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 lg:p-12">
+
+    <!-- Header Section -->
+    <header class="max-w-5xl mx-auto text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+            <span class="gradient-text">人工智能中的常识</span><br/>
+            Markdown 语法指南
+        </h1>
+        <p class="text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed">
+            Markdown 是 AI 输出内容的标准格式。掌握这些基础语法，不仅能帮你更好地阅读 AI 回复，还能提升你编写提示词（Prompt）的专业度。
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- 1. 基础文本格式 -->
+        <section class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+                <div class="p-2 bg-blue-100 rounded-lg text-blue-600 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="text-format" />
+                        <path d="M4 7V4h16v3M9 20h6M12 4v16" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold">基础文本格式</h2>
+            </div>
+            <ul class="space-y-4 text-sm">
+                <li>
+                    <p class="font-semibold text-gray-700 mb-1">加粗 (Bold)</p>
+                    <code>**文本内容**</code>
+                    <div class="mt-1 text-gray-500">示例：<strong>文本内容</strong></div>
+                </li>
+                <li>
+                    <p class="font-semibold text-gray-700 mb-1">斜体 (Italic)</p>
+                    <code>*文本内容*</code>
+                    <div class="mt-1 text-gray-500 italic">示例：文本内容</div>
+                </li>
+                <li>
+                    <p class="font-semibold text-gray-700 mb-1">删除线 (Strikethrough)</p>
+                    <code>~~文本内容~~</code>
+                    <div class="mt-1 text-gray-500 line-through">示例：文本内容</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 2. 分级标题 -->
+        <section class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+                <div class="p-2 bg-purple-100 rounded-lg text-purple-600 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold">结构化标题</h2>
+            </div>
+            <p class="text-xs text-gray-400 mb-4">使用 # 数量代表标题等级</p>
+            <div class="space-y-3">
+                <div class="border-b pb-2">
+                    <code># 一级标题</code>
+                    <p class="text-lg font-bold mt-1">一级标题示例</p>
+                </div>
+                <div class="border-b pb-2">
+                    <code>## 二级标题</code>
+                    <p class="text-md font-semibold mt-1">二级标题示例</p>
+                </div>
+                <div>
+                    <code>### 三级标题</code>
+                    <p class="text-sm font-medium mt-1">三级标题示例</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 代码块 (AI 核心) -->
+        <section class="glass-card p-6 rounded-2xl lg:row-span-2">
+            <div class="flex items-center mb-4">
+                <div class="p-2 bg-green-100 rounded-lg text-green-600 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold">代码与引用</h2>
+            </div>
+            <div class="space-y-6">
+                <div>
+                    <p class="font-semibold text-gray-700 mb-2">行内代码</p>
+                    <p class="text-sm text-gray-600 mb-2">在句中使用 <code>`code`</code></p>
+                </div>
+                <div>
+                    <p class="font-semibold text-gray-700 mb-2">多行代码块</p>
+                    <pre class="bg-gray-800 text-gray-300 p-3 rounded-lg text-xs leading-relaxed">
+```python
+def hello():
+    print("Hello AI")
+```</pre>
+                    <p class="text-xs text-gray-400 mt-2 italic">提示：在三个反引号后写上语言名称（如 python, html）可开启语法高亮。</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-gray-700 mb-2">引用内容</p>
+                    <div class="pl-4 border-l-4 border-gray-300 italic text-gray-600 text-sm">
+                        使用 > 符号可以创建引用块，常用于摘录 AI 之前给出的建议。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 列表与任务 -->
+        <section class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+                <div class="p-2 bg-yellow-100 rounded-lg text-yellow-600 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold">列表与任务</h2>
+            </div>
+            <div class="space-y-4 text-sm">
+                <div>
+                    <code>- 无序列表</code>
+                    <ul class="list-disc list-inside mt-2 text-gray-600">
+                        <li>第一项</li>
+                        <li>第二项</li>
+                    </ul>
+                </div>
+                <div>
+                    <code>1. 有序列表</code>
+                    <ol class="list-decimal list-inside mt-2 text-gray-600">
+                        <li>第一步</li>
+                        <li>第二步</li>
+                    </ol>
+                </div>
+                <div>
+                    <code>- [x] 任务列表</code>
+                    <div class="mt-2 flex items-center text-gray-600">
+                        <input type="checkbox" checked disabled class="mr-2"> 已完成任务
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 数学公式 (AI 必备) -->
+        <section class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+                <div class="p-2 bg-red-100 rounded-lg text-red-600 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold">数学公式 (LaTeX)</h2>
+            </div>
+            <p class="text-xs text-gray-400 mb-4">AI 常用 LaTeX 渲染公式</p>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">行内公式: <code>$E=mc^2$</code></p>
+                    <div class="bg-gray-50 p-2 rounded text-center text-sm italic">E = mc²</div>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">独占行公式: <code>$$ ... $$</code></p>
+                    <div class="bg-gray-50 p-3 rounded text-center text-sm">
+                        x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 链接与图片 -->
+        <section class="glass-card p-6 rounded-2xl lg:col-span-2">
+            <div class="flex items-center mb-4">
+                <div class="p-2 bg-indigo-100 rounded-lg text-indigo-600 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold">链接、图片与表格</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm font-semibold mb-1">超链接</p>
+                        <code>[显示文本](URL地址)</code>
+                        <div class="mt-1"><a href="#" class="text-blue-500 hover:underline text-sm">这是一个链接示例</a></div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold mb-1">插入图片</p>
+                        <code>![描述](图片URL)</code>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <p class="text-sm font-semibold mb-2">简单表格</p>
+                    <table class="min-w-full text-xs text-left border-collapse border border-gray-200">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="border border-gray-200 p-2">姓名</th>
+                                <th class="border border-gray-200 p-2">角色</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-200 p-2">Gemini</td>
+                                <td class="border border-gray-200 p-2">AI 模型</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-[10px] text-gray-400 mt-2 font-mono">| 姓名 | 角色 | <br> | --- | --- |</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. 进阶技巧 -->
+        <section class="glass-card p-6 rounded-2xl bg-blue-50 border-blue-200">
+            <h2 class="text-xl font-bold mb-4 flex items-center text-blue-800">
+                <span class="mr-2">💡</span> 进阶技巧
+            </h2>
+            <ul class="space-y-3 text-sm text-blue-900">
+                <li class="flex items-start">
+                    <span class="mr-2">•</span>
+                    <span><strong>分割线：</strong> 使用三个连字符 <code>---</code> 可以产生一条水平线。</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-2">•</span>
+                    <span><strong>转义符号：</strong> 如果想显示 # 而不是标题，在前面加反斜杠：<code>\#</code></span>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-2">•</span>
+                    <span><strong>强制换行：</strong> 在行尾输入两个空格再回车。</span>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="max-w-5xl mx-auto mt-20 text-center pb-12 border-t pt-8">
+        <p class="text-gray-400 text-sm italic">
+            "Markdown 让机器能读懂你的结构，让人类能看清你的逻辑。"
+        </p>
+        <div class="mt-4 flex justify-center space-x-4">
+            <span class="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-500">#AI</span>
+            <span class="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-500">#Markdown</span>
+            <span class="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-500">#PromptEngineering</span>
+        </div>
+    </footer>
+
+</body>
+</html>

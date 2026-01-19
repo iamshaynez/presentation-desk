@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding: Agent 驱动的意图化开发</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Inter', 'PingFang SC', sans-serif;
+            background-color: #fcfcfd;
+        }
+        .vibe-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-[3rem] overflow-hidden border border-slate-100">
+        <!-- Header -->
+        <header class="p-12 text-center relative overflow-hidden bg-slate-50">
+            <div class="absolute inset-0 opacity-10 vibe-gradient"></div>
+            <div class="relative z-10">
+                <span class="px-4 py-1.5 bg-indigo-100 text-indigo-600 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">The Future of Dev</span>
+                <h1 class="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tighter">Vibe Coding</h1>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
+                    从“写逻辑”到“传达意图”。Vibe Coding 是 Agent 模式在开发领域的极致体现，让创意以直觉的速度转化为现实。
+                </p>
+            </div>
+        </header>
+
+        <main class="p-8 md:p-12">
+            <!-- Part 1: Component Breakdown -->
+            <div class="mb-20">
+                <h2 class="text-2xl font-bold mb-10 flex items-center gap-3">
+                    <span class="w-10 h-10 vibe-gradient rounded-xl flex items-center justify-center text-white shadow-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 011 1V4z"></path></svg>
+                    </span>
+                    Vibe Coding 中的 Agent 角色拆解
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Planning -->
+                    <div class="glass-card p-6 rounded-[2rem] border-l-8 border-indigo-500">
+                        <h3 class="font-bold text-xl mb-3 text-slate-900">意图转译 (Planning)</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            <strong>不仅仅是拆解任务：</strong>Agent 需要理解用户模糊的描述（如“要像苹果官网那样丝滑”），将其转化为具体的 UI 组件架构、动效参数和技术选型。
+                        </p>
+                    </div>
+                    <!-- Memory -->
+                    <div class="glass-card p-6 rounded-[2rem] border-l-8 border-purple-500">
+                        <h3 class="font-bold text-xl mb-3 text-slate-900">风格一致性 (Memory)</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            <strong>全局氛围把控：</strong>记忆层不仅保存代码，还保存“Vibe”。在修改第 10 个按钮时，Agent 依然记得用户在最初设定的配色方案和圆角偏好。
+                        </p>
+                    </div>
+                    <!-- Tools -->
+                    <div class="glass-card p-6 rounded-[2rem] border-l-8 border-pink-500">
+                        <h3 class="font-bold text-xl mb-3 text-slate-900">全栈执行工具 (Tools)</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            <strong>实时反馈闭环：</strong>调用文件系统写代码、启动热更新预览、捕捉浏览器控制台错误。Agent 像一个不知疲倦的结对编程伙伴。
+                        </p>
+                    </div>
+                    <!-- Observation -->
+                    <div class="glass-card p-6 rounded-[2rem] border-l-8 border-orange-500">
+                        <h3 class="font-bold text-xl mb-3 text-slate-900">视觉反思 (Observation)</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            <strong>自我纠偏：</strong>通过截图或 DOM 检查来确认生成的页面是否符合预期的“Vibe”。如果颜色太跳跃，它会自主触发新一轮的微调。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 2: The Vibe Loop Visualization -->
+            <div class="mb-20 bg-slate-900 rounded-[4rem] p-10 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 vibe-gradient opacity-20 blur-[100px]"></div>
+                
+                <h2 class="text-2xl font-bold mb-12 text-center">Vibe Loop: “感觉”如何变成“代码”</h2>
+                
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                    <!-- Input -->
+                    <div class="flex-1 text-center">
+                        <div class="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-6 floating border border-white/20">
+                            <span class="text-3xl">✨</span>
+                        </div>
+                        <h4 class="font-bold text-lg">输入意图</h4>
+                        <p class="text-xs text-slate-400 mt-2 px-4">用户提供模糊的风格描述或截图</p>
+                    </div>
+
+                    <div class="hidden lg:block text-slate-700">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+
+                    <!-- Dispatcher Hub -->
+                    <div class="flex-[2] relative">
+                        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-md">
+                            <div class="flex items-center justify-center gap-4 mb-6">
+                                <span class="px-3 py-1 bg-indigo-500 rounded text-[10px] font-black uppercase">Agent Core</span>
+                                <div class="h-px bg-white/10 flex-1"></div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-3 bg-white/5 rounded-xl border border-white/5 text-[11px] text-blue-300">
+                                    <span class="block font-bold mb-1">Planning</span>
+                                    解析 UI 层级 & 交互逻辑
+                                </div>
+                                <div class="p-3 bg-white/5 rounded-xl border border-white/5 text-[11px] text-pink-300">
+                                    <span class="block font-bold mb-1">Execution</span>
+                                    并发生成 React/Tailwind
+                                </div>
+                            </div>
+                            <!-- Iteration Path -->
+                            <div class="mt-6 flex items-center justify-center gap-2 py-2 bg-indigo-500/20 rounded-full border border-indigo-500/30">
+                                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                <span class="text-[10px] font-bold">递归自修复循环...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hidden lg:block text-slate-700">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+
+                    <!-- Output -->
+                    <div class="flex-1 text-center">
+                        <div class="w-20 h-20 bg-emerald-500/20 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-emerald-500/30">
+                            <span class="text-3xl text-emerald-400 font-bold">/</span>
+                        </div>
+                        <h4 class="font-bold text-lg text-emerald-400">实时产出</h4>
+                        <p class="text-xs text-slate-400 mt-2 px-4">直接可运行的预览界面与源码</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 3: Real Case Example -->
+            <div>
+                <div class="flex items-center gap-4 mb-10">
+                    <h2 class="text-2xl font-bold text-slate-900">实战演练：构建“赛博朋克风格计时器”</h2>
+                    <div class="h-px bg-slate-200 flex-1"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- The Request -->
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white border border-slate-200 rounded-3xl shadow-sm">
+                            <div class="text-[10px] font-black text-slate-400 uppercase mb-2 tracking-widest">User Vibe</div>
+                            <p class="text-slate-800 italic text-sm">“帮我做一个番茄钟，要赛博朋克那种感觉，霓虹紫和发光边框，字体要像黑客帝国。”</p>
+                        </div>
+                        <div class="p-6 bg-indigo-50 border border-indigo-100 rounded-3xl">
+                            <h4 class="font-bold text-indigo-900 text-sm mb-2">人类只需：</h4>
+                            <ul class="text-xs text-indigo-700 space-y-2 list-disc pl-4">
+                                <li>描述感觉，而非逻辑</li>
+                                <li>提供反馈（“这里太亮了”）</li>
+                                <li>确认代码合并</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- The Agent Execution -->
+                    <div class="lg:col-span-2 bg-slate-50 p-8 rounded-[3rem] border border-slate-100 relative">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                            <!-- Action 1 -->
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs shrink-0 shadow-sm">1</div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900">语义转译 (Planning)</p>
+                                    <p class="text-[11px] text-slate-500 mt-1">
+                                        Agent 将“赛博朋克”解析为：<br>
+                                        <code class="text-[10px] bg-slate-200 px-1 rounded text-slate-700">bg-slate-950</code>, 
+                                        <code class="text-[10px] bg-slate-200 px-1 rounded text-slate-700">shadow-[0_0_15px_rgba(168,85,247,0.5)]</code>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Action 2 -->
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-xs shrink-0 shadow-sm">2</div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900">并行编写 (Tools)</p>
+                                    <p class="text-[11px] text-slate-500 mt-1">
+                                        同时生成状态逻辑（Timer Hooks）和视觉层。即刻渲染出预览窗口供用户“感受”。
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Action 3 -->
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-xs shrink-0 shadow-sm">3</div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900">视觉反思 (Observation)</p>
+                                    <p class="text-[11px] text-slate-500 mt-1">
+                                        Agent 发现默认字体破坏了氛围，主动在 Google Fonts 查找并引入“JetBrains Mono”变体。
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Action 4 -->
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-xs shrink-0 shadow-sm">4</div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900">递归优化 (Iterate)</p>
+                                    <p class="text-[11px] text-slate-500 mt-1">
+                                        根据用户反馈“要再酷一点”，自动增加了一个故障艺术 (Glitch Effect) 的 CSS 动画。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Background Pattern -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+                            <span class="text-9xl font-black text-slate-900">CODE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Summary -->
+        <footer class="p-12 vibe-gradient text-white text-center">
+            <h4 class="text-2xl font-bold mb-4 italic">“If you can describe the vibe, you can code the vibe.”</h4>
+            <p class="text-white/70 text-sm max-w-xl mx-auto">
+                Vibe Coding 代表了开发权力的下放：从繁琐的代码语法中解放出来，专注于创意、审美与业务逻辑。Agent 在背后处理所有的技术噪音。
+            </p>
+        </footer>
+    </div>
+
+</body>
+</html>

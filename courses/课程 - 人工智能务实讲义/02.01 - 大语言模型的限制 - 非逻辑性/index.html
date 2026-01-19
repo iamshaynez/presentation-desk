@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概率统计 vs 逻辑推理：揭秘大模型的“幻觉”边界</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts (Noto Sans SC) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                    },
+                    colors: {
+                        'app-bg': '#f8fafc',      /* Slate 50 */
+                        'app-card': '#ffffff',    /* White */
+                        'accent-blue': '#0284c7', /* Sky 600 */
+                        'accent-pink': '#db2777', /* Pink 600 */
+                        'accent-yellow': '#eab308', /* Yellow 500 */
+                        'accent-purple': '#7c3aed', /* Violet 600 */
+                        'text-main': '#0f172a',   /* Slate 900 */
+                        'text-muted': '#475569',  /* Slate 600 */
+                        'border-light': '#e2e8f0' /* Slate 200 */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #0284c7 0%, #7c3aed 50%, #db2777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    <!-- 
+    Source Material Analysis Plan:
+    1.  **Narrative:** Debunking AI Reasoning myths via probabilistic mechanics.
+    2.  **Color Palette:** "Professional Light" (Vibrant/Light Mode). White background with high-contrast Sky Blue, Pink, and Violet accents.
+    3.  **Visualizations:** (Same as previous version, but styled for light mode accessibility).
+    4.  **Constraints Check:** No SVG. No Mermaid. Chart.js labels wrapped and tooltip title callbacks used.
+    -->
+</head>
+<body class="font-sans antialiased overflow-x-hidden selection:bg-accent-blue/20">
+
+    <!-- Hero Section -->
+    <header class="min-h-[50vh] flex flex-col justify-center items-center text-center px-4 relative overflow-hidden bg-white border-b border-border-light">
+        <div class="max-w-4xl z-10">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 gradient-text">
+                概率统计 <span class="text-text-main block text-2xl md:text-4xl mt-2 font-light">vs 逻辑推理</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-text-muted mb-8 max-w-2xl mx-auto">
+                揭秘大语言模型（LLM）的“幻觉”边界。它是真正的智能，还是一只极其博学的“随机鹦鹉”？
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="px-6 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-bold border border-slate-200">
+                    # 随机鹦鹉理论
+                </div>
+                <div class="px-6 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-bold border border-slate-200">
+                    # 概率预测
+                </div>
+            </div>
+        </div>
+        <!-- Subtle Background Pattern -->
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#0284c7 1px, transparent 1px); background-size: 20px 20px;"></div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 py-16 space-y-24">
+
+        <!-- Section 1: The Tokenization Trap -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <div class="bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/50 border border-border-light">
+                    <div class="chart-container">
+                        <canvas id="strawberryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="order-1 md:order-2 space-y-6">
+                <div class="flex items-center gap-4 mb-2">
+                    <span class="text-4xl">🍓</span>
+                    <h2 class="text-3xl font-bold text-accent-pink">著名的“草莓”悖论</h2>
+                </div>
+                <p class="text-lg text-text-muted leading-relaxed">
+                    当你问大模型：“Strawberry（草莓）这个单词里有几个 r？” 许多模型会自信地回答：“2个”。
+                </p>
+                <div class="p-6 bg-slate-50 rounded-2xl border-l-4 border-accent-blue">
+                    <h3 class="text-accent-blue font-bold mb-2">为什么会这样？</h3>
+                    <p class="text-sm text-text-muted">
+                        <strong>Tokenization（分词）限制：</strong> 模型看到的是 Token。在它的向量空间里，`Strawberry` 可能被切分为 `Straw` 和 `berry`。它无法“看到”内部字母结构，只能根据过往语料中单词与数字的关联概率进行猜测。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Pattern Matching vs Logic -->
+        <section class="space-y-12">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-text-main mb-4">“改头换面”的逻辑陷阱</h2>
+                <p class="text-text-muted text-lg">
+                    经典的“狼、羊、菜”过河问题。如果我们修改条件：<span class="text-accent-blue font-semibold">“船很大，一次可以把所有东西都带过去”</span>。模型会如何反应？
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Human Logic Card -->
+                <div class="bg-white p-8 rounded-3xl border border-border-light shadow-lg relative overflow-hidden">
+                    <h3 class="text-xl font-bold text-accent-blue mb-8 text-center flex items-center justify-center gap-2">
+                        <span>🧠</span> 人类真实推理
+                    </h3>
+                    
+                    <div class="flex flex-col items-center space-y-4">
+                        <div class="w-full bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
+                            <span class="block text-xs text-text-muted mb-1 uppercase tracking-wider">输入条件</span>
+                            <span class="text-slate-800 font-bold">船很大 = 一次过河</span>
+                        </div>
+                        <div class="h-8 w-px bg-slate-200"></div>
+                        <div class="w-full bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
+                            <span class="block text-xs text-text-muted mb-1 uppercase tracking-wider">逻辑处理</span>
+                            <span class="text-slate-800">环境建模：无限制条件</span>
+                        </div>
+                        <div class="h-8 w-px bg-slate-200"></div>
+                        <div class="w-full bg-accent-blue/10 p-4 rounded-xl text-center border border-accent-blue/30">
+                            <span class="block text-xs text-accent-blue mb-1 uppercase tracking-wider">结论</span>
+                            <strong class="text-accent-blue text-lg italic">“一次全部带走即可”</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLM Pattern Matching Card -->
+                <div class="bg-white p-8 rounded-3xl border border-border-light shadow-lg relative overflow-hidden">
+                    <h3 class="text-xl font-bold text-accent-pink mb-8 text-center flex items-center justify-center gap-2">
+                        <span>🤖</span> LLM 模式匹配
+                    </h3>
+                    
+                    <div class="flex flex-col items-center space-y-4">
+                        <div class="w-full bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
+                            <span class="block text-xs text-text-muted mb-1 uppercase tracking-wider">关键特征</span>
+                            <span class="text-slate-800 font-bold">"狼" "羊" "菜" "过河"</span>
+                        </div>
+                        <div class="h-8 w-px bg-slate-200"></div>
+                        <div class="w-full bg-slate-50 p-4 rounded-xl text-center border border-slate-200">
+                            <span class="block text-xs text-text-muted mb-1 uppercase tracking-wider">概率分布</span>
+                            <span class="text-slate-800">检索最高频的解答路径</span>
+                        </div>
+                        <div class="h-8 w-px bg-slate-200"></div>
+                        <div class="w-full bg-accent-pink/10 p-4 rounded-xl text-center border border-accent-pink/30">
+                            <span class="block text-xs text-accent-pink mb-1 uppercase tracking-wider">输出 (幻觉)</span>
+                            <strong class="text-accent-pink text-sm">“先将羊带到对岸，再回来...”</strong>
+                            <p class="text-[10px] text-text-muted mt-2 font-light">模型无法跳出高频训练数据的概率束缚</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Reversal Curse -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-1 space-y-6">
+                <h2 class="text-3xl font-bold text-accent-purple">🔄 “颠倒诅咒”</h2>
+                <p class="text-lg text-text-muted leading-relaxed">
+                    在概率空间里，知识是<strong>单向</strong>的。如果语料中“汤姆·克鲁斯”的描述经常关联“母亲玛丽”，那么正向预测概率极高。
+                </p>
+                <p class="text-lg text-text-muted">
+                    但如果你反向询问“玛丽的儿子”，由于这个短语在语料中分布稀疏，模型便失去了“概率抓手”，导致无法推导出逻辑上必然的答案。
+                </p>
+                <div class="bg-white p-6 rounded-2xl shadow-inner border border-slate-100 flex flex-col gap-3">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-accent-purple font-bold">正向关联: A → B</span>
+                        <span class="text-green-600 font-bold">98% 匹配</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div class="bg-accent-purple h-full w-[98%]"></div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm mt-4">
+                        <span class="text-accent-pink font-bold">反向推理: B → A</span>
+                        <span class="text-accent-pink font-bold">25% 猜测</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div class="bg-accent-pink h-full w-[25%]"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-2">
+                <div class="bg-white rounded-3xl p-6 shadow-xl border border-border-light">
+                    <h3 class="text-center text-text-muted mb-4 text-xs uppercase tracking-widest font-bold">知识检索成功率 (亮色主题适配)</h3>
+                    <div class="chart-container">
+                        <canvas id="reversalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: The Math Illusion -->
+        <section class="space-y-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-accent-blue">🔢 计算 vs 联想</h2>
+                <p class="text-text-muted text-lg mt-4 leading-relaxed">
+                    当模型处理 $98765 \times 43210$ 时，它本质上是在进行“文本补全”。
+                    每一位数字的输出都是基于前文生成的<strong>条件概率</strong>。
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-3xl p-8 shadow-xl border border-border-light">
+                <div class="chart-container" style="max-width: 850px; height: 400px;">
+                    <canvas id="mathChart"></canvas>
+                </div>
+                <div class="mt-8 flex flex-wrap justify-center gap-8 text-xs font-bold text-text-muted uppercase tracking-tighter">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-accent-blue"></span> 确定性区域 (模式匹配)
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-accent-pink"></span> 幻觉发生区 (概率瓦解)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Emergence & Conclusion -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-white p-10 rounded-[3rem] border border-border-light shadow-2xl">
+            <div class="space-y-6">
+                <h2 class="text-3xl font-bold text-text-main">涌现：模拟的推理</h2>
+                <p class="text-text-muted leading-relaxed">
+                    尽管底层是统计概率，但规模化带来了某种“逻辑伪装”。模型通过海量学习，在概率空间内构建了极强的<strong>相关性网络</strong>。
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 group">
+                        <div class="w-12 h-12 shrink-0 rounded-2xl bg-slate-50 flex items-center justify-center text-accent-blue group-hover:bg-accent-blue group-hover:text-white transition-colors border border-border-light">
+                            <span class="font-bold">1</span>
+                        </div>
+                        <p class="text-sm text-text-muted"><strong class="text-text-main">逻辑压缩：</strong> 为了最准确地预测下一个词，模型不得不“学习”逻辑规律，因为逻辑是压缩信息最高效的数学路径。</p>
+                    </div>
+                    <div class="flex items-center gap-4 group">
+                        <div class="w-12 h-12 shrink-0 rounded-2xl bg-slate-50 flex items-center justify-center text-accent-pink group-hover:bg-accent-pink group-hover:text-white transition-colors border border-border-light">
+                            <span class="font-bold">2</span>
+                        </div>
+                        <p class="text-sm text-text-muted"><strong class="text-text-main">思维链 (CoT)：</strong> 通过逐步输出中间步骤，模型将单一的复杂概率难题转化为一系列简单的连续预测任务。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-6 border border-border-light">
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-border-light py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-text-muted text-sm">
+            <p class="mb-2">“大模型本质上是构建在统计基础上的预测引擎，而非具有生物意识的推理机。”</p>
+            <p>&copy; 2026 AI Insight Series · 亮色版</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- UTILITY: Label Wrapping ---
+        function wrapLabels(labels) {
+            return labels.map(label => {
+                if (label.length > 12) {
+                    let result = [];
+                    let currentLine = '';
+                    for (let char of label) {
+                        currentLine += char;
+                        if (currentLine.length >= 8) {
+                            result.push(currentLine);
+                            currentLine = '';
+                        }
+                    }
+                    if (currentLine) result.push(currentLine);
+                    return result;
+                }
+                return label;
+            });
+        }
+
+        // --- GLOBAL CHART DEFAULTS ---
+        Chart.defaults.color = '#475569';
+        Chart.defaults.borderColor = '#e2e8f0';
+        Chart.defaults.font.family = '"Noto Sans SC", sans-serif';
+        
+        const commonTooltip = {
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            titleColor: '#0f172a',
+            bodyColor: '#475569',
+            borderColor: '#e2e8f0',
+            borderWidth: 1,
+            padding: 12,
+            cornerRadius: 8,
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    return Array.isArray(label) ? label.join('') : label;
+                }
+            }
+        };
+
+        // --- 1. Strawberry Chart ---
+        new Chart(document.getElementById('strawberryChart'), {
+            type: 'bar',
+            data: {
+                labels: ['实际存在的 "r"', 'AI 分词预测的 "r"'],
+                datasets: [{
+                    data: [3, 2],
+                    backgroundColor: ['#0284c7', '#db2777'],
+                    borderRadius: 8,
+                    barThickness: 60
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: '计数预测误差对比', color: '#0f172a', font: { size: 16 } },
+                    tooltip: commonTooltip
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 4, ticks: { stepSize: 1 } }
+                }
+            }
+        });
+
+        // --- 2. Reversal Chart ---
+        new Chart(document.getElementById('reversalChart'), {
+            type: 'bar',
+            indexAxis: 'y',
+            data: {
+                labels: wrapLabels(['正向检索: 汤姆·克鲁斯之母', '反向检索: 玛丽·李·菲弗之子']),
+                datasets: [{
+                    data: [98, 25],
+                    backgroundColor: ['#7c3aed', '#f472b6'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltip
+                },
+                scales: {
+                    x: { beginAtZero: true, max: 100, title: { display: true, text: '成功概率 (%)' } }
+                }
+            }
+        });
+
+        // --- 3. Math Chart ---
+        new Chart(document.getElementById('mathChart'), {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                datasets: [{
+                    label: '预测确信度',
+                    data: [99, 94, 82, 35, 12, 18, 42, 78, 95, 99],
+                    borderColor: '#0284c7',
+                    backgroundColor: 'rgba(2, 132, 199, 0.05)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: '#fff',
+                    pointBorderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: '多位数乘法逐位预测确信度曲线', color: '#0f172a', font: { size: 16 } },
+                    tooltip: commonTooltip
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } },
+                    x: { title: { display: true, text: '结果数字位数' } }
+                }
+            }
+        });
+
+        // --- 4. Radar Chart ---
+        new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: {
+                labels: wrapLabels(['文本创作', '逻辑推演', '事实联想', '结构化计算', '语境模拟']),
+                datasets: [{
+                    label: '基础概率预测',
+                    data: [90, 30, 85, 20, 70],
+                    borderColor: '#94a3b8',
+                    backgroundColor: 'rgba(148, 163, 184, 0.1)',
+                    borderDash: [5, 5]
+                }, {
+                    label: '涌现的模拟推理',
+                    data: [95, 80, 92, 75, 88],
+                    borderColor: '#0284c7',
+                    backgroundColor: 'rgba(2, 132, 199, 0.15)',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltip,
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { display: false },
+                        pointLabels: { font: { size: 11 }, color: '#475569' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

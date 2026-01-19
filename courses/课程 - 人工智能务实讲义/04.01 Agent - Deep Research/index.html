@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Research: Agent 模式的最佳实践</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #ffffff;
+        }
+        .flow-container {
+            position: relative;
+        }
+        .node-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        .recursion-line {
+            stroke-dasharray: 5;
+            animation: dash-draw 10s linear infinite;
+        }
+        @keyframes dash-draw {
+            to { stroke-dashoffset: -100; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10 text-slate-800 bg-slate-50">
+
+    <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-[3rem] overflow-hidden border border-slate-200">
+        <!-- Header -->
+        <header class="p-12 bg-white border-b border-slate-100 relative overflow-hidden text-center">
+            <div class="absolute top-0 right-0 p-4 opacity-5">
+                <svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Deep Research</h1>
+            <p class="text-blue-600 font-bold text-xl mb-2 uppercase tracking-widest">Agent 模式的深度实践</p>
+            <p class="text-slate-500 text-lg max-w-2xl mx-auto font-light leading-relaxed">揭秘 AI 如何通过自主规划、递归搜索与多维合成，完成专业级调研任务。</p>
+        </header>
+
+        <main class="p-8 md:p-12">
+            <!-- Part 1: Component Breakdown -->
+            <div class="mb-20">
+                <div class="flex items-center gap-4 mb-10">
+                    <h2 class="text-2xl font-bold text-slate-900">核心组件能力</h2>
+                    <div class="h-px bg-slate-200 flex-1"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-6 rounded-3xl bg-blue-50/50 border border-blue-100 hover:bg-blue-50 transition-colors">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">规划 (Planning)</h3>
+                        <p class="text-sm text-slate-500">将模糊的研究命题拆解为多维度的子课题路径。</p>
+                    </div>
+                    <div class="p-6 rounded-3xl bg-indigo-50/50 border border-indigo-100 hover:bg-indigo-50 transition-colors">
+                        <div class="w-10 h-10 bg-indigo-600 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indigo-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">记忆 (Memory)</h3>
+                        <p class="text-sm text-slate-500">维护已搜集的信息池，识别跨来源的逻辑矛盾。</p>
+                    </div>
+                    <div class="p-6 rounded-3xl bg-purple-50/50 border border-purple-100 hover:bg-purple-50 transition-colors">
+                        <div class="w-10 h-10 bg-purple-600 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-purple-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">工具 (Tools)</h3>
+                        <p class="text-sm text-slate-500">并发调度搜索引擎、论文库及垂直行业数据库。</p>
+                    </div>
+                    <div class="p-6 rounded-3xl bg-emerald-50/50 border border-emerald-100 hover:bg-emerald-50 transition-colors">
+                        <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-emerald-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">观察 (Observation)</h3>
+                        <p class="text-sm text-slate-500">评估当前信息饱和度，决定是否触发下一次迭代。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 2: Visual Simulation (Practice) -->
+            <div class="mb-10 p-8 md:p-12 bg-slate-900 rounded-[3.5rem] text-white overflow-hidden relative">
+                <div class="relative z-10">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-bold mb-4">实战演练：调度与递归可视化</h2>
+                        <p class="text-slate-400">场景：分析“2025年固态电池商业化进展”</p>
+                    </div>
+
+                    <!-- Flow Diagram -->
+                    <div class="flex flex-col items-center">
+                        <!-- Iteration 1 -->
+                        <div class="w-full flex flex-col items-center">
+                            <!-- Planning Hub -->
+                            <div class="node-pulse relative z-20 w-48 h-16 bg-blue-600 rounded-2xl flex flex-col items-center justify-center border-2 border-blue-400 shadow-2xl">
+                                <span class="text-xs font-bold text-blue-200 uppercase tracking-tighter">Iteration 1</span>
+                                <span class="font-bold">规划调度中心</span>
+                            </div>
+
+                            <!-- Dispatch Lines (SVG) -->
+                            <svg class="w-full h-32 -mt-2 -mb-2" preserveAspectRatio="none">
+                                <path d="M50%,0 L20%,100 M50%,0 L50%,100 M50%,0 L80%,100" stroke="#3b82f6" stroke-width="2" fill="none" class="recursion-line"/>
+                            </svg>
+
+                            <!-- Tool Branching -->
+                            <div class="w-full flex justify-between gap-4">
+                                <div class="flex-1 p-4 bg-slate-800 rounded-2xl border border-slate-700 text-center">
+                                    <div class="text-blue-400 text-xs font-mono mb-2">TOOL: Search API</div>
+                                    <p class="text-xs text-slate-300">检索丰田/QuantumScape<br>最新财报与投产计划</p>
+                                </div>
+                                <div class="flex-1 p-4 bg-slate-800 rounded-2xl border border-slate-700 text-center">
+                                    <div class="text-blue-400 text-xs font-mono mb-2">TOOL: Academic Crawler</div>
+                                    <p class="text-xs text-slate-300">抓取 Nature/Science<br>关于硫化物路线的技术突破</p>
+                                </div>
+                                <div class="flex-1 p-4 bg-slate-800 rounded-2xl border border-slate-700 text-center">
+                                    <div class="text-blue-400 text-xs font-mono mb-2">TOOL: News Analyzer</div>
+                                    <p class="text-xs text-slate-300">汇总行业媒体关于<br>蔚来 150kWh 电池包评测</p>
+                                </div>
+                            </div>
+
+                            <!-- Gathering & Observation -->
+                            <div class="mt-10 flex flex-col items-center">
+                                <div class="w-1 h-10 bg-gradient-to-b from-blue-500 to-emerald-500"></div>
+                                <div class="px-6 py-3 bg-emerald-600 rounded-full text-xs font-bold border-2 border-emerald-400 flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    感知阶段：发现信息缺口
+                                </div>
+                                <p class="mt-4 text-center text-sm text-slate-400 max-w-md italic">
+                                    “已确认技术路径，但缺乏具体各路线的‘量产成本对比’数据，且 24 年底某专利说法存疑。”
+                                </p>
+                            </div>
+
+                            <!-- Recursive Path -->
+                            <div class="relative w-full mt-10 h-24">
+                                <svg class="absolute inset-0 w-full h-full">
+                                    <path d="M50%,0 C60%,40 95%,40 95%,100" stroke="#8b5cf6" stroke-width="2" fill="none" class="recursion-line"/>
+                                    <text x="75%" y="40" fill="#8b5cf6" font-size="10" font-weight="bold">触发递归: 深度补充研究</text>
+                                </svg>
+                            </div>
+
+                            <!-- Iteration 2 -->
+                            <div class="flex justify-end w-full pr-4">
+                                <div class="w-56 p-6 bg-indigo-900 rounded-3xl border-2 border-indigo-500 shadow-xl">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-[10px] font-bold text-indigo-300 uppercase">Iteration 2</span>
+                                        <span class="px-2 py-0.5 bg-indigo-500 text-[10px] rounded text-white">REFINED PLAN</span>
+                                    </div>
+                                    <ul class="text-[11px] space-y-2 text-indigo-100 list-disc pl-3">
+                                        <li>定向核实丰田专利原文</li>
+                                        <li>查找固态电解质原料成本报表</li>
+                                        <li>对比 3 家厂商的量产爬坡曲线</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abstract Patterns -->
+                <div class="absolute -left-20 top-1/4 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
+                <div class="absolute -right-20 bottom-1/4 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl"></div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="flex flex-col md:flex-row gap-8 items-center justify-between p-8">
+                <div class="flex-1">
+                    <h4 class="text-xl font-bold text-slate-900 mb-2">为什么 Deep Research 更深？</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        普通 AI 搜索是“点到为止”，而 Deep Research Agent 具备<strong>“非线性思维”</strong>。它在执行过程中不断根据 Observation（观察）结果修正规划，直至达到信息饱和。这种递归能力使得 AI 能够胜任需要高度逻辑自洽的专业报告撰写。
+                    </p>
+                </div>
+                <div class="flex gap-4">
+                    <div class="p-4 bg-white rounded-2xl border border-slate-200 text-center shadow-sm">
+                        <div class="text-2xl font-black text-blue-600">50+</div>
+                        <div class="text-[10px] text-slate-400 font-bold uppercase">网页阅读深度</div>
+                    </div>
+                    <div class="p-4 bg-white rounded-2xl border border-slate-200 text-center shadow-sm">
+                        <div class="text-2xl font-black text-indigo-600">100%</div>
+                        <div class="text-[10px] text-slate-400 font-bold uppercase">自主冲突校验</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-slate-50 p-8 text-center text-slate-400 text-[11px] border-t border-slate-100">
+            © 2026 Deep Research Agent · 技术原理与实战演练可视化
+        </footer>
+    </div>
+
+</body>
+</html>
