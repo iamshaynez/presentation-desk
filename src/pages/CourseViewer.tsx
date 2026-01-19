@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft } from 'lucide-react';
+import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, Monitor, X } from 'lucide-react';
 import { ApiResponse, UnitContent } from '@/types';
 import { Mermaid } from '@/components/Mermaid';
 import clsx from 'clsx';
@@ -16,6 +16,7 @@ export function CourseViewer() {
   const [activeTab, setActiveTab] = useState<'content' | 'notes'>('content');
   const [noteContent, setNoteContent] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isBrowserFull, setIsBrowserFull] = useState(false);
   const [showNotePreview, setShowNotePreview] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -123,8 +124,9 @@ export function CourseViewer() {
           {/* Image Viewer (Left 30% -> 70%) */}
           <div 
             className={clsx(
-              "bg-black relative transition-all duration-500 ease-in-out flex items-center justify-center",
-              isFullscreen ? "w-[70%]" : "w-[30%]"
+              "bg-black transition-all duration-500 ease-in-out flex items-center justify-center",
+              isBrowserFull ? "fixed inset-0 z-50 w-screen h-screen" : "relative",
+              !isBrowserFull && (isFullscreen ? "w-[70%]" : "w-[30%]")
             )}
           >
             {content?.html ? (
@@ -143,12 +145,27 @@ export function CourseViewer() {
               <div className="text-gray-500">No Content</div>
             )}
             
-            <button 
-              onClick={() => setIsFullscreen(!isFullscreen)}
-              className="absolute top-4 right-4 p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors z-30"
-            >
-              {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
-            </button>
+            <div className="absolute top-4 right-4 flex gap-2 z-30">
+              {!isBrowserFull && (
+                <button 
+                  onClick={() => setIsFullscreen(!isFullscreen)}
+                  className="p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
+                  title={isFullscreen ? "Restore Width" : "Expand Width"}
+                >
+                  {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+                </button>
+              )}
+              
+              {(isFullscreen || isBrowserFull) && (
+                <button 
+                  onClick={() => setIsBrowserFull(!isBrowserFull)}
+                  className="p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
+                  title={isBrowserFull ? "Exit Full Screen" : "Full Browser Screen"}
+                >
+                  {isBrowserFull ? <X size={20} /> : <Monitor size={20} />}
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Right Tabs (Remaining width) */}
