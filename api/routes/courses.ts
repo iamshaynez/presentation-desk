@@ -76,10 +76,11 @@ router.get('/:courseName/:unitName', async (req, res) => {
     // Find image file
     const files = await fs.readdir(unitPath);
     const imageFile = files.find(f => /\.(png|jpg|jpeg|svg|gif)$/i.test(f));
+    const htmlFile = files.find(f => f.toLowerCase() === 'index.html');
 
     const [readme, update] = await Promise.all([
-      fileExists(readmePath) ? fs.readFile(readmePath, 'utf-8') : '',
-      fileExists(updatePath) ? fs.readFile(updatePath, 'utf-8') : ''
+      fileExists(readmePath).then(exists => exists ? fs.readFile(readmePath, 'utf-8') : ''),
+      fileExists(updatePath).then(exists => exists ? fs.readFile(updatePath, 'utf-8') : '')
     ]);
 
     // Note: The client should construct the full URL or we provide a relative path
@@ -97,13 +98,15 @@ router.get('/:courseName/:unitName', async (req, res) => {
     
     // HOWEVER, if imageFile itself has spaces, we need to be careful.
     const encodedImageFile = imageFile ? encodeURIComponent(imageFile) : null;
+    const encodedHtmlFile = htmlFile ? encodeURIComponent(htmlFile) : null;
 
     res.json({
       success: true,
       data: {
         readme,
         update,
-        image: encodedImageFile ? `/courses-static/${encodedCourseName}/${encodedUnitName}/${encodedImageFile}` : null
+        image: encodedImageFile ? `/courses-static/${encodedCourseName}/${encodedUnitName}/${encodedImageFile}` : null,
+        html: encodedHtmlFile ? `/courses-static/${encodedCourseName}/${encodedUnitName}/${encodedHtmlFile}` : null
       }
     });
   } catch (error) {

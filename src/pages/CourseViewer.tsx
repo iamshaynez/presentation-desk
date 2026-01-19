@@ -127,14 +127,20 @@ export function CourseViewer() {
               isFullscreen ? "w-[70%]" : "w-[30%]"
             )}
           >
-            {content?.image ? (
+            {content?.html ? (
+               <iframe
+                 src={content.html}
+                 className="w-full h-full border-none bg-white"
+                 title="Presentation Content"
+               />
+            ) : content?.image ? (
               <img 
                 src={content.image} 
                 alt="Presentation" 
                 className="max-w-full max-h-full object-contain pointer-events-none select-none"
               />
             ) : (
-              <div className="text-gray-500">No Image</div>
+              <div className="text-gray-500">No Content</div>
             )}
             
             <button 
