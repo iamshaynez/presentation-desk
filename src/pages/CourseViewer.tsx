@@ -13,7 +13,7 @@ export function CourseViewer() {
   const [units, setUnits] = useState<string[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [content, setContent] = useState<UnitContent | null>(null);
-  const [activeTab, setActiveTab] = useState<'content' | 'notes'>('content');
+  const [activeTab, setActiveTab] = useState<'notes' | 'canvas'>('notes');
   const [noteContent, setNoteContent] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isBrowserFull, setIsBrowserFull] = useState(false);
@@ -173,57 +173,21 @@ export function CourseViewer() {
             {/* Tab Headers */}
             <div className="flex border-b border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800">
               <button 
-                className={clsx("px-6 py-3 text-sm font-medium transition-colors focus:outline-none", activeTab === 'content' ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400 bg-white dark:bg-zinc-900" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}
-                onClick={() => setActiveTab('content')}
-              >
-                Content
-              </button>
-              <button 
                 className={clsx("px-6 py-3 text-sm font-medium transition-colors focus:outline-none", activeTab === 'notes' ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400 bg-white dark:bg-zinc-900" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}
                 onClick={() => setActiveTab('notes')}
               >
                 Notes
               </button>
+              <button 
+                className={clsx("px-6 py-3 text-sm font-medium transition-colors focus:outline-none", activeTab === 'canvas' ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400 bg-white dark:bg-zinc-900" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}
+                onClick={() => setActiveTab('canvas')}
+              >
+                Canvas
+              </button>
             </div>
 
             {/* Tab Content */}
             <div className="flex-1 overflow-hidden relative">
-              {activeTab === 'content' && (
-                <div className="h-full overflow-auto p-6">
-                  <div className="prose dark:prose-invert max-w-none">
-                    <ReactMarkdown 
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        pre({ children }: any) {
-                          // Check if children is a mermaid code block
-                          if (children?.props?.className?.includes('language-mermaid')) {
-                            return <>{children}</>; // Render code block content directly without pre wrapper
-                          }
-                          return <pre>{children}</pre>;
-                        },
-                        code({ node, inline, className, children, ...props }: any) {
-                          const match = /language-(\w+)/.exec(className || '');
-                          if (!inline && match && match[1] === 'mermaid') {
-                            return (
-                              <div className="bg-transparent">
-                                <Mermaid chart={String(children).replace(/\n$/, '')} />
-                              </div>
-                            );
-                          }
-                          return (
-                            <code className={className} {...props}>
-                              {children}
-                            </code>
-                          );
-                        }
-                      }}
-                    >
-                      {content?.readme || ''}
-                    </ReactMarkdown>
-                  </div>
-                </div>
-              )}
-
               {activeTab === 'notes' && (
                 <div className="h-full flex flex-col p-4">
                     <div className="mb-2 flex justify-between items-center">
@@ -283,6 +247,11 @@ export function CourseViewer() {
                         />
                     )}
                 </div>
+              )}
+              {activeTab === 'canvas' && (
+                  <div className="h-full flex items-center justify-center text-gray-500">
+                      Canvas Tab (Empty)
+                  </div>
               )}
             </div>
           </div>
