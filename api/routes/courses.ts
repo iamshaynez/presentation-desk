@@ -134,4 +134,55 @@ router.post('/:courseName/:unitName/update', async (req, res) => {
   }
 });
 
+// Get canvas data
+router.get('/:courseName/:unitName/canvas', async (req, res) => {
+  const { courseName, unitName } = req.params;
+  const unitPath = path.join(COURSES_ROOT, courseName, unitName);
+  const canvasPath = path.join(unitPath, 'canvas.json');
+
+  try {
+    if (!await fileExists(unitPath)) {
+        return res.status(404).json({ success: false, error: 'Unit not found' });
+    }
+
+    let canvasData = null;
+    if (await fileExists(canvasPath)) {
+        const content = await fs.readFile(canvasPath, 'utf-8');
+        try {
+            canvasData = JSON.parse(content);
+        } catch (e) {
+            console.error("Failed to parse canvas.json", e);
+        }
+    }
+
+    res.json({ success: true, data: canvasData });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Failed to get canvas data' });
+  }
+});
+
+// Save canvas data
+router.post('/:courseName/:unitName/canvas', async (req, res) => {
+  const { courseName, unitName } = req.params;
+  const { content } = req.body; // content should be JSON object
+  const unitPath = path.join(COURSES_ROOT, courseName, unitName);
+  const canvasPath = path.join(unitPath, 'canvas.json');
+
+  try {
+    if (!await fileExists(unitPath)) {
+        return res.status(404).json({ success: false, error: 'Unit not found' });
+    }
+    
+    // Ensure content is a string
+    const stringContent = typeof content === 'string' ? content : JSON.stringify(content);
+    
+    await fs.writeFile(canvasPath, stringContent, 'utf-8');
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Failed to save canvas data' });
+  }
+});
+
 export default router;

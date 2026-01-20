@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm';
 import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, Monitor, X } from 'lucide-react';
 import { ApiResponse, UnitContent } from '@/types';
 import { Mermaid } from '@/components/Mermaid';
+import { CanvasBoard } from '@/components/CanvasBoard';
 import clsx from 'clsx';
 
 export function CourseViewer() {
@@ -249,9 +250,7 @@ export function CourseViewer() {
                 </div>
               )}
               {activeTab === 'canvas' && (
-                  <div className="h-full flex items-center justify-center text-gray-500">
-                      Canvas Tab (Empty)
-                  </div>
+                  <CanvasBoard courseName={courseName} unitName={unitName} />
               )}
             </div>
           </div>
