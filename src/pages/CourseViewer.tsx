@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, Monitor, X } from 'lucide-react';
+import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, Monitor, X, Pen } from 'lucide-react';
 import { ApiResponse, UnitContent } from '@/types';
 import { Mermaid } from '@/components/Mermaid';
 import { CanvasBoard } from '@/components/CanvasBoard';
+import { ReactSketchCanvas } from 'react-sketch-canvas';
 import clsx from 'clsx';
 
 export function CourseViewer() {
@@ -20,6 +21,19 @@ export function CourseViewer() {
   const [isBrowserFull, setIsBrowserFull] = useState(false);
   const [showNotePreview, setShowNotePreview] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [isMarking, setIsMarking] = useState(false);
+  const [iframeHeight, setIframeHeight] = useState<number | undefined>(undefined);
+
+  // Auto-hide sidebar when entering browser full screen
+  useEffect(() => {
+    if (isBrowserFull) {
+        setSidebarOpen(false);
+    } else {
+        setSidebarOpen(true);
+        // Turn off marking mode when exiting full screen
+        setIsMarking(false);
+    }
+  }, [isBrowserFull]);
 
   // Fetch units
   useEffect(() => {
@@ -43,6 +57,7 @@ export function CourseViewer() {
     
     // Reset content while loading
     setContent(null);
+    setIframeHeight(undefined);
     
     fetch(`/api/courses/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}`)
       .then(res => res.json())
@@ -71,6 +86,19 @@ export function CourseViewer() {
     }
   };
 
+  const handleIframeLoad = (e: any) => {
+    try {
+        const iframe = e.target;
+        if (iframe.contentWindow?.document?.body) {
+             // Add a small buffer or use scrollHeight
+             const height = iframe.contentWindow.document.body.scrollHeight;
+             setIframeHeight(height);
+        }
+    } catch (err) {
+        console.error("Failed to access iframe content", err);
+    }
+  };
+
   if (!courseName) return null;
 
   return (
@@ -79,7 +107,7 @@ export function CourseViewer() {
       <div 
         className={clsx(
           "bg-white dark:bg-zinc-800 border-r border-gray-200 dark:border-zinc-700 transition-all duration-500 ease-in-out flex flex-col overflow-hidden",
-          (sidebarOpen && !isFullscreen) ? "w-64 opacity-100" : "w-0 opacity-0"
+          (sidebarOpen && !isFullscreen && !isBrowserFull) ? "w-64 opacity-100" : "w-0 opacity-0"
         )}
       >
         <div className="flex flex-col h-full min-w-[16rem]"> {/* Prevent content reflow during transition */}
@@ -112,59 +140,107 @@ export function CourseViewer() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col h-full overflow-hidden">
-        {/* Header / Toolbar */}
-        <div className="h-12 border-b border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 flex items-center px-4 gap-4 shadow-sm z-10">
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1 hover:bg-gray-100 dark:hover:bg-zinc-700 rounded transition-colors">
-            <Menu size={20} />
-          </button>
-          <div className="flex-1 font-medium text-lg">{unitName}</div>
-        </div>
+        {/* Header / Toolbar - Hide in Full Browser Mode */}
+        {!isBrowserFull && (
+            <div className="h-12 border-b border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 flex items-center px-4 gap-4 shadow-sm z-10">
+            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1 hover:bg-gray-100 dark:hover:bg-zinc-700 rounded transition-colors">
+                <Menu size={20} />
+            </button>
+            <div className="flex-1 font-medium text-lg">{unitName}</div>
+            </div>
+        )}
 
         {/* Content Area */}
         <div className="flex-1 flex overflow-hidden">
           {/* Image Viewer (Left 30% -> 70%) */}
           <div 
             className={clsx(
-              "bg-black transition-all duration-500 ease-in-out flex items-center justify-center",
+              "bg-black transition-all duration-500 ease-in-out relative overflow-auto",
               isBrowserFull ? "fixed inset-0 z-50 w-screen h-screen" : "relative",
               !isBrowserFull && (isFullscreen ? "w-[70%]" : "w-[30%]")
             )}
           >
-            {content?.html ? (
-               <iframe
-                 src={content.html}
-                 className="w-full h-full border-none bg-white"
-                 title="Presentation Content"
-               />
-            ) : content?.image ? (
-              <img 
-                src={content.image} 
-                alt="Presentation" 
-                className="max-w-full max-h-full object-contain pointer-events-none select-none"
-              />
-            ) : (
-              <div className="text-gray-500">No Content</div>
-            )}
+            <div className="min-h-full min-w-full flex items-center justify-center relative">
+                {content?.html ? (
+                <iframe
+                    src={content.html}
+                    className="w-full border-none bg-white block"
+                    style={{ height: iframeHeight ? `${iframeHeight}px` : '100%' }}
+                    title="Presentation Content"
+                    onLoad={handleIframeLoad}
+                    scrolling="no"
+                />
+                ) : content?.image ? (
+                <img 
+                    src={content.image} 
+                    alt="Presentation" 
+                    className="max-w-full object-contain pointer-events-none select-none block"
+                    style={{ maxHeight: isMarking ? 'none' : '100%' }}
+                />
+                ) : (
+                <div className="text-gray-500">No Content</div>
+                )}
+                
+                {/* Marking Overlay */}
+                {isMarking && (
+                    <div className="absolute inset-0 z-40 pointer-events-auto">
+                        <ReactSketchCanvas
+                            style={{ border: 'none' }}
+                            width="100%"
+                            height="100%"
+                            strokeWidth={4}
+                            strokeColor="red"
+                            canvasColor="transparent"
+                        />
+                    </div>
+                )}
+            </div>
             
-            <div className="absolute top-4 right-4 flex gap-2 z-30">
-              {!isBrowserFull && (
-                <button 
-                  onClick={() => setIsFullscreen(!isFullscreen)}
-                  className="p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
-                  title={isFullscreen ? "Restore Width" : "Expand Width"}
-                >
-                  {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
-                </button>
+            <div className="absolute top-4 right-4 flex gap-2 z-50">
+              {/* Marking Toggle - Show only in Full Browser Mode */}
+              {isBrowserFull && (
+                  <button 
+                    onClick={() => setIsMarking(!isMarking)}
+                    className={clsx(
+                        "p-2 rounded transition-colors text-white",
+                        isMarking ? "bg-red-600 hover:bg-red-700" : "bg-black/50 hover:bg-black/70"
+                    )}
+                    title={isMarking ? "Exit Marking Mode" : "Start Marking"}
+                  >
+                    <Pen size={20} />
+                  </button>
               )}
-              
-              {(isFullscreen || isBrowserFull) && (
-                <button 
-                  onClick={() => setIsBrowserFull(!isBrowserFull)}
-                  className="p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
-                  title={isBrowserFull ? "Exit Full Screen" : "Full Browser Screen"}
-                >
-                  {isBrowserFull ? <X size={20} /> : <Monitor size={20} />}
-                </button>
+
+              {/* View Controls - Show when NOT in Full Browser Mode */}
+              {!isBrowserFull && (
+                <>
+                  <button 
+                    onClick={() => setIsFullscreen(!isFullscreen)}
+                    className="p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
+                    title={isFullscreen ? "Restore Width" : "Expand Width"}
+                  >
+                    {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+                  </button>
+                  
+                  <button 
+                    onClick={() => setIsBrowserFull(true)}
+                    className="p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
+                    title="Full Browser Screen"
+                  >
+                     <Monitor size={20} />
+                  </button>
+                </>
+              )}
+
+              {/* Close button - Show ONLY in Full Browser Mode */}
+              {isBrowserFull && (
+                 <button 
+                    onClick={() => setIsBrowserFull(false)}
+                    className="p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
+                    title="Exit Full Screen"
+                  >
+                    <X size={20} />
+                  </button>
               )}
             </div>
           </div>
