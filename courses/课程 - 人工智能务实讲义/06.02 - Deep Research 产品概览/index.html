@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 AI 深度研究工具全景图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-shadow:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .tier-tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 lg:p-12">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">2026 深度研究 (Deep Research) AI 全景</h1>
+            <p class="text-gray-500 text-lg max-w-2xl mx-auto">从“对话助手”到“认知代理”：全球主流 AI 调研工具选择、差异与价格分析</p>
+            <div class="mt-6 flex justify-center gap-4">
+                <span class="flex items-center text-sm text-blue-600 font-semibold bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    全球视域
+                </span>
+                <span class="flex items-center text-sm text-teal-600 font-semibold bg-teal-50 px-3 py-1 rounded-full border border-teal-100">
+                    中国深耕
+                </span>
+            </div>
+        </header>
+
+        <!-- Market Tiers -->
+        <section class="mb-20">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                2026 市场三大认知层级
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tier 1 -->
+                <div class="p-6 border border-gray-100 rounded-2xl card-shadow bg-white">
+                    <span class="tier-tag bg-purple-100 text-purple-700">旗舰认知层 ($200+)</span>
+                    <h3 class="text-xl font-bold mt-3 mb-2">智能溢价模式</h3>
+                    <p class="text-gray-600 text-sm mb-4">将 AI 视为专业劳动力，溢价反映了巨大的推理算力成本。适用于企业决策与金融分析。</p>
+                    <div class="text-xs font-mono text-gray-400">代表：ChatGPT Pro, Gemini Ultra</div>
+                </div>
+                <!-- Tier 2 -->
+                <div class="p-6 border border-gray-100 rounded-2xl card-shadow bg-white">
+                    <span class="tier-tag bg-blue-100 text-blue-700">专业工具层 ($20-$40)</span>
+                    <h3 class="text-xl font-bold mt-3 mb-2">算力限额模式</h3>
+                    <p class="text-gray-600 text-sm mb-4">传统 SaaS 订阅。提供深度调研的入门权限，但对高成本思考模型设有严格配额。</p>
+                    <div class="text-xs font-mono text-gray-400">代表：Perplexity Pro, Grok Premium+</div>
+                </div>
+                <!-- Tier 3 -->
+                <div class="p-6 border border-gray-100 rounded-2xl card-shadow bg-white">
+                    <span class="tier-tag bg-teal-100 text-teal-700">生态增长层 (免费/$15)</span>
+                    <h3 class="text-xl font-bold mt-3 mb-2">流量与生态模式</h3>
+                    <p class="text-gray-600 text-sm mb-4">主要集中在中国市场。通过低价或免费策略抢占用户心智，构建 AI 时代的新入口。</p>
+                    <div class="text-xs font-mono text-gray-400">代表：通义千问, Kimi, Coze</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global vs China Detailed Cards -->
+        <section class="mb-20">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    全球与中国主流工具深度对比
+                </h2>
+                <p class="text-sm text-gray-400 italic">*数据截至 2026 年第一季度调研</p>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Global -->
+                <div>
+                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Global Giants / 西方巨头</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Gemini -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-5 card-shadow">
+                            <div class="w-10 h-10 bg-blue-600 rounded-lg mb-4 flex items-center justify-center text-white font-bold">G</div>
+                            <h4 class="font-bold text-lg mb-1">Gemini Ultra</h4>
+                            <p class="text-xs text-gray-500 mb-3">Google</p>
+                            <ul class="text-sm space-y-2 mb-6 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-500 mt-1">✓</span> 
+                                    <span><b>生态整合：</b>深植 Google Workspace 与搜索。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-500 mt-1">✓</span> 
+                                    <span><b>多模态：</b>集成 Veo 3.1 视频生成。</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-50 text-indigo-600 font-bold">$249.99/月</div>
+                        </div>
+                        <!-- ChatGPT -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-5 card-shadow">
+                            <div class="w-10 h-10 bg-black rounded-lg mb-4 flex items-center justify-center text-white font-bold">O</div>
+                            <h4 class="font-bold text-lg mb-1">ChatGPT Pro</h4>
+                            <p class="text-xs text-gray-500 mb-3">OpenAI</p>
+                            <ul class="text-sm space-y-2 mb-6 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-500 mt-1">✓</span> 
+                                    <span><b>逻辑标杆：</b>o3 系列模型深度拆解。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-500 mt-1">✓</span> 
+                                    <span><b>自主代理：</b>长时间自动调研流。</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-50 text-indigo-600 font-bold">$200.00/月</div>
+                        </div>
+                        <!-- Grok -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-5 card-shadow">
+                            <div class="w-10 h-10 bg-gray-800 rounded-lg mb-4 flex items-center justify-center text-white font-bold">X</div>
+                            <h4 class="font-bold text-lg mb-1">Grok DeepSearch</h4>
+                            <p class="text-xs text-gray-500 mb-3">xAI</p>
+                            <ul class="text-sm space-y-2 mb-6 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-500 mt-1">✓</span> 
+                                    <span><b>实时信源：</b>原生访问 X 平台数据流。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-500 mt-1">✓</span> 
+                                    <span><b>Big Brain：</b>高算力推理模式。</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-50 text-indigo-600 font-bold">$40 - $300/月</div>
+                        </div>
+                        <!-- Perplexity -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-5 card-shadow">
+                            <div class="w-10 h-10 bg-teal-600 rounded-lg mb-4 flex items-center justify-center text-white font-bold">P</div>
+                            <h4 class="font-bold text-lg mb-1">Perplexity Max</h4>
+                            <p class="text-xs text-gray-500 mb-3">Perplexity</p>
+                            <ul class="text-sm space-y-2 mb-6 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-500 mt-1">✓</span> 
+                                    <span><b>信源密度：</b>极高引用量，报告式输出。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-500 mt-1">✓</span> 
+                                    <span><b>模型中立：</b>自由切换底层引擎。</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-50 text-indigo-600 font-bold">$325.00/月</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- China -->
+                <div>
+                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">China Innovators / 中国创新</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Qwen -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-5 card-shadow border-t-4 border-t-teal-500">
+                            <div class="w-10 h-10 bg-teal-500 rounded-lg mb-4 flex items-center justify-center text-white font-bold">Q</div>
+                            <h4 class="font-bold text-lg mb-1">通义千问 Qwen</h4>
+                            <p class="text-xs text-gray-500 mb-3">Alibaba</p>
+                            <ul class="text-sm space-y-2 mb-6 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-500 mt-1">✓</span> 
+                                    <span><b>极高性价比：</b>DeepResearch 目前免费。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-500 mt-1">✓</span> 
+                                    <span><b>播客模式：</b>调研一键转多角色音频。</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-50 text-teal-600 font-bold">免费开放 / 低价 API</div>
+                        </div>
+                        <!-- Kimi -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-5 card-shadow border-t-4 border-t-teal-500">
+                            <div class="w-10 h-10 bg-teal-800 rounded-lg mb-4 flex items-center justify-center text-white font-bold">K</div>
+                            <h4 class="font-bold text-lg mb-1">Kimi Researcher</h4>
+                            <p class="text-xs text-gray-500 mb-3">月之暗面 (Moonshot)</p>
+                            <ul class="text-sm space-y-2 mb-6 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-500 mt-1">✓</span> 
+                                    <span><b>超长上下文：</b>专精大规模文件分析。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-500 mt-1">✓</span> 
+                                    <span><b>强化学习：</b>具备高耐心、多步反思。</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-50 text-teal-600 font-bold">约 $15.00/月</div>
+                        </div>
+                        <!-- iFlow -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-5 card-shadow border-t-4 border-t-teal-500">
+                            <div class="w-10 h-10 bg-gray-900 rounded-lg mb-4 flex items-center justify-center text-white font-bold">iF</div>
+                            <h4 class="font-bold text-lg mb-1">iFlow (心流)</h4>
+                            <p class="text-xs text-gray-500 mb-3">Developer Focused</p>
+                            <ul class="text-sm space-y-2 mb-6 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-500 mt-1">✓</span> 
+                                    <span><b>CLI 优先：</b>极客风格的终端集成。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-500 mt-1">✓</span> 
+                                    <span><b>模型聚合：</b>自由组合国内外 API。</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-50 text-teal-600 font-bold">$3.00 - $30.00/月</div>
+                        </div>
+                        <!-- Coze -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-5 card-shadow border-t-4 border-t-teal-500">
+                            <div class="w-10 h-10 bg-indigo-500 rounded-lg mb-4 flex items-center justify-center text-white font-bold">C</div>
+                            <h4 class="font-bold text-lg mb-1">Coze (扣子)</h4>
+                            <p class="text-xs text-gray-500 mb-3">ByteDance</p>
+                            <ul class="text-sm space-y-2 mb-6 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-500 mt-1">✓</span> 
+                                    <span><b>Agent 平台：</b>支持构建私有调研流。</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-500 mt-1">✓</span> 
+                                    <span><b>多端分发：</b>一键发布至飞书/微信。</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-50 text-teal-600 font-bold">$19.00/月 (积分制)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Comparison Matrix -->
+        <section class="mb-20">
+            <h2 class="text-2xl font-bold mb-8">核心能力多维度矩阵</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="p-4 border border-gray-100 font-semibold">功能特性</th>
+                            <th class="p-4 border border-gray-100 font-semibold">Gemini / GPT (顶配)</th>
+                            <th class="p-4 border border-gray-100 font-semibold">xAI / Perplexity</th>
+                            <th class="p-4 border border-gray-100 font-semibold">通义千问 / Kimi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr>
+                            <td class="p-4 border border-gray-100 font-medium">HLE 测试表现 (Pass@1)</td>
+                            <td class="p-4 border border-gray-100 text-blue-600 font-bold">领先梯队 (30%+)</td>
+                            <td class="p-4 border border-gray-100">竞争力强 (21%+)</td>
+                            <td class="p-4 border border-gray-100 text-teal-600 font-bold">追赶迅速 (27-33%)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border border-gray-100 font-medium">单次任务深度 (URL 数)</td>
+                            <td class="p-4 border border-gray-100">无限/可配置</td>
+                            <td class="p-4 border border-gray-100">100+ (高引用密度)</td>
+                            <td class="p-4 border border-gray-100">200+ (极高耐心)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border border-gray-100 font-medium">多模态产出形态</td>
+                            <td class="p-4 border border-gray-100 text-green-600 font-bold">文档、视频、播客、存储</td>
+                            <td class="p-4 border border-gray-100">精美网页、可视化图表</td>
+                            <td class="p-4 border border-gray-100">动态网页、多角色播客</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border border-gray-100 font-medium">数据鲜活度</td>
+                            <td class="p-4 border border-gray-100 font-bold">极高 (Google/Bing 原生)</td>
+                            <td class="p-4 border border-gray-100 text-red-500 font-bold">最高 (X 实时社交流)</td>
+                            <td class="p-4 border border-gray-100 font-bold">极高 (微信/主流中文网)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Pricing Comparison Visual -->
+        <section class="mb-20 bg-gray-50 rounded-3xl p-8 md:p-12">
+            <h2 class="text-2xl font-bold mb-8 text-center">价格鸿沟：2026 年认知算力的定价差异</h2>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="w-full md:w-1/2">
+                    <div class="space-y-6">
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200">ChatGPT Pro / Gemini Ultra</span>
+                                <span class="text-xs font-semibold inline-block text-blue-600">$200 - $325</span>
+                            </div>
+                            <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
+                                <div style="width:100%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-600"></div>
+                            </div>
+                        </div>
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200">Grok Premium+ / Pro Tier</span>
+                                <span class="text-xs font-semibold inline-block text-gray-600">$20 - $40</span>
+                            </div>
+                            <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+                                <div style="width:20%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gray-600"></div>
+                            </div>
+                        </div>
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-600 bg-teal-200">China Flagship (Kimi/Qwen)</span>
+                                <span class="text-xs font-semibold inline-block text-teal-600">$0 - $15</span>
+                            </div>
+                            <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-teal-200">
+                                <div style="width:8%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-600"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-6">注：西方巨头定价反映了其“替代初级分析师”的劳动力价值逻辑；中国厂商通过低价策略换取生态锁位。</p>
+                </div>
+                <div class="w-full md:w-1/3 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h4 class="font-bold mb-4">决策者选型建议</h4>
+                    <ul class="text-xs space-y-4 text-gray-600">
+                        <li class="flex gap-2">
+                            <span class="font-bold text-indigo-600">金融/科研:</span> 选择 Perplexity Max 或 ChatGPT Pro，确保信源准确度。
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="font-bold text-indigo-600">出海舆情:</span> 必须使用 Grok DeepSearch 以监控实时海外社媒动态。
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="font-bold text-indigo-600">内容创作:</span> Gemini Ultra 的多模态能力最为出色。
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="font-bold text-indigo-600">本土调研:</span> 选用通义千问或 Kimi，中文深度理解与移动适配更佳。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Footer -->
+        <footer class="text-center pb-12">
+            <div class="h-px bg-gray-100 mb-8"></div>
+            <p class="text-xs text-gray-400">© 2026 AI 深度研究报告 · 全球同步更新 · 仅供专业学习与调研参考</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent 落地可行性评估指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e5e7eb;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+        .veto-zone {
+            background: repeating-linear-gradient(
+                45deg,
+                #fff5f5,
+                #fff5f5 10px,
+                #ffffff 10px,
+                #ffffff 20px
+            );
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-5xl mx-auto">
+
+    <!-- Header -->
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 gradient-text">AI Agent 落地可行性评估</h1>
+        <p class="text-gray-500 text-lg">如何评估重复性复杂工作的自动化潜力与工具选择策略</p>
+        <div class="mt-6 flex justify-center gap-4 text-sm">
+            <span class="flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full font-medium">逻辑评估</span>
+            <span class="flex items-center gap-1 px-3 py-1 bg-purple-50 text-purple-700 rounded-full font-medium">局限审查</span>
+            <span class="flex items-center gap-1 px-3 py-1 bg-green-50 text-green-700 rounded-full font-medium">路径选择</span>
+        </div>
+    </header>
+
+    <!-- Section 1: Assessment Dimensions -->
+    <section class="mb-16">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold">1</div>
+            <h2 class="text-2xl font-bold">四个核心思考维度</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Facts vs Knowledge -->
+            <div class="card p-6 rounded-2xl bg-white">
+                <div class="flex items-start justify-between mb-4">
+                    <h3 class="font-bold text-xl">知识 vs 事实依赖</h3>
+                    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <p class="text-gray-600 mb-4 text-sm">Agent 是依赖模型自有的通用常识，还是必须依赖你提供的独有事实数据？</p>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex items-center gap-2">✅ <span class="text-gray-700"><b>通用知识：</b>写作、翻译、基础代码、角色扮演</span></li>
+                    <li class="flex items-center gap-2">⚠️ <span class="text-gray-700"><b>独有事实：</b>公司财报、特定行业Know-how、私人合同</span></li>
+                </ul>
+            </div>
+
+            <!-- Data Sources -->
+            <div class="card p-6 rounded-2xl bg-white">
+                <div class="flex items-start justify-between mb-4">
+                    <h3 class="font-bold text-xl">信息源与格式</h3>
+                    <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                </div>
+                <p class="text-gray-600 mb-4 text-sm">数据的获取难度和解析难度直接决定了 Agent 的“感知”边界。</p>
+                <div class="grid grid-cols-3 gap-2 text-[10px] uppercase font-bold text-center">
+                    <div class="p-2 bg-gray-50 rounded">网络 (API/搜索)</div>
+                    <div class="p-2 bg-gray-50 rounded">非结构化 (Doc/Pdf)</div>
+                    <div class="p-2 bg-gray-50 rounded">结构化 (Excel/SQL)</div>
+                </div>
+                <p class="mt-3 text-xs text-gray-400 font-medium">注：Excel 处理往往需要专门的 Code Interpreter 技能。</p>
+            </div>
+
+            <!-- Objective Type -->
+            <div class="card p-6 rounded-2xl bg-white">
+                <div class="flex items-start justify-between mb-4">
+                    <h3 class="font-bold text-xl">任务目标导向</h3>
+                    <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <p class="text-gray-600 mb-4 text-sm">任务属于哪种智力活动？不同目标对应不同的 Prompt 策略。</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">思考 (逻辑推理/决策)</span>
+                    <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">整理 (提取/分类/摘要)</span>
+                    <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded text-xs">创作 (生成/续写)</span>
+                </div>
+            </div>
+
+            <!-- Expert Workflow -->
+            <div class="card p-6 rounded-2xl bg-white">
+                <div class="flex items-start justify-between mb-4">
+                    <h3 class="font-bold text-xl">专业工作流</h3>
+                    <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                </div>
+                <p class="text-gray-600 mb-4 text-sm">是否需要模拟人类专家的特定步骤？（如：先查法律条文，再做合规对比，最后出报告）</p>
+                <div class="border-l-2 border-yellow-200 pl-4 py-1 italic text-sm text-gray-500">
+                    "好的 Agent 不是在直接回答，而是在模拟专业的人类 SOP。"
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Veto Conditions -->
+    <section class="mb-16 veto-zone p-8 rounded-3xl border-2 border-red-100">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-8 h-8 bg-red-600 text-white rounded-lg flex items-center justify-center font-bold">2</div>
+            <h2 class="text-2xl font-bold">局限性预警：一票否决项</h2>
+        </div>
+        
+        <p class="text-red-700 font-semibold mb-6">除非拥有可靠的外部技能 (SKILL/Tool Use) 注入，否则以下任务必须谨慎评估：</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-red-50">
+                <h4 class="font-bold text-red-600 mb-2 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    统计与精确计算
+                </h4>
+                <p class="text-sm text-gray-600">模型在做多位数乘除、复杂统计分析时极不可靠。</p>
+                <div class="mt-3 p-2 bg-blue-50 text-blue-800 text-xs rounded leading-relaxed">
+                    <b>✅ 破解方案：</b>使用 Code Interpreter，让 Agent 编写并运行 Python 代码进行数学运算。
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-red-50">
+                <h4 class="font-bold text-red-600 mb-2 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    事实准确度调研
+                </h4>
+                <p class="text-sm text-gray-600">模型内部知识存在截止日期，对即时事实或微小细节存在幻觉。</p>
+                <div class="mt-3 p-2 bg-blue-50 text-blue-800 text-xs rounded leading-relaxed">
+                    <b>✅ 破解方案：</b>强制开启 Google Search 插件或接入可靠的 RAG 向量数据库。
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-red-50">
+                <h4 class="font-bold text-red-600 mb-2 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    超大上下文依赖
+                </h4>
+                <p class="text-sm text-gray-600">处理数万行文档时，模型会存在“中间遗忘”和召回率下降问题。</p>
+                <div class="mt-3 p-2 bg-blue-50 text-blue-800 text-xs rounded leading-relaxed">
+                    <b>✅ 破解方案：</b>采用分段处理、多级提取或知识图谱化，减少单次处理的压力。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Tool Selection Matrix -->
+    <section class="mb-16">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-8 h-8 bg-green-600 text-white rounded-lg flex items-center justify-center font-bold">3</div>
+            <h2 class="text-2xl font-bold">工具选择逻辑</h2>
+        </div>
+
+        <div class="overflow-hidden border border-gray-200 rounded-3xl">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-50 text-sm">
+                    <tr>
+                        <th class="p-4 font-bold border-b border-gray-200">分类</th>
+                        <th class="p-4 font-bold border-b border-gray-200">典型场景</th>
+                        <th class="p-4 font-bold border-b border-gray-200">优势</th>
+                        <th class="p-4 font-bold border-b border-gray-200">劣势</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 font-semibold text-blue-600">CLI / API 类</td>
+                        <td class="p-4">批量数据处理、后端服务集成、自动化脚本</td>
+                        <td class="p-4 text-green-700">无限可扩展性，可深度对接已有业务逻辑</td>
+                        <td class="p-4 text-red-600">技术门槛高，缺乏可视化反馈</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 font-semibold text-purple-600">Copilot 类</td>
+                        <td class="p-4">沉浸式代码、文档协助、标准 SaaS 套件内增强</td>
+                        <td class="p-4 text-green-700">开箱即用，功能打磨极度成熟可靠</td>
+                        <td class="p-4 text-red-600">功能固化，无法为你的业务定制“新技能”</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 font-semibold text-green-600">Agent Copilot (如 Coze)</td>
+                        <td class="p-4">复杂工作流机器人、跨工具调度、私域知识问答</td>
+                        <td class="p-4 text-green-700">低代码，擅长多步骤、多工具的编排</td>
+                        <td class="p-4 text-red-600">响应延迟略高，过度依赖平台生态</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Summary / Conclusion -->
+    <footer class="bg-gray-900 text-white p-8 rounded-3xl">
+        <div class="flex flex-col md:flex-row gap-8 items-center justify-between">
+            <div class="max-w-md text-center md:text-left">
+                <h3 class="text-2xl font-bold mb-2">总结：从“不可行”到“可靠”</h3>
+                <p class="text-gray-400 text-sm">评估 Agent 并非在找“它能做什么”，而是在看“它通过什么辅助手段能做对什么”。</p>
+            </div>
+            <div class="flex gap-4">
+                <div class="text-center p-4 bg-gray-800 rounded-2xl border border-gray-700 w-32">
+                    <div class="text-blue-400 font-bold text-xl mb-1">思考</div>
+                    <div class="text-[10px] text-gray-500 uppercase">Logic Center</div>
+                </div>
+                <div class="text-center p-4 bg-gray-800 rounded-2xl border border-gray-700 w-32">
+                    <div class="text-purple-400 font-bold text-xl mb-1">技能</div>
+                    <div class="text-[10px] text-gray-500 uppercase">Tool Use</div>
+                </div>
+                <div class="text-center p-4 bg-gray-800 rounded-2xl border border-gray-700 w-32">
+                    <div class="text-green-400 font-bold text-xl mb-1">结果</div>
+                    <div class="text-[10px] text-gray-500 uppercase">Reliability</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mt-8 text-center text-gray-400 text-xs">
+        &copy; 2026 AI Agent Implementation Framework. 为开发者与产品经理设计的评估指南。
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent 产品全景图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #ffffff;
+        }
+        .gradient-border {
+            position: relative;
+            border-radius: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        .gradient-border:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin: 0.25rem;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen">
+
+    <div class="max-w-5xl mx-auto px-6 py-12 md:py-20">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900">
+                AI Agent 产品全景图
+            </h1>
+            <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+                探索当前主流的具有智能体（Agent）能力的 AI 产品，从深度研究到自动化开发与低代码构建。
+            </p>
+            <div class="mt-8 flex justify-center gap-4 text-sm font-medium">
+                <span class="flex items-center gap-1"><i data-lucide="search" class="w-4 h-4 text-blue-500"></i> 深度搜索</span>
+                <span class="flex items-center gap-1"><i data-lucide="code-2" class="w-4 h-4 text-indigo-500"></i> 代码自动化</span>
+                <span class="flex items-center gap-1"><i data-lucide="layers" class="w-4 h-4 text-purple-500"></i> 零代码构建</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Section 1: Research -->
+            <div class="gradient-border border border-slate-100 p-8">
+                <div class="flex items-center gap-3 mb-6 text-blue-600">
+                    <div class="p-3 bg-blue-50 rounded-xl">
+                        <i data-lucide="microscope" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold">专项 Research 功能</h2>
+                </div>
+                <p class="text-slate-600 mb-6">专注深度调研与实时信息整合，提供结构化的专业报告。</p>
+                <div class="space-y-4">
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                        <h3 class="font-bold text-slate-900 flex justify-between items-center">
+                            Perplexity
+                            <span class="text-xs font-normal bg-blue-100 text-blue-700 px-2 py-0.5 rounded">核心推荐</span>
+                        </h3>
+                        <p class="text-sm text-slate-500 mt-1">专注 Deep Research。深度接入美国新闻、金融等高质量实时数据源，提供精准的引用与推导。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Chat Copilot -->
+            <div class="gradient-border border border-slate-100 p-8">
+                <div class="flex items-center gap-3 mb-6 text-emerald-600">
+                    <div class="p-3 bg-emerald-50 rounded-xl">
+                        <i data-lucide="message-circle" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold">Chat Copilot</h2>
+                </div>
+                <p class="text-slate-600 mb-6">通用型对话机器人，通过集成各种插件和工具实现 Agent 能力。</p>
+                <div class="flex flex-wrap">
+                    <span class="tag bg-emerald-50 text-emerald-700 border border-emerald-100">ChatGPT</span>
+                    <span class="tag bg-emerald-50 text-emerald-700 border border-emerald-100">Claude</span>
+                    <span class="tag bg-emerald-50 text-emerald-700 border border-emerald-100">Gemini</span>
+                    <span class="tag bg-slate-900 text-white border border-slate-800">Grok</span>
+                    <span class="tag bg-slate-50 text-slate-700 border border-slate-100">通义千问 (Qwen)</span>
+                    <span class="tag bg-slate-50 text-slate-700 border border-slate-100">豆包 (Doubao)</span>
+                    <span class="tag bg-slate-50 text-slate-700 border border-slate-100">Kimi</span>
+                </div>
+                <p class="mt-4 text-xs text-slate-400 italic font-medium">* Grok 以其实时介入 X 平台社交数据的能力在 Copilot 中独树一帜。</p>
+            </div>
+
+            <!-- Section 3: Agent CLI -->
+            <div class="gradient-border border border-slate-100 p-8">
+                <div class="flex items-center gap-3 mb-6 text-indigo-600">
+                    <div class="p-3 bg-indigo-50 rounded-xl">
+                        <i data-lucide="command" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold">Agent CLI / Coding</h2>
+                </div>
+                <p class="text-slate-600 mb-6">开发者专用工具，能够理解项目上下文并自主编写、运行及调试代码。</p>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="flex items-center gap-2 p-3 rounded-lg border border-slate-100 hover:bg-indigo-50 transition-colors">
+                        <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                        <span class="font-medium text-slate-700">Codex</span>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 rounded-lg border border-slate-100 hover:bg-indigo-50 transition-colors">
+                        <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                        <span class="font-medium text-slate-700">Claude Coder</span>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 rounded-lg border border-slate-100 hover:bg-indigo-50 transition-colors">
+                        <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                        <span class="font-medium text-slate-700">Gemini CLI</span>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 rounded-lg border border-slate-100 hover:bg-indigo-50 transition-colors">
+                        <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                        <span class="font-medium text-slate-700">Trae</span>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 rounded-lg border border-slate-100 hover:bg-indigo-50 transition-colors">
+                        <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                        <span class="font-medium text-slate-700">Kimi CLI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Agent Builder -->
+            <div class="gradient-border border border-slate-100 p-8">
+                <div class="flex items-center gap-3 mb-6 text-purple-600">
+                    <div class="p-3 bg-purple-50 rounded-xl">
+                        <i data-lucide="construction" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold">Agent Builder</h2>
+                </div>
+                <p class="text-slate-600 mb-6">低代码/零代码平台，赋能用户快速构建、部署个性化智能体工作流。</p>
+                <div class="space-y-4">
+                    <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 p-6 text-white shadow-lg">
+                        <div class="relative z-10 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-xl font-bold">Dify</h3>
+                                <p class="text-purple-100 text-sm mt-1">开源 LLM 应用开发平台，长于工作流精密编排。</p>
+                            </div>
+                            <i data-lucide="workflow" class="w-5 h-5 opacity-50"></i>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl bg-slate-900 p-6 text-white shadow-lg">
+                        <div class="relative z-10 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-xl font-bold">Coze (扣子)</h3>
+                                <p class="text-slate-400 text-sm mt-1">字节跳动旗下平台，提供海量插件与极速发布能力。</p>
+                            </div>
+                            <i data-lucide="zap" class="w-5 h-5 opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer Info -->
+        <footer class="mt-16 pt-8 border-t border-slate-100 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full text-slate-500 text-xs tracking-wider uppercase font-bold">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                Updated January 2026 • AI Agent Ecosystem
+            </div>
+            <p class="mt-4 text-slate-400 text-sm">
+                智能体（Agent）正从单纯的“聊天室”走向“全自动工作站”。
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

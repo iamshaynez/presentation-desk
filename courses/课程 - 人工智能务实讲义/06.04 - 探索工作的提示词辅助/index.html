@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>辅助提示词工程：从构思到深度研究实战</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .step-card:hover {
+            transform: translateY(-4px);
+            transition: all 0.3s ease;
+        }
+        .connector {
+            width: 2px;
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+            height: 40px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10 max-w-5xl mx-auto">
+
+    <!-- Header -->
+    <header class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">辅助提示词工程 (APE)</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            如何利用 AI 协助编写提示词，并将其应用于 Deep Research 产品以获得突破性的跨行业创新洞察。
+        </p>
+        <div class="mt-8 flex justify-center gap-4">
+            <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">技术探索</span>
+            <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">跨界创新</span>
+            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">Deep Research</span>
+        </div>
+    </header>
+
+    <!-- Phase 1: The Meta-Prompt Loop -->
+    <section class="mb-16">
+        <h2 class="text-2xl font-bold mb-8 border-l-4 border-blue-500 pl-4">第一阶段：元提示词循环 (Meta-Prompting)</h2>
+        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 mb-8">
+            <h3 class="font-bold text-lg mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                核心逻辑：让 AI 成为你的提示词架构师
+            </h3>
+            <p class="text-gray-600 mb-6">不要直接写最终提示词，先写一个“元提示词”来命令 AI 帮你设计。以下是对话流程：</p>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="step-card bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                    <div class="text-blue-500 font-bold mb-2">步骤 01：定义角色</div>
+                    <p class="text-sm text-gray-600 italic mb-3">“你现在是一名资深的提示词工程师，擅长通过深度挖掘用户意图来编写复杂的研究性提示词。”</p>
+                    <div class="text-xs text-gray-400">注解：赋予专业身份，激活特定的语料空间。</div>
+                </div>
+                <div class="step-card bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                    <div class="text-blue-500 font-bold mb-2">步骤 02：提出模糊需求</div>
+                    <p class="text-sm text-gray-600 italic mb-3">“我想寻找跨行业的创新机会，特别是把某种尖端工业技术应用到普通消费场景。”</p>
+                    <div class="text-xs text-gray-400">注解：提供目标，但不限制实现路径。</div>
+                </div>
+                <div class="step-card bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                    <div class="text-blue-500 font-bold mb-2">步骤 03：反向提问</div>
+                    <p class="text-sm text-gray-600 italic mb-3">“请向我提问 5 个核心问题，以便你更好地理解我的意图，从而写出最强的提示词。”</p>
+                    <div class="text-xs text-gray-400">注解：这是 APE 的精髓，通过信息对齐补全认知鸿沟。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 2: Building the Research Prompt -->
+    <section class="mb-16">
+        <h2 class="text-2xl font-bold mb-8 border-l-4 border-purple-500 pl-4">第二阶段：构建 Deep Research 专用提示词</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+                <div class="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
+                    <h3 class="font-bold mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        深度研究专用提示词框架 (R-C-P)
+                    </h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start"><span class="font-bold mr-2 text-purple-600">R (Role):</span> 设定为“跨行业技术分析专家”或“创新侦探”。</li>
+                        <li class="flex items-start"><span class="font-bold mr-2 text-purple-600">C (Constraint):</span> 明确禁止的内容（如：避开已有的常见应用，只关注近 2 年的新技术）。</li>
+                        <li class="flex items-start"><span class="font-bold mr-2 text-purple-600">P (Path):</span> 指导 AI 的研究路径（如：先查半导体领域，再查农业领域）。</li>
+                    </ul>
+                </div>
+                <div class="p-4 bg-yellow-50 rounded-xl text-xs text-yellow-800 leading-relaxed">
+                    <strong>💡 补充建议：</strong> Deep Research 产品（如 OpenAI Deep Research 或 Perplexity）拥有自主搜索和多步推理能力。提示词应侧重于<b>“广度优先”</b>和<b>“逻辑链条”</b>，而非简单的一问一答。
+                </div>
+            </div>
+
+            <!-- The Real Example Case -->
+            <div class="bg-gray-900 text-gray-300 p-6 rounded-2xl shadow-xl overflow-hidden relative">
+                <div class="absolute top-0 right-0 bg-purple-600 text-white text-[10px] px-3 py-1 font-bold">最终实战示例</div>
+                <h3 class="text-white font-bold mb-4">优化后的最终提示词：</h3>
+                <div class="text-sm font-mono space-y-4">
+                    <p class="text-green-400"># 任务目标</p>
+                    <p>深度探索 [低温等离子体技术] 在 [半导体清洗] 之外的跨行业创新机会。</p>
+                    <p class="text-green-400"># 研究指令</p>
+                    <p>1. 分析该技术在 2023-2025 年间的专利增长情况。<br>
+                       2. 重点调研其在 [生鲜物流保鲜] 和 [家用消毒器械] 领域的最新实验性应用。<br>
+                       3. 找出目前从实验室到商业化转换的 3 个核心技术壁垒。</p>
+                    <p class="text-green-400"># 交付要求</p>
+                    <p>请提供一份跨行业机会矩阵，包含技术适配度、市场潜力和领先初创公司列表。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 3: Applying to Deep Research -->
+    <section class="mb-16">
+        <h2 class="text-2xl font-bold mb-8 border-l-4 border-green-500 pl-4 text-center">第三阶段：在 Deep Research 中获取结果</h2>
+        <div class="relative">
+            <!-- Timeline Line -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-200 hidden md:block"></div>
+            
+            <div class="space-y-12">
+                <!-- Node 1 -->
+                <div class="relative flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 md:pr-12 text-center md:text-right">
+                        <h4 class="font-bold text-lg text-green-600">输入提示词并启动</h4>
+                        <p class="text-sm text-gray-500">将优化后的提示词输入 Deep Research 工具。工具会根据提示词拆解出 10-20 个搜索查询。</p>
+                    </div>
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold z-10 my-4 md:my-0">1</div>
+                    <div class="md:w-1/2 md:pl-12"></div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="relative flex flex-col md:flex-row-reverse items-center">
+                    <div class="md:w-1/2 md:pl-12 text-center md:text-left">
+                        <h4 class="font-bold text-lg text-green-600">交互式澄清 (Human-in-the-loop)</h4>
+                        <p class="text-sm text-gray-500">Deep Research 可能会暂停并提问：“你更关注成本优势还是技术参数？” 此时要给出精确反馈。</p>
+                    </div>
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold z-10 my-4 md:my-0">2</div>
+                    <div class="md:w-1/2 md:pr-12"></div>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="relative flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 md:pr-12 text-center md:text-right">
+                        <h4 class="font-bold text-lg text-green-600">多源验证与报告生成</h4>
+                        <p class="text-sm text-gray-500">AI 自动交叉验证学术论文、商业新闻和专利数据库，最终生成万字级别的深度报告。</p>
+                    </div>
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold z-10 my-4 md:my-0">3</div>
+                    <div class="md:w-1/2 md:pl-12"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Takeaways / Pro Tips -->
+    <section class="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+        <h2 class="text-xl font-bold mb-6 text-blue-800 flex items-center">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            跨行业技术探索的 4 个“加分”提示词技巧
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="flex items-start space-x-3">
+                <div class="mt-1 text-blue-500">✓</div>
+                <div>
+                    <span class="font-bold block">第一性原理拆解</span>
+                    <p class="text-sm text-gray-600">要求 AI 忽略产品名称，只看物理/化学特性（例如：不查“喷头”，查“微流控液滴生成”）。</p>
+                </div>
+            </div>
+            <div class="flex items-start space-x-3">
+                <div class="mt-1 text-blue-500">✓</div>
+                <div>
+                    <span class="font-bold block">技术成熟度限制</span>
+                    <p class="text-sm text-gray-600">使用“TRL 4-7 级”等术语限制研究范围，只看那些已经走出实验室但未完全市场化的技术。</p>
+                </div>
+            </div>
+            <div class="flex items-start space-x-3">
+                <div class="mt-1 text-blue-500">✓</div>
+                <div>
+                    <span class="font-bold block">反直觉关联</span>
+                    <p class="text-sm text-gray-600">强迫 AI 寻找看似无关领域的关联（例如：“半导体制造技术”与“古建筑修复”的交叉点）。</p>
+                </div>
+            </div>
+            <div class="flex items-start space-x-3">
+                <div class="mt-1 text-blue-500">✓</div>
+                <div>
+                    <span class="font-bold block">引文追踪</span>
+                    <p class="text-sm text-gray-600">要求 Deep Research 追踪被引用最多的 5 篇非本领域论文，发现潜在的交叉学科突破点。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-20 text-center text-gray-400 text-sm">
+        <p>© 2026 AI 提示词工程指南 · 专注于深度研究与创新挖掘</p>
+        <p class="mt-2">使用 AI 优化 AI，是通往未来的捷径。</p>
+    </footer>
+
+</body>
+</html>
