@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 功能外挂演进信息图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #ffffff;
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+        .connector {
+            border-left: 2px dashed #e5e7eb;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+    <!-- Hero Section -->
+    <header class="max-w-5xl mx-auto pt-16 pb-12 px-6 text-center">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
+            从“聊天框”到“工具箱”
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            在自主智能体（Autonomous Agents）成为主流前，AI 通过 Function Calling 与 MCP（Model Context Protocol）实现的经典外挂功能形态。
+        </p>
+        <div class="mt-8 flex justify-center space-x-4">
+            <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium border border-blue-100">单次交互为主</span>
+            <span class="px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm font-medium border border-green-100">工具桥接</span>
+            <span class="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-sm font-medium border border-purple-100">受控执行</span>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 pb-24">
+        
+        <!-- Core Concept Section -->
+        <section class="mb-20 bg-gray-50 rounded-3xl p-8 border border-gray-100">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1 text-center md:text-left">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-900">核心机制：能力外挂</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        大语言模型（LLM）本身是“断网”的概率预测器。通过 <strong>Function Calling</strong> 或最新的 <strong>MCP 协议</strong>，模型可以将需求转化为结构化指令，调用外部环境。
+                    </p>
+                    <div class="flex items-center space-x-4 text-sm font-mono text-gray-500 justify-center md:justify-start">
+                        <span>User Request</span>
+                        <span>→</span>
+                        <span class="text-blue-600 font-bold">LLM Decision</span>
+                        <span>→</span>
+                        <span class="text-green-600 font-bold">External Tool</span>
+                    </div>
+                </div>
+                <div class="flex-shrink-0">
+                    <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="80" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="2"/>
+                        <rect x="70" y="70" width="60" height="60" rx="8" fill="#3B82F6" class="animate-pulse"/>
+                        <path d="M100 40V70M100 130V160M40 100H70M130 100H160" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="100" cy="40" r="4" fill="#9CA3AF"/>
+                        <circle cx="100" cy="160" r="4" fill="#9CA3AF"/>
+                        <circle cx="40" cy="100" r="4" fill="#9CA3AF"/>
+                        <circle cx="160" cy="100" r="4" fill="#9CA3AF"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Examples Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- 1. Web Search -->
+            <div class="step-card bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">联网智能搜索</h3>
+                <p class="text-sm text-gray-500 mb-4 font-medium uppercase tracking-wider">形态：ChatBox + Search Engine</p>
+                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    当用户询问实时新闻或专业事实时，模型生成搜索关键词，通过 API 获取网页摘要并总结。
+                </p>
+                <div class="bg-gray-50 rounded-lg p-3 text-xs italic text-gray-400 border-l-4 border-blue-400">
+                    "搜索 2024 年巴黎奥运会金牌榜..."
+                </div>
+                <div class="mt-4 text-xs text-blue-600 font-semibold">
+                    代表案例：Perplexity, ChatGPT Browse
+                </div>
+            </div>
+
+            <!-- 2. Python Execution -->
+            <div class="step-card bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Python 代码解释器</h3>
+                <p class="text-sm text-gray-500 mb-4 font-medium uppercase tracking-wider">形态：Code Interpreter</p>
+                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    在沙箱环境中运行代码，用于复杂数学计算、数据可视化或自动化生成脚本。
+                </p>
+                <div class="bg-gray-50 rounded-lg p-3 text-xs italic text-gray-400 border-l-4 border-yellow-400">
+                    "帮我计算这组数据的正态分布并画图..."
+                </div>
+                <div class="mt-4 text-xs text-yellow-600 font-semibold">
+                    代表案例：ChatGPT Advanced Data Analysis
+                </div>
+            </div>
+
+            <!-- 3. Excel Ops -->
+            <div class="step-card bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Excel 读写增强</h3>
+                <p class="text-sm text-gray-500 mb-4 font-medium uppercase tracking-wider">形态：File Connector</p>
+                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    从对话中提取关键结构化信息并导出为 .xlsx 文件，或读取用户上传的表格进行清洗和摘要。
+                </p>
+                <div class="bg-gray-50 rounded-lg p-3 text-xs italic text-gray-400 border-l-4 border-green-400">
+                    "将这段产品对比整理成 Excel 发给我..."
+                </div>
+                <div class="mt-4 text-xs text-green-600 font-semibold">
+                    代表案例：Claude Artifacts, Excel Plugins
+                </div>
+            </div>
+
+            <!-- 4. Knowledge Base (RAG) - Added -->
+            <div class="step-card bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">知识库/PDF 对话</h3>
+                <p class="text-sm text-gray-500 mb-4 font-medium uppercase tracking-wider">形态：RAG-powered Chat</p>
+                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    通过外挂向量数据库，模型可以在数万字的文档中精确检索相关片段，解决上下文窗口限制。
+                </p>
+                <div class="bg-gray-50 rounded-lg p-3 text-xs italic text-gray-400 border-l-4 border-purple-400">
+                    "根据上传的说明书，怎么排查错误..."
+                </div>
+                <div class="mt-4 text-xs text-purple-600 font-semibold">
+                    代表案例：ChatPDF, Kimi.ai
+                </div>
+            </div>
+
+            <!-- 5. API Automation - Added -->
+            <div class="step-card bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">工作流 API 自动化</h3>
+                <p class="text-sm text-gray-500 mb-4 font-medium uppercase tracking-wider">形态：Workflow Integrator</p>
+                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    通过 Zapier 等中间件，将对话指令转化为发送邮件、创建 Slack 消息或同步 GitHub 等外部操作。
+                </p>
+                <div class="bg-gray-50 rounded-lg p-3 text-xs italic text-gray-400 border-l-4 border-red-400">
+                    "把这段讨论整理成会议纪要并发邮件给团队..."
+                </div>
+                <div class="mt-4 text-xs text-red-600 font-semibold">
+                    代表案例：ChatGPT Plugins (Retired), Zapier AI
+                </div>
+            </div>
+
+            <!-- 6. Vision Analysis - Added -->
+            <div class="step-card bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">图像/视觉外挂分析</h3>
+                <p class="text-sm text-gray-500 mb-4 font-medium uppercase tracking-wider">形态：Multimodal Add-on</p>
+                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    通过 OCR 或图像描述模型外挂，LLM 能够识别截屏中的文字或代码，并进行逻辑调试。
+                </p>
+                <div class="bg-gray-50 rounded-lg p-3 text-xs italic text-gray-400 border-l-4 border-indigo-400">
+                    "看这张图，帮我修复里面的报错代码..."
+                </div>
+                <div class="mt-4 text-xs text-indigo-600 font-semibold">
+                    代表案例：GPT-4V, Gemini Vision
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Annotation / Footer -->
+        <section class="mt-20 border-t border-gray-100 pt-12">
+            <h2 class="text-2xl font-bold mb-8 text-center text-gray-900">演进逻辑：从“工具调用”到“自主思考”</h2>
+            <div class="flex flex-col md:flex-row justify-between gap-12">
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800 mb-2">1. 工具性 (Utility)</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        此时的模型更像是一个掌握了工具箱的客服。它不能改变工作流，只能在用户的指令下（单次交互）执行特定的外挂任务。
+                    </p>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800 mb-2">2. 环境限制 (Sandbox)</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        无论是 Python 还是 Excel 处理，通常都运行在高度隔离的环境中。这保证了安全性，但也限制了 AI 直接干预物理系统的能力。
+                    </p>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800 mb-2">3. 协议标准化 (MCP)</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Model Context Protocol (MCP) 的出现，试图让不同 AI 客户端能以通用的方式接入本地文件、数据库和外部服务，是通往 Agent 的关键。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12 px-6 text-center">
+        <p class="text-sm text-gray-400 mb-2">AI 交互演进观察 · 2024</p>
+        <p class="text-xs text-gray-600 uppercase tracking-widest">Single Page Infographic powered by HTML & Tailwind</p>
+    </footer>
+
+</body>
+</html>
