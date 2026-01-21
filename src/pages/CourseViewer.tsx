@@ -168,45 +168,47 @@ export function CourseViewer() {
           {/* Image Viewer (Left 30% -> 70%) */}
           <div 
             className={clsx(
-              "bg-black transition-all duration-500 ease-in-out relative overflow-auto",
+              "bg-black transition-all duration-500 ease-in-out relative shrink-0",
               isBrowserFull ? "fixed inset-0 z-50 w-screen h-screen" : "relative",
               !isBrowserFull && (isFullscreen ? "w-[70%]" : "w-[30%]")
             )}
           >
-            <div className="min-h-full min-w-full flex items-center justify-center relative">
-                {content?.html ? (
-                <iframe
-                    src={content.html}
-                    className="w-full border-none bg-white block"
-                    style={{ height: iframeHeight ? `${iframeHeight}px` : '100%' }}
-                    title="Presentation Content"
-                    onLoad={handleIframeLoad}
-                    scrolling="no"
-                />
-                ) : content?.image ? (
-                <img 
-                    src={content.image} 
-                    alt="Presentation" 
-                    className="max-w-full object-contain pointer-events-none select-none block"
-                    style={{ maxHeight: isMarking ? 'none' : '100%' }}
-                />
-                ) : (
-                <div className="text-gray-500">No Content</div>
-                )}
-                
-                {/* Marking Overlay */}
-                {isMarking && (
-                    <div className="absolute inset-0 z-40 pointer-events-auto">
-                        <ReactSketchCanvas
-                            style={{ border: 'none' }}
-                            width="100%"
-                            height="100%"
-                            strokeWidth={4}
-                            strokeColor="red"
-                            canvasColor="transparent"
-                        />
-                    </div>
-                )}
+            <div className="absolute inset-0 overflow-auto">
+              <div className="min-h-full min-w-full flex items-center justify-center relative">
+                  {content?.html ? (
+                  <iframe
+                      src={content.html}
+                      className="w-full border-none bg-white block"
+                      style={{ height: iframeHeight ? `${iframeHeight}px` : '100%' }}
+                      title="Presentation Content"
+                      onLoad={handleIframeLoad}
+                      scrolling="no"
+                  />
+                  ) : content?.image ? (
+                  <img 
+                      src={content.image} 
+                      alt="Presentation" 
+                      className="max-w-full object-contain pointer-events-none select-none block"
+                      style={{ maxHeight: isMarking ? 'none' : '100%' }}
+                  />
+                  ) : (
+                  <div className="text-gray-500">No Content</div>
+                  )}
+                  
+                  {/* Marking Overlay */}
+                  {isMarking && (
+                      <div className="absolute inset-0 z-40 pointer-events-auto">
+                          <ReactSketchCanvas
+                              style={{ border: 'none' }}
+                              width="100%"
+                              height="100%"
+                              strokeWidth={4}
+                              strokeColor="red"
+                              canvasColor="transparent"
+                          />
+                      </div>
+                  )}
+              </div>
             </div>
             
             <div className="absolute top-4 right-4 flex gap-2 z-50">
@@ -259,7 +261,7 @@ export function CourseViewer() {
           </div>
 
           {/* Right Tabs (Remaining width) */}
-          <div className={clsx("flex-1 flex flex-col bg-white dark:bg-zinc-900 border-l border-gray-200 dark:border-zinc-700 transition-all duration-500 ease-in-out")}>
+          <div className={clsx("flex-1 flex flex-col bg-white dark:bg-zinc-900 border-l border-gray-200 dark:border-zinc-700 transition-all duration-500 ease-in-out min-w-0")}>
             {/* Tab Headers */}
             <div className="flex border-b border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800">
               <button 
