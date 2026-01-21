@@ -69,6 +69,43 @@ export function CourseViewer() {
       });
   }, [courseName, unitName]);
 
+  // Global Keyboard Shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // ESC: Reset to standard layout
+      if (e.key === 'Escape') {
+        const isStandard = sidebarOpen && !isFullscreen && !isBrowserFull && activeTab === 'notes';
+        if (!isStandard) {
+          setSidebarOpen(true);
+          setIsFullscreen(false);
+          setIsBrowserFull(false);
+          setActiveTab('notes');
+        }
+      }
+
+      // Shift + ArrowUp/ArrowDown: Navigate units
+      if (e.shiftKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+        if (!courseName || !unitName || units.length === 0) return;
+        
+        e.preventDefault(); // Prevent default scrolling
+        
+        const currentIndex = units.indexOf(unitName);
+        if (currentIndex === -1) return;
+
+        if (e.key === 'ArrowUp' && currentIndex > 0) {
+          const prevUnit = units[currentIndex - 1];
+          navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(prevUnit)}`);
+        } else if (e.key === 'ArrowDown' && currentIndex < units.length - 1) {
+          const nextUnit = units[currentIndex + 1];
+          navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(nextUnit)}`);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [sidebarOpen, isFullscreen, isBrowserFull, activeTab, units, unitName, courseName, navigate]);
+
   const saveNotes = async () => {
     if (!courseName || !unitName) return;
     setSaving(true);
