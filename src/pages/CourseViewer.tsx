@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -6,7 +6,7 @@ import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, Monitor, X,
 import { ApiResponse, UnitContent } from '@/types';
 import { Mermaid } from '@/components/Mermaid';
 import { CanvasBoard } from '@/components/CanvasBoard';
-import { ReactSketchCanvas } from 'react-sketch-canvas';
+import { ReactSketchCanvas, ReactSketchCanvasRef } from 'react-sketch-canvas';
 import clsx from 'clsx';
 
 export function CourseViewer() {
@@ -23,6 +23,8 @@ export function CourseViewer() {
   const [saving, setSaving] = useState(false);
   const [isMarking, setIsMarking] = useState(false);
   const [iframeHeight, setIframeHeight] = useState<number | undefined>(undefined);
+  const canvasRef = useRef<ReactSketchCanvasRef>(null);
+  const [hasDrawings, setHasDrawings] = useState(false);
 
   // Auto-hide sidebar when entering browser full screen
   useEffect(() => {
@@ -72,8 +74,14 @@ export function CourseViewer() {
   // Global Keyboard Shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // ESC: Reset to standard layout
+      // ESC: Reset to standard layout or clear canvas
       if (e.key === 'Escape') {
+        if (isBrowserFull && hasDrawings) {
+             canvasRef.current?.clearCanvas();
+             setHasDrawings(false);
+             return;
+        }
+
         const isStandard = sidebarOpen && !isFullscreen && !isBrowserFull && activeTab === 'notes';
         if (!isStandard) {
           setSidebarOpen(true);
@@ -104,7 +112,7 @@ export function CourseViewer() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [sidebarOpen, isFullscreen, isBrowserFull, activeTab, units, unitName, courseName, navigate]);
+  }, [sidebarOpen, isFullscreen, isBrowserFull, activeTab, units, unitName, courseName, navigate, hasDrawings]);
 
   const saveNotes = async () => {
     if (!courseName || !unitName) return;
@@ -233,18 +241,20 @@ export function CourseViewer() {
                   )}
                   
                   {/* Marking Overlay */}
-                  {isMarking && (
-                      <div className="absolute inset-0 z-40 pointer-events-auto">
-                          <ReactSketchCanvas
-                              style={{ border: 'none' }}
-                              width="100%"
-                              height="100%"
-                              strokeWidth={4}
-                              strokeColor="red"
-                              canvasColor="transparent"
-                          />
-                      </div>
-                  )}
+                {isMarking && (
+                    <div className="absolute inset-0 z-40 pointer-events-auto">
+                        <ReactSketchCanvas
+                            ref={canvasRef}
+                            style={{ border: 'none' }}
+                            width="100%"
+                            height="100%"
+                            strokeWidth={4}
+                            strokeColor="red"
+                            canvasColor="transparent"
+                            onStroke={() => setHasDrawings(true)}
+                        />
+                    </div>
+                )}
               </div>
             </div>
             
