@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { ReactSketchCanvas, ReactSketchCanvasRef } from 'react-sketch-canvas';
-import { Maximize2, Minimize2, Save, Eraser, Trash2, Pen } from 'lucide-react';
+import { Maximize2, Minimize2, Save, Eraser, Trash2, Pen, Square, Circle, Minus } from 'lucide-react';
 import clsx from 'clsx';
 
 interface CanvasBoardProps {
@@ -24,6 +24,8 @@ const STROKE_WIDTHS = [
     { name: 'Marker', value: 20 },
 ];
 
+type Tool = 'pen' | 'eraser' | 'rectangle' | 'circle' | 'line';
+
 export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
     const canvasRef = useRef<ReactSketchCanvasRef>(null);
     const [isFullscreen, setIsFullscreen] = useState(false);
@@ -33,12 +35,17 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
     // Drawing State
     const [strokeColor, setStrokeColor] = useState('#000000');
     const [strokeWidth, setStrokeWidth] = useState(5);
-    const [eraserMode, setEraserMode] = useState(false);
+    const [tool, setTool] = useState<Tool>('pen');
+
+    // Shape Drawing State
+    const [isDrawingShape, setIsDrawingShape] = useState(false);
+    const [startPoint, setStartPoint] = useState<{x: number, y: number} | null>(null);
+    const [currentPoint, setCurrentPoint] = useState<{x: number, y: number} | null>(null);
 
     // Apply eraser mode
     useEffect(() => {
-        canvasRef.current?.eraseMode(eraserMode);
-    }, [eraserMode]);
+        canvasRef.current?.eraseMode(tool === 'eraser');
+    }, [tool]);
 
     // Load initial data
     useEffect(() => {
@@ -80,30 +87,169 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
         }
     };
 
+    // Shape Generation
+    const generateShapePoints = (type: Tool, start: {x: number, y: number}, end: {x: number, y: number}) => {
+        const points = [];
+        
+        // Helper to interpolate points for straighter lines
+        const interpolate = (p1: {x: number, y: number}, p2: {x: number, y: number}) => {
+            const dist = Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+            const steps = Math.max(2, Math.ceil(dist / 5)); // At least 2 steps, or every 5px
+            const result = [];
+            for (let i = 0; i <= steps; i++) {
+                const t = i / steps;
+                result.push({
+                    x: p1.x + (p2.x - p1.x) * t,
+                    y: p1.y + (p2.y - p1.y) * t
+                });
+            }
+            return result;
+        };
+
+        if (type === 'line') {
+            points.push(...interpolate(start, end));
+        } else if (type === 'rectangle') {
+            const p1 = start;
+            const p2 = { x: end.x, y: start.y };
+            const p3 = end;
+            const p4 = { x: start.x, y: end.y };
+            
+            // Add segments with interpolation to prevent smoothing into ellipse
+            points.push(...interpolate(p1, p2));
+            points.push(...interpolate(p2, p3).slice(1));
+            points.push(...interpolate(p3, p4).slice(1));
+            points.push(...interpolate(p4, p1).slice(1));
+        } else if (type === 'circle') {
+            const cx = (start.x + end.x) / 2;
+            const cy = (start.y + end.y) / 2;
+            const rx = Math.abs(end.x - start.x) / 2;
+            const ry = Math.abs(end.y - start.y) / 2;
+            const steps = 72;
+            for (let i = 0; i <= steps; i++) {
+                const theta = (i / steps) * 2 * Math.PI;
+                points.push({
+                    x: cx + rx * Math.cos(theta),
+                    y: cy + ry * Math.sin(theta)
+                });
+            }
+        }
+        return points;
+    };
+
+    const onShapePointerDown = (e: React.PointerEvent) => {
+        if (!['rectangle', 'circle', 'line'].includes(tool)) return;
+        e.preventDefault(); // Prevent scrolling
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        setStartPoint({x, y});
+        setCurrentPoint({x, y});
+        setIsDrawingShape(true);
+    };
+
+    const onShapePointerMove = (e: React.PointerEvent) => {
+        if (!isDrawingShape) return;
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        setCurrentPoint({x, y});
+    };
+
+    const onShapePointerUp = async (e: React.PointerEvent) => {
+        if (!isDrawingShape || !startPoint || !currentPoint) return;
+        setIsDrawingShape(false);
+        
+        const points = generateShapePoints(tool, startPoint, currentPoint);
+        
+        if (points.length > 0 && canvasRef.current) {
+             try {
+                 const currentPaths = await canvasRef.current.exportPaths();
+                 const newPath = {
+                     drawMode: true,
+                     strokeColor: strokeColor,
+                     strokeWidth: strokeWidth,
+                     paths: points,
+                     strokeLinecap: 'round',
+                     strokeLinejoin: 'round',
+                     startTimestamp: 0,
+                     endTimestamp: 0
+                 };
+                 // @ts-ignore - types might be slightly off for paths vs CanvasPath
+                 canvasRef.current.loadPaths([...currentPaths, newPath]);
+             } catch (err) {
+                 console.error("Error adding shape path:", err);
+             }
+        }
+        setStartPoint(null);
+        setCurrentPoint(null);
+    };
+
+    // Helper to render preview SVG
+    const renderPreviewShape = () => {
+        if (!isDrawingShape || !startPoint || !currentPoint) return null;
+        
+        // Calculate SVG path data
+        const points = generateShapePoints(tool, startPoint, currentPoint);
+        if (points.length === 0) return null;
+
+        const d = `M ${points.map(p => `${p.x},${p.y}`).join(' L ')}`;
+        
+        return (
+            <svg className="absolute inset-0 pointer-events-none" style={{ width: '100%', height: '100%' }}>
+                <path 
+                    d={d} 
+                    fill="none" 
+                    stroke={strokeColor} 
+                    strokeWidth={strokeWidth} 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                />
+            </svg>
+        );
+    };
+
     return (
         <div className={clsx(
             "flex flex-col bg-white",
             isFullscreen ? "fixed inset-0 z-50" : "h-full w-full relative"
         )}>
-            {/* Toolbar - Only visible/interactive in Fullscreen or maybe just always visible but limited in non-fullscreen? 
-                User requirement: "Non-fullscreen: show board content".
-                So in non-fullscreen, we hide toolbar and disable interaction.
-            */}
-            
+            {/* Toolbar - Only visible/interactive in Fullscreen */}
             {isFullscreen && (
                 <div className="flex items-center gap-4 p-2 border-b bg-gray-50 shadow-sm z-10 overflow-x-auto">
                     {/* Tools */}
                     <div className="flex items-center gap-2 border-r pr-4">
                         <button 
-                            onClick={() => setEraserMode(false)}
-                            className={clsx("p-2 rounded hover:bg-gray-200", !eraserMode && "bg-blue-100 text-blue-600")}
+                            onClick={() => setTool('pen')}
+                            className={clsx("p-2 rounded hover:bg-gray-200", tool === 'pen' && "bg-blue-100 text-blue-600")}
                             title="Pen"
                         >
                             <Pen size={20} />
                         </button>
                         <button 
-                            onClick={() => setEraserMode(true)}
-                            className={clsx("p-2 rounded hover:bg-gray-200", eraserMode && "bg-blue-100 text-blue-600")}
+                            onClick={() => setTool('rectangle')}
+                            className={clsx("p-2 rounded hover:bg-gray-200", tool === 'rectangle' && "bg-blue-100 text-blue-600")}
+                            title="Rectangle"
+                        >
+                            <Square size={20} />
+                        </button>
+                        <button 
+                            onClick={() => setTool('circle')}
+                            className={clsx("p-2 rounded hover:bg-gray-200", tool === 'circle' && "bg-blue-100 text-blue-600")}
+                            title="Circle"
+                        >
+                            <Circle size={20} />
+                        </button>
+                        <button 
+                            onClick={() => setTool('line')}
+                            className={clsx("p-2 rounded hover:bg-gray-200", tool === 'line' && "bg-blue-100 text-blue-600")}
+                            title="Line"
+                        >
+                            <Minus size={20} />
+                        </button>
+                        <button 
+                            onClick={() => setTool('eraser')}
+                            className={clsx("p-2 rounded hover:bg-gray-200", tool === 'eraser' && "bg-blue-100 text-blue-600")}
                             title="Eraser"
                         >
                             <Eraser size={20} />
@@ -124,11 +270,11 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
                                 key={c.name}
                                 onClick={() => {
                                     setStrokeColor(c.value);
-                                    setEraserMode(false);
+                                    if (tool === 'eraser') setTool('pen');
                                 }}
                                 className={clsx(
                                     "w-6 h-6 rounded-full border border-gray-300 shadow-sm transition-transform hover:scale-110",
-                                    strokeColor === c.value && !eraserMode && "ring-2 ring-blue-500 ring-offset-1"
+                                    strokeColor === c.value && tool !== 'eraser' && "ring-2 ring-blue-500 ring-offset-1"
                                 )}
                                 style={{ backgroundColor: c.value }}
                                 title={c.name}
@@ -185,6 +331,20 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
                         >
                             <Maximize2 size={20} /> Enter Fullscreen to Draw
                         </button>
+                    </div>
+                )}
+
+                {/* Shape Overlay - Only active when tool is shape and in fullscreen */}
+                {isFullscreen && ['rectangle', 'circle', 'line'].includes(tool) && (
+                    <div 
+                        className="absolute inset-0 z-20"
+                        onPointerDown={onShapePointerDown}
+                        onPointerMove={onShapePointerMove}
+                        onPointerUp={onShapePointerUp}
+                        onPointerLeave={onShapePointerUp}
+                        style={{ touchAction: 'none' }}
+                    >
+                        {renderPreviewShape()}
                     </div>
                 )}
                 
