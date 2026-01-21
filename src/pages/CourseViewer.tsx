@@ -99,6 +99,19 @@ export function CourseViewer() {
     }
   };
 
+  const handleMenuClick = () => {
+    const isStandard = sidebarOpen && !isFullscreen && !isBrowserFull && activeTab === 'notes';
+    
+    if (isStandard) {
+      setSidebarOpen(false);
+    } else {
+      setSidebarOpen(true);
+      setIsFullscreen(false);
+      setIsBrowserFull(false);
+      setActiveTab('notes');
+    }
+  };
+
   if (!courseName) return null;
 
   return (
@@ -143,7 +156,7 @@ export function CourseViewer() {
         {/* Header / Toolbar - Hide in Full Browser Mode */}
         {!isBrowserFull && (
             <div className="h-12 border-b border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 flex items-center px-4 gap-4 shadow-sm z-10">
-            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1 hover:bg-gray-100 dark:hover:bg-zinc-700 rounded transition-colors">
+            <button onClick={handleMenuClick} className="p-1 hover:bg-gray-100 dark:hover:bg-zinc-700 rounded transition-colors">
                 <Menu size={20} />
             </button>
             <div className="flex-1 font-medium text-lg">{unitName}</div>
