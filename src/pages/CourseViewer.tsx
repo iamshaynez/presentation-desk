@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, Monitor, X, Pen } from 'lucide-react';
+import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, ChevronRight, Monitor, X, Pen } from 'lucide-react';
 import { ApiResponse, UnitContent } from '@/types';
 import { Mermaid } from '@/components/Mermaid';
 import { CanvasBoard } from '@/components/CanvasBoard';
@@ -141,6 +141,21 @@ export function CourseViewer() {
         }
     } catch (err) {
         console.error("Failed to access iframe content", err);
+    }
+  };
+
+  const handleNavigate = (direction: 'prev' | 'next') => {
+    if (!courseName || !unitName || units.length === 0) return;
+    
+    const currentIndex = units.indexOf(unitName);
+    if (currentIndex === -1) return;
+
+    if (direction === 'prev' && currentIndex > 0) {
+      const prevUnit = units[currentIndex - 1];
+      navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(prevUnit)}`);
+    } else if (direction === 'next' && currentIndex < units.length - 1) {
+      const nextUnit = units[currentIndex + 1];
+      navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(nextUnit)}`);
     }
   };
 
@@ -305,6 +320,26 @@ export function CourseViewer() {
                   </button>
               )}
             </div>
+
+            {/* Navigation Buttons - Show when in Expand or Full Screen Mode */}
+            {(isFullscreen || isBrowserFull) && (
+                <>
+                    <button
+                        onClick={() => handleNavigate('prev')}
+                        className="absolute bottom-4 left-4 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors z-50"
+                        title="Previous Unit"
+                    >
+                        <ChevronLeft size={24} />
+                    </button>
+                    <button
+                        onClick={() => handleNavigate('next')}
+                        className="absolute bottom-4 right-4 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors z-50"
+                        title="Next Unit"
+                    >
+                        <ChevronRight size={24} />
+                    </button>
+                </>
+            )}
           </div>
 
           {/* Right Tabs (Remaining width) */}
