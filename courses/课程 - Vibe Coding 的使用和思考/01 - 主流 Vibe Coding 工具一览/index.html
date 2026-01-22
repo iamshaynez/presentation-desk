@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Vibe Coding 行业全景报告 (完整版)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --accent-blue: #0066FF; /* Trae/Cursor vibe */
+            --accent-purple: #7B68EE; /* Claude/Windsurf vibe */
+            --accent-green: #10a37f; /* OpenAI vibe */
+            --accent-orange: #F2994A; /* Replit/Bolt vibe */
+            --border-color: #eaeaea;
+            --card-bg: #fdfdfd;
+            --font-serif: 'Noto Serif SC', 'Source Han Serif CN', serif;
+            --font-sans: 'Noto Sans SC', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, .serif { font-family: var(--font-serif); }
+        
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            font-family: var(--font-serif);
+        }
+
+        /* Section Styling */
+        section { margin-bottom: 80px; }
+
+        .section-header {
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--text-main);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .section-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: right;
+            max-width: 400px;
+        }
+
+        /* Timeline / History */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-color);
+            z-index: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            z-index: 1;
+            background: #fff;
+            padding: 10px;
+            text-align: center;
+            width: 18%;
+        }
+
+        .timeline-year {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 5px;
+        }
+
+        .timeline-content {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Tools Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        /* Tool Card Design */
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+            border-color: #d1d1d1;
+        }
+
+        .tool-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .tag-global { background: #f0f0f0; color: #555; }
+        .tag-china { background: #fff0f0; color: #d63031; border: 1px solid #ffcccc; }
+        .tag-open { background: #f0fff4; color: #27ae60; border: 1px solid #ccffdd; }
+
+        .tool-header {
+            margin-bottom: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: var(--font-serif);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .tool-maker {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tool-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .feature-list li {
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            padding-left: 14px;
+            position: relative;
+            color: #444;
+        }
+
+        .feature-list li::before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: var(--text-light);
+        }
+
+        /* Highlights */
+        .highlight-card {
+            border: 2px solid var(--accent-blue);
+            background: #f8fbff;
+        }
+        
+        .highlight-card .tool-name { color: var(--accent-blue); }
+
+        /* Comparison Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            color: var(--text-main);
+            background: #fafafa;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .section-desc { text-align: left; }
+            .timeline { flex-direction: column; padding: 0; }
+            .timeline::before { width: 2px; height: 100%; left: 20px; top: 0; }
+            .timeline-item { width: 100%; text-align: left; padding-left: 50px; margin-bottom: 20px; }
+            .timeline-year { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Vibe Coding</h1>
+            <div class="subtitle">工具生态全景调研报告 · 2026</div>
+            <p style="margin-top: 20px; color: var(--text-light); font-size: 0.9rem;">COVERING: CURSOR, TRAE, WINDSURF, CLAUDE, OPENAI & MORE</p>
+        </header>
+
+        <!-- 1. 历史演变 -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">01. 进化简史</h2>
+                <div class="section-desc">从简单的补全到能够自主构建软件的智能代理。</div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2021-2022</div>
+                    <div><strong>Copilot 时代</strong></div>
+                    <div class="timeline-content">GitHub Copilot 发布。基于 Codex，实现单行/函数级代码补全 (Tab-Tab)。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div><strong>Chat 时代</strong></div>
+                    <div class="timeline-content">GPT-4 问世。IDE 侧边栏对话成为主流，Cursor 早期版本开始探索 Composer。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div><strong>Agent 时代</strong></div>
+                    <div class="timeline-content">Cursor Composer v2 爆发，Windsurf 推出 Flow。Vibe Coding 概念成型：多文件编辑、全项目感知。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2025</div>
+                    <div><strong>Native IDE 时代</strong></div>
+                    <div class="timeline-content">字节跳动 Trae、Claude Code 发布。不再是插件，而是原生 AI 编辑器。OpenAI 推出 Operator。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2026 (Now)</div>
+                    <div><strong>Auto-Software</strong></div>
+                    <div class="timeline-content">从需求文档直接生成可部署应用。人类角色转变为 Reviewer。</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 全球领军产品 -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">02. 全球领军者 (Global)</h2>
+                <div class="section-desc">定义行业标准，探索技术边界。</div>
+            </div>
+            
+            <h3 class="serif" style="margin-bottom: 20px;">The "Big Three" IDEs</h3>
+            <div class="grid-3">
+                <!-- Cursor -->
+                <div class="tool-card highlight-card" style="border-color: var(--text-main);">
+                    <div class="tool-tag tag-global">行业标杆</div>
+                    <div class="tool-header">
+                        <span class="tool-name">Cursor</span>
+                        <span class="tool-maker">Anysphere</span>
+                    </div>
+                    <p class="tool-desc">Vibe Coding 的定义者。它首先让 Tab 键具备了修改多行代码的能力，并首创了 Composer。</p>
+                    <ul class="feature-list">
+                        <li><strong>Composer:</strong> 能够创建、编辑、删除多个文件的多模态面板。</li>
+                        <li><strong>Shadow Workspace:</strong> 隐式运行代码检查错误，不打扰用户。</li>
+                        <li><strong>cpp (Codebase++):</strong> 极速索引大型代码库。</li>
+                    </ul>
+                </div>
+
+                <!-- Windsurf -->
+                <div class="tool-card" style="border-top: 4px solid var(--accent-purple);">
+                    <div class="tool-tag tag-global">强力竞品</div>
+                    <div class="tool-header">
+                        <span class="tool-name">Windsurf</span>
+                        <span class="tool-maker">Codeium</span>
+                    </div>
+                    <p class="tool-desc">Codeium 推出的独立 IDE。主打 "Flows" 概念，强调 AI 对上下文的深层理解，不仅是协作，而是“结对编程”。</p>
+                    <ul class="feature-list">
+                        <li><strong>Cascade Flow:</strong> 能够理解最近操作历史的上下文感知流。</li>
+                        <li><strong>Deep Context:</strong> 相比 Cursor 更擅长理解复杂项目结构。</li>
+                    </ul>
+                </div>
+
+                <!-- GitHub Copilot -->
+                <div class="tool-card">
+                    <div class="tool-tag tag-global">老牌霸主</div>
+                    <div class="tool-header">
+                        <span class="tool-name">Copilot Workspace</span>
+                        <span class="tool-maker">GitHub / Microsoft</span>
+                    </div>
+                    <p class="tool-desc">正在从插件向完整工作区进化。依托 GitHub 庞大的数据和生态优势。</p>
+                    <ul class="feature-list">
+                        <li><strong>GitHub Native:</strong> 直接从 Issue 或 PR 启动编码任务。</li>
+                        <li><strong>Copilot Edits:</strong> 类似于 Composer 的多文件编辑体验。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="serif" style="margin: 40px 0 20px 0;">Next-Gen Agents & Web Generators</h3>
+            <div class="grid-3">
+                <!-- Claude Code -->
+                <div class="tool-card">
+                    <div class="tool-tag tag-global">终端革命</div>
+                    <div class="tool-header">
+                        <span class="tool-name">Claude Code</span>
+                        <span class="tool-maker">Anthropic</span>
+                    </div>
+                    <p class="tool-desc">生活在 CLI 中的高级代理。不依赖特定编辑器，直接操作文件系统。</p>
+                </div>
+
+                <!-- OpenAI Operator -->
+                <div class="tool-card">
+                    <div class="tool-tag tag-global">系统接管</div>
+                    <div class="tool-header">
+                        <span class="tool-name">Operator (Codex)</span>
+                        <span class="tool-maker">OpenAI</span>
+                    </div>
+                    <p class="tool-desc">通过 Computer Use API 操作浏览器和开发工具，全能型助手。</p>
+                </div>
+
+                <!-- Replit / Bolt -->
+                <div class="tool-card">
+                    <div class="tool-tag tag-global">Web生成</div>
+                    <div class="tool-header">
+                        <span class="tool-name">Replit / Bolt.new</span>
+                        <span class="tool-maker">StackBlitz 等</span>
+                    </div>
+                    <p class="tool-desc">浏览器即 IDE。Bolt.new 允许用户通过一句话 Prompt 生成完整的全栈 Web 应用。</p>
+                </div>
+            </div>
+
+            <!-- Open Source Section -->
+            <div style="margin-top: 30px; background: #fafafa; padding: 20px; border-radius: 8px;">
+                <h4 style="margin-bottom: 10px;">开源力量 (Open Source)</h4>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <strong>OpenCode:</strong> Google 开源项目，强调无锁定的 CLI 体验。
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <strong>PearAI:</strong> Cursor 的开源替代品，基于 VS Code，允许用户自带 API Key。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 中国本土力量 -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">03. 中国本土力量 (Domestic)</h2>
+                <div class="section-desc">结合本土模型优势，从模仿到超越。</div>
+            </div>
+
+            <div class="grid-2">
+                <!-- Trae -->
+                <div class="tool-card highlight-card">
+                    <div class="tool-tag tag-china">本土最佳</div>
+                    <div class="tool-header">
+                        <span class="tool-name">Trae</span>
+                        <span class="tool-maker">字节跳动 ByteDance</span>
+                    </div>
+                    <p class="tool-desc">目前国内完成度最高的 AI Native IDE。不仅集成了豆包大模型，还巧妙融合了 Claude 3.5 Sonnet 的能力。</p>
+                    <ul class="feature-list">
+                        <li><strong>双模设计:</strong> 默认 IDE 模式辅助，SOLO 模式全自动接管。</li>
+                        <li><strong>中文优化:</strong> 对中文指令和国内开发环境（如 npm 镜像等）有更好支持。</li>
+                        <li><strong>免费策略:</strong> 目前阶段提供极其慷慨的免费模型使用额度。</li>
+                    </ul>
+                </div>
+
+                <!-- Tongyi Lingma -->
+                <div class="tool-card">
+                    <div class="tool-tag tag-china">广泛应用</div>
+                    <div class="tool-header">
+                        <span class="tool-name">通义灵码</span>
+                        <span class="tool-maker">阿里巴巴 Alibaba</span>
+                    </div>
+                    <p class="tool-desc">国内用户量极大的插件级产品，深度集成于 IDEA 和 VS Code 生态。</p>
+                    <ul class="feature-list">
+                        <li><strong>企业级:</strong> 强调企业代码库的安全与私有化部署。</li>
+                        <li><strong>阿里云集成:</strong> 与云端部署、DevOps 流程结合紧密。</li>
+                        <li><strong>Qwen 2.5:</strong> 底层基于强大的通义千问模型。</li>
+                    </ul>
+                </div>
+
+                <!-- MarsCode -->
+                <div class="tool-card">
+                    <div class="tool-tag tag-china">早期探索</div>
+                    <div class="tool-header">
+                        <span class="tool-name">MarsCode</span>
+                        <span class="tool-maker">字节跳动 ByteDance</span>
+                    </div>
+                    <p class="tool-desc">字节早期的 AI 编程助手，提供云端 IDE 和 IDE 插件。虽然 Trae 是目前的旗舰，但 MarsCode 依然在维护，更侧重云端开发环境。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 核心对比总结 -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">04. 决策指南</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th width="20%">特性 / 工具</th>
+                        <th>Cursor</th>
+                        <th>Trae (字节)</th>
+                        <th>Windsurf</th>
+                        <th>Claude Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>形态</strong></td>
+                        <td>独立 IDE (VSCode Fork)</td>
+                        <td>独立 IDE (VSCode Fork)</td>
+                        <td>独立 IDE (VSCode Fork)</td>
+                        <td>命令行 CLI</td>
+                    </tr>
+                    <tr>
+                        <td><strong>核心优势</strong></td>
+                        <td>体验最流畅，功能最全</td>
+                        <td><strong>免费、中文好、Solo模式</strong></td>
+                        <td>上下文感知最强 (Flow)</td>
+                        <td>不仅写代码，还能管理系统</td>
+                    </tr>
+                    <tr>
+                        <td><strong>主要模型</strong></td>
+                        <td>Claude 3.5 / GPT-4o</td>
+                        <td><strong>Doubao / Claude 3.5</strong></td>
+                        <td>Cascade (混合模型)</td>
+                        <td>Claude 3.7 Sonnet</td>
+                    </tr>
+                    <tr>
+                        <td><strong>适合人群</strong></td>
+                        <td>追求极致效率的全栈</td>
+                        <td><strong>国内开发者、初学者</strong></td>
+                        <td>大型复杂项目维护者</td>
+                        <td>极客、DevOps 工程师</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer style="text-align: center; color: var(--text-light); border-top: 1px solid var(--border-color); padding-top: 40px;">
+            <p>© 2026 Vibe Coding Industry Research. Generated with Gemini.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
