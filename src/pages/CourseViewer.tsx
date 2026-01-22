@@ -19,7 +19,7 @@ export function CourseViewer() {
   const [noteContent, setNoteContent] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isBrowserFull, setIsBrowserFull] = useState(false);
-  const [showNotePreview, setShowNotePreview] = useState(false);
+  const [showNotePreview, setShowNotePreview] = useState(true);
   const [saving, setSaving] = useState(false);
   const [isMarking, setIsMarking] = useState(false);
   const [iframeHeight, setIframeHeight] = useState<number | undefined>(undefined);
