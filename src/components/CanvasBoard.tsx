@@ -42,6 +42,48 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
     const [startPoint, setStartPoint] = useState<{x: number, y: number} | null>(null);
     const [currentPoint, setCurrentPoint] = useState<{x: number, y: number} | null>(null);
 
+    const [canvasBaseSize, setCanvasBaseSize] = useState({ width: 1920, height: 1080 });
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [scale, setScale] = useState(1);
+
+    // Monitor resize to update scale or canvas base size
+    useEffect(() => {
+        if (!containerRef.current) return;
+        
+        const updateSize = () => {
+            if (!containerRef.current) return;
+            const { width, height } = containerRef.current.getBoundingClientRect();
+            
+            if (isFullscreen) {
+                // In fullscreen, ensure base size covers the screen
+                setCanvasBaseSize(prev => {
+                    if (width > prev.width || height > prev.height) {
+                        return {
+                            width: Math.max(prev.width, width),
+                            height: Math.max(prev.height, height)
+                        };
+                    }
+                    return prev;
+                });
+                setScale(1);
+            } else {
+                // In preview, scale down to fit
+                // We use a small timeout to ensure state is up to date, though not strictly necessary in effect
+                const scaleX = width / canvasBaseSize.width;
+                const scaleY = height / canvasBaseSize.height;
+                setScale(Math.min(scaleX, scaleY));
+            }
+        };
+
+        const observer = new ResizeObserver(updateSize);
+        observer.observe(containerRef.current);
+        
+        // Initial call
+        updateSize();
+
+        return () => observer.disconnect();
+    }, [isFullscreen, canvasBaseSize.width, canvasBaseSize.height]);
+
     // Apply eraser mode
     useEffect(() => {
         canvasRef.current?.eraseMode(tool === 'eraser');
@@ -321,7 +363,7 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
             )}
 
             {/* Canvas Area */}
-            <div className="flex-1 relative bg-white overflow-hidden cursor-crosshair">
+            <div className="flex-1 relative bg-white overflow-hidden cursor-crosshair" ref={containerRef}>
                 {!isFullscreen && (
                     /* Overlay to prevent interaction in non-fullscreen */
                     <div className="absolute inset-0 z-10 bg-transparent flex items-center justify-center group cursor-default">
@@ -334,31 +376,43 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
                     </div>
                 )}
 
-                {/* Shape Overlay - Only active when tool is shape and in fullscreen */}
-                {isFullscreen && ['rectangle', 'circle', 'line'].includes(tool) && (
-                    <div 
-                        className="absolute inset-0 z-20"
-                        onPointerDown={onShapePointerDown}
-                        onPointerMove={onShapePointerMove}
-                        onPointerUp={onShapePointerUp}
-                        onPointerLeave={onShapePointerUp}
-                        style={{ touchAction: 'none' }}
-                    >
-                        {renderPreviewShape()}
-                    </div>
-                )}
-                
-                <ReactSketchCanvas
-                    ref={canvasRef}
-                    style={{ border: 'none' }}
-                    width="100%"
-                    height="100%"
-                    strokeWidth={strokeWidth}
-                    strokeColor={strokeColor}
-                    eraserWidth={strokeWidth * 2}
-                    canvasColor="transparent"
-                    className={!isFullscreen ? "pointer-events-none" : ""}
-                />
+                <div
+                    style={{
+                        width: isFullscreen ? '100%' : canvasBaseSize.width,
+                        height: isFullscreen ? '100%' : canvasBaseSize.height,
+                        transform: isFullscreen ? 'none' : `translate(-50%, -50%) scale(${scale})`,
+                        position: isFullscreen ? 'static' : 'absolute',
+                        top: isFullscreen ? 'auto' : '50%',
+                        left: isFullscreen ? 'auto' : '50%',
+                        transformOrigin: 'center center',
+                    }}
+                >
+                    {/* Shape Overlay - Only active when tool is shape and in fullscreen */}
+                    {isFullscreen && ['rectangle', 'circle', 'line'].includes(tool) && (
+                        <div 
+                            className="absolute inset-0 z-20"
+                            onPointerDown={onShapePointerDown}
+                            onPointerMove={onShapePointerMove}
+                            onPointerUp={onShapePointerUp}
+                            onPointerLeave={onShapePointerUp}
+                            style={{ touchAction: 'none' }}
+                        >
+                            {renderPreviewShape()}
+                        </div>
+                    )}
+                    
+                    <ReactSketchCanvas
+                        ref={canvasRef}
+                        style={{ border: 'none' }}
+                        width="100%"
+                        height="100%"
+                        strokeWidth={strokeWidth}
+                        strokeColor={strokeColor}
+                        eraserWidth={strokeWidth * 2}
+                        canvasColor="transparent"
+                        className={!isFullscreen ? "pointer-events-none" : ""}
+                    />
+                </div>
             </div>
         </div>
     );
