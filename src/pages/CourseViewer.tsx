@@ -24,6 +24,7 @@ export function CourseViewer() {
   const [isMarking, setIsMarking] = useState(false);
   const [iframeHeight, setIframeHeight] = useState<number | undefined>(undefined);
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [hasDrawings, setHasDrawings] = useState(false);
 
   // Auto-hide sidebar when entering browser full screen
@@ -36,6 +37,46 @@ export function CourseViewer() {
         setIsMarking(false);
     }
   }, [isBrowserFull]);
+
+  // Update iframe height when layout changes (e.g. fullscreen toggle)
+  useEffect(() => {
+      const updateHeight = () => {
+          const iframe = iframeRef.current;
+          if (!iframe) return;
+          
+          try {
+              const win = iframe.contentWindow;
+              const doc = win?.document;
+              
+              if (win && doc && doc.body) {
+                  // Force a recalc by temporarily checking content height
+                  const height = Math.max(
+                      doc.body.scrollHeight,
+                      doc.body.offsetHeight,
+                      doc.documentElement.scrollHeight,
+                      doc.documentElement.offsetHeight
+                  );
+                  
+                  // Only update if significantly different to avoid loops
+                  setIframeHeight(prev => {
+                      if (!prev || Math.abs(prev - height) > 2) {
+                          return height;
+                      }
+                      return prev;
+                  });
+              }
+          } catch (err) {
+              console.error("Failed to update iframe height", err);
+          }
+      };
+
+      // Update immediately
+      updateHeight();
+
+      // And after transition
+      const timer = setTimeout(updateHeight, 550);
+      return () => clearTimeout(timer);
+  }, [isFullscreen, isBrowserFull, content]);
 
   // Fetch units
   useEffect(() => {
@@ -134,10 +175,31 @@ export function CourseViewer() {
   const handleIframeLoad = (e: any) => {
     try {
         const iframe = e.target;
-        if (iframe.contentWindow?.document?.body) {
-             // Add a small buffer or use scrollHeight
-             const height = iframe.contentWindow.document.body.scrollHeight;
-             setIframeHeight(height);
+        const win = iframe.contentWindow;
+        const doc = win?.document;
+
+        if (win && doc && doc.body) {
+             const updateHeight = () => {
+                 const height = Math.max(
+                    doc.body.scrollHeight,
+                    doc.body.offsetHeight,
+                    doc.documentElement.scrollHeight,
+                    doc.documentElement.offsetHeight
+                 );
+                 setIframeHeight(height);
+             };
+
+             // Initial update
+             updateHeight();
+
+             // Observe changes
+             if (win.ResizeObserver) {
+                 const observer = new win.ResizeObserver(updateHeight);
+                 observer.observe(doc.body);
+             }
+             
+             // Fallback/Extra check for async content
+             setTimeout(updateHeight, 500);
         }
     } catch (err) {
         console.error("Failed to access iframe content", err);
@@ -237,9 +299,10 @@ export function CourseViewer() {
               <div className="min-h-full min-w-full flex items-center justify-center relative">
                   {content?.html ? (
                   <iframe
+                      ref={iframeRef}
                       src={content.html}
                       className="w-full border-none bg-white block"
-                      style={{ height: iframeHeight ? `${iframeHeight}px` : '100%' }}
+                      style={{ height: iframeHeight ? `${iframeHeight}px` : '100%', minHeight: '100%' }}
                       title="Presentation Content"
                       onLoad={handleIframeLoad}
                       scrolling="no"
