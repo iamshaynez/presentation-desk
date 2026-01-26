@@ -19,6 +19,7 @@ export function CourseViewer() {
   const [noteContent, setNoteContent] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isBrowserFull, setIsBrowserFull] = useState(false);
+  const [isPresentationMode, setIsPresentationMode] = useState(false);
   const [showNotePreview, setShowNotePreview] = useState(true);
   const [saving, setSaving] = useState(false);
   const [isMarking, setIsMarking] = useState(false);
@@ -37,6 +38,13 @@ export function CourseViewer() {
         setIsMarking(false);
     }
   }, [isBrowserFull]);
+
+  // Handle Presentation Mode
+  useEffect(() => {
+      // Presentation mode primarily affects the right panel and content width,
+      // but doesn't force isFullscreen state logic for the sidebar anymore.
+      // Sidebar visibility is handled by sidebarOpen state.
+  }, [isPresentationMode]);
 
   // Update iframe height when layout changes (e.g. fullscreen toggle)
   useEffect(() => {
@@ -76,7 +84,7 @@ export function CourseViewer() {
       // And after transition
       const timer = setTimeout(updateHeight, 550);
       return () => clearTimeout(timer);
-  }, [isFullscreen, isBrowserFull, content]);
+  }, [isFullscreen, isBrowserFull, content, isPresentationMode]);
 
   // Fetch units
   useEffect(() => {
@@ -222,16 +230,14 @@ export function CourseViewer() {
   };
 
   const handleMenuClick = () => {
-    const isStandard = sidebarOpen && !isFullscreen && !isBrowserFull && activeTab === 'notes';
-    
-    if (isStandard) {
-      setSidebarOpen(false);
-    } else {
-      setSidebarOpen(true);
-      setIsFullscreen(false);
-      setIsBrowserFull(false);
-      setActiveTab('notes');
+    // If browser is full, we shouldn't even see the menu button normally, but just in case
+    if (isBrowserFull) {
+        setIsBrowserFull(false);
+        setSidebarOpen(true);
+        return;
     }
+
+    setSidebarOpen(!sidebarOpen);
   };
 
   if (!courseName) return null;
@@ -242,7 +248,7 @@ export function CourseViewer() {
       <div 
         className={clsx(
           "bg-white dark:bg-zinc-800 border-r border-gray-200 dark:border-zinc-700 transition-all duration-500 ease-in-out flex flex-col overflow-hidden",
-          (sidebarOpen && !isFullscreen && !isBrowserFull) ? "w-64 opacity-100" : "w-0 opacity-0"
+          (sidebarOpen && !isBrowserFull) ? "w-64 opacity-100" : "w-0 opacity-0"
         )}
       >
         <div className="flex flex-col h-full min-w-[16rem]"> {/* Prevent content reflow during transition */}
@@ -282,17 +288,32 @@ export function CourseViewer() {
                 <Menu size={20} />
             </button>
             <div className="flex-1 font-medium text-lg">{unitName}</div>
+            <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Presentation Mode</span>
+                <button 
+                    onClick={() => setIsPresentationMode(!isPresentationMode)}
+                    className={clsx(
+                        "w-12 h-6 rounded-full p-1 transition-colors duration-300 focus:outline-none",
+                        isPresentationMode ? "bg-blue-600" : "bg-gray-300 dark:bg-zinc-600"
+                    )}
+                >
+                    <div className={clsx(
+                        "bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-300",
+                        isPresentationMode ? "translate-x-6" : "translate-x-0"
+                    )} />
+                </button>
+            </div>
             </div>
         )}
 
         {/* Content Area */}
         <div className="flex-1 flex overflow-hidden">
-          {/* Image Viewer (Left 30% -> 70%) */}
+          {/* Image Viewer (Left 30% -> 70% or 100% in Presentation Mode) */}
           <div 
             className={clsx(
               "bg-black transition-all duration-500 ease-in-out relative shrink-0",
               isBrowserFull ? "fixed inset-0 z-50 w-screen h-screen" : "relative",
-              !isBrowserFull && (isFullscreen ? "w-[70%]" : "w-[30%]")
+              !isBrowserFull && (isPresentationMode ? "w-full" : (isFullscreen ? "w-[70%]" : "w-[30%]"))
             )}
           >
             <div className="absolute inset-0 overflow-auto">
@@ -356,8 +377,12 @@ export function CourseViewer() {
                 <>
                   <button 
                     onClick={() => setIsFullscreen(!isFullscreen)}
-                    className="p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors"
-                    title={isFullscreen ? "Restore Width" : "Expand Width"}
+                    className={clsx(
+                        "p-2 bg-black/50 text-white rounded hover:bg-black/70 transition-colors",
+                        isPresentationMode ? "opacity-50 cursor-not-allowed" : ""
+                    )}
+                    disabled={isPresentationMode}
+                    title={isPresentationMode ? "Disabled in Presentation Mode" : (isFullscreen ? "Restore Width" : "Expand Width")}
                   >
                     {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
                   </button>
