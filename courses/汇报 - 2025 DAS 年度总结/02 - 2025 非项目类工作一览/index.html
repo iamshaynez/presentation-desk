@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 非项目类工作概览</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #2563eb;
+            --text-main: #0f172a;
+            --text-body: #475569;
+            --border-color: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 16:9 Fixed Ratio Container - Filling top/left/right */
+        .ppt-slide {
+            width: 100vw;
+            /* Height is 9/16 of the width to maintain 16:9 */
+            min-height: 56.25vw; 
+            background-color: #ffffff;
+            box-sizing: border-box;
+            padding: 4% 5%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            margin-bottom: 4%;
+        }
+
+        .main-title {
+            font-size: clamp(2rem, 4.5vw, 4rem);
+            font-weight: 700;
+            color: var(--text-main);
+            border-left: 0.8vw solid var(--brand-blue);
+            padding-left: 1.5rem;
+            line-height: 1;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2.5vw;
+            flex-grow: 1;
+        }
+
+        .info-card {
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            padding: 2vw;
+            display: flex;
+            flex-direction: column;
+            border-top: 0.4vw solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-top-color: var(--brand-blue);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .card-title {
+            font-size: clamp(1.1rem, 1.8vw, 2.2rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1.5vw;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-content {
+            font-size: clamp(0.9rem, 1.2vw, 1.5rem);
+            line-height: 1.8;
+            color: var(--text-body);
+        }
+
+        .card-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card-content li {
+            margin-bottom: 1vw;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .card-content li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.7em;
+            width: 0.5vw;
+            height: 0.5vw;
+            background-color: var(--brand-blue);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 2vw;
+            border-top: 1px solid var(--border-color);
+            font-size: clamp(0.7rem, 1vw, 1.2rem);
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        /* Full screen support for 4K */
+        @media (min-width: 2560px) {
+            .main-title { border-left-width: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ppt-slide">
+        <!-- Top Left Header -->
+        <header class="header">
+            <h1 class="main-title">2025 非项目类工作概览</h1>
+        </header>
+
+        <!-- Main Body: 5 equal columns -->
+        <main class="content-grid">
+            
+            <!-- Item 1: 数据能力 -->
+            <section class="info-card">
+                <div class="card-title">数据能力</div>
+                <div class="card-content">
+                    <ul>
+                        <li>全公司宣讲指标平台方法论</li>
+                        <li>明确关键业务指标口径和定义</li>
+                        <li>提供十数场跨部门专题培训</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 2: 企业架构 -->
+            <section class="info-card">
+                <div class="card-title">企业架构</div>
+                <div class="card-content">
+                    <ul>
+                        <li>存量业务架构梳理</li>
+                        <li>构建企业架构梳理基本框架</li>
+                        <li>已完成应用功能和关键业务流程整理，工作整体有序进行中</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 3: 创新探索 -->
+            <section class="info-card">
+                <div class="card-title">创新探索</div>
+                <div class="card-content">
+                    <ul>
+                        <li>AI 商户下沉城市商圈数据匹配试点运行</li>
+                        <li>完成 AI 商户分类标签 POC</li>
+                        <li>提交相关发明专利</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 4: 合规管理 -->
+            <section class="info-card">
+                <div class="card-title">合规管理</div>
+                <div class="card-content">
+                    <ul>
+                        <li>关键口径管理和监管报送制度建设</li>
+                        <li>流程梳理</li>
+                        <li>相关监管类报告开发投产</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 5: 合规审查 -->
+            <section class="info-card">
+                <div class="card-title">合规审查</div>
+                <div class="card-content">
+                    <ul>
+                        <li>JRT 全面监督审查通过，无发现项</li>
+                        <li>首次数据平台进入检查范围</li>
+                        <li>保障核心业务合规稳定运行</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            Express Company Technology & Data and Application Solution
+        </footer>
+    </div>
+
+</body>
+</html>

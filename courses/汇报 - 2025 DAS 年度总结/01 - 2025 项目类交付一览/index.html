@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 项目类工作统计</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #2563eb;
+            --text-main: #0f172a;
+            --text-body: #475569;
+            --border-color: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 16:9 Fixed Ratio - Fully fill top/left/right */
+        .ppt-slide {
+            width: 100vw;
+            height: 56.25vw; /* Maintain 16:9 height */
+            background-color: #ffffff;
+            box-sizing: border-box;
+            padding: 3vw 4vw;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            margin-bottom: 2.5vw;
+        }
+
+        .main-title {
+            font-size: clamp(1.8rem, 3.2vw, 4rem);
+            font-weight: 700;
+            color: var(--text-main);
+            border-left: 0.8vw solid var(--brand-blue);
+            padding-left: 1.5vw;
+            line-height: 1;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5vw;
+            margin-bottom: 2.5vw;
+        }
+
+        .stat-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5vw;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8vw;
+            margin-bottom: 1.5vw;
+            color: var(--brand-blue);
+        }
+
+        .stat-header svg {
+            width: 1.8vw;
+            height: 1.8vw;
+        }
+
+        .stat-label {
+            font-size: clamp(1rem, 1.3vw, 1.8rem);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .data-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1vw;
+            flex-grow: 1;
+        }
+
+        .data-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5vw;
+        }
+
+        .num-highlight {
+            font-size: clamp(1.8rem, 2.8vw, 4rem);
+            font-weight: 800;
+            color: var(--brand-blue);
+            line-height: 1;
+        }
+
+        .unit {
+            font-size: clamp(0.8rem, 1vw, 1.4rem);
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .sub-desc {
+            font-size: clamp(0.75rem, 0.9vw, 1.2rem);
+            color: var(--text-body);
+        }
+
+        .divider {
+            height: 1px;
+            background: #f1f5f9;
+            margin: 0.8vw 0;
+        }
+
+        /* Milestones */
+        .milestones-section {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .milestones-title {
+            font-size: clamp(1.1rem, 1.6vw, 2.2rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1.5vw;
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+        }
+
+        .milestones-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: #f1f5f9;
+        }
+
+        .milestones-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5vw;
+        }
+
+        .m-card {
+            border: 1px solid var(--border-color);
+            padding: 1.5vw;
+            border-radius: 12px;
+            border-top: 0.4vw solid #e2e8f0;
+            background: #fcfdfe;
+        }
+
+        .m-title {
+            font-size: clamp(0.95rem, 1.25vw, 1.8rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.8vw;
+            display: flex;
+            align-items: center;
+            gap: 0.5vw;
+        }
+
+        .m-title svg {
+            width: 1.2vw;
+            height: 1.2vw;
+            color: var(--brand-blue);
+        }
+
+        .m-content {
+            font-size: clamp(0.8rem, 1vw, 1.4rem);
+            line-height: 1.6;
+            color: var(--text-body);
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 1.5vw;
+            border-top: 1px solid var(--border-color);
+            font-size: clamp(0.75rem, 1vw, 1.4rem);
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        svg { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="ppt-slide">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="main-title">2025 项目类工作统计</h1>
+        </header>
+
+        <!-- Top Section: Stats -->
+        <main class="stats-grid">
+            
+            <!-- Delivery -->
+            <section class="stat-card">
+                <div class="stat-header">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="stat-label">项目类交付</span>
+                </div>
+                <div class="data-row">
+                    <div class="data-item">
+                        <span class="num-highlight">29</span>
+                        <span class="unit">个 B 端项目</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="num-highlight">94</span>
+                        <span class="unit">个 C 端需求</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="num-highlight">27</span>
+                        <span class="unit">个 Minor Enhancement 需求</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Operations -->
+            <section class="stat-card">
+                <div class="stat-header">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+                    <span class="stat-label">变更与运维</span>
+                </div>
+                <div class="data-row">
+                    <div class="data-item">
+                        <span class="num-highlight">507</span>
+                        <span class="unit">个生产变更</span>
+                    </div>
+                    <div class="sub-desc">应用系统 257 / 数据平台 250</div>
+                    <div class="divider"></div>
+                    <div class="data-item">
+                        <span class="num-highlight">456</span>
+                        <span class="unit">个分析/运营工单</span>
+                    </div>
+                    <div class="sub-desc">应用系统 215 / 数据平台 270</div>
+                    <div class="divider"></div>
+                    <div class="data-item">
+                        <span class="num-highlight">337</span>
+                        <span class="unit">个其他支持类工单</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Platform -->
+            <section class="stat-card">
+                <div class="stat-header">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    <span class="stat-label">数据指标平台</span>
+                </div>
+                <div class="data-row">
+                    <div class="data-item">
+                        <span class="num-highlight">2404</span>
+                        <span class="unit">个业务指标</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="num-highlight">1603</span>
+                        <span class="unit">个业务维度</span>
+                    </div>
+                    <div class="sub-desc">覆盖 44 个数据集市</div>
+                    <div class="divider"></div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="sub-desc">新增报表 <span class="font-bold text-slate-800">18</span></div>
+                        <div class="sub-desc">迁移报表 <span class="font-bold text-slate-800">30</span></div>
+                        <div class="sub-desc col-span-2">改造/下线 (KYL) <span class="font-bold text-slate-800">24</span></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Section: Milestones -->
+        <section class="milestones-section">
+            <h2 class="milestones-title">重点项目和里程碑</h2>
+            <div class="milestones-grid">
+                <!-- M1 -->
+                <div class="m-card">
+                    <h3 class="m-title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        关键产品支持
+                    </h3>
+                    <p class="m-content">涵盖间接受理方 IA, SoftPOS, Transit 以及 ApplePay In-App 等核心支付产品支撑。</p>
+                </div>
+                <!-- M2 -->
+                <div class="m-card">
+                    <h3 class="m-title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        关键项目交付
+                    </h3>
+                    <p class="m-content">Corporate Card 账单、个人结售汇报送、精选商户 H5、小程序一键绑卡等活动底层建设。</p>
+                </div>
+                <!-- M3 -->
+                <div class="m-card">
+                    <h3 class="m-title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        基础架构合规
+                    </h3>
+                    <p class="m-content">北京数据集群启动，提供独立数据 Lab 环境及关键平台业务流程的跨地域容灾能力。</p>
+                </div>
+                <!-- M4 -->
+                <div class="m-card">
+                    <h3 class="m-title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        监管合规保障
+                    </h3>
+                    <p class="m-content">年底临时监管非监督审查项目按时高质量完成，确保监管合规性与检查零项遗漏。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            Express Company Technology & Data and Application Solution
+        </footer>
+    </div>
+
+</body>
+</html>

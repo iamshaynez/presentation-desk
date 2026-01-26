@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>规划 - 部门管理和思考</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #2563eb;
+            --text-main: #0f172a;
+            --text-body: #475569;
+            --border-color: #f1f5f9;
+            --icon-bg: #eff6ff;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 16:9 Fixed Ratio - Filling top/left/right fully */
+        .ppt-slide {
+            width: 100vw;
+            height: 56.25vw; /* Maintain 16:9 height */
+            background-color: #ffffff;
+            box-sizing: border-box;
+            padding: 4vw 5vw;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            margin-bottom: 5vw;
+        }
+
+        .main-title {
+            font-size: clamp(2rem, 4vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-main);
+            border-left: 0.8vw solid var(--brand-blue);
+            padding-left: 1.5vw;
+            line-height: 1;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3.5vw;
+            flex-grow: 1;
+        }
+
+        .info-card {
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            padding: 2.8vw;
+            display: flex;
+            flex-direction: column;
+            border-top: 0.5vw solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .info-card:hover {
+            border-top-color: var(--brand-blue);
+            box-shadow: 0 1.5vw 4vw rgba(0, 0, 0, 0.04);
+            transform: translateY(-0.5vw);
+        }
+
+        .icon-box {
+            width: 4.5vw;
+            height: 4.5vw;
+            background-color: var(--icon-bg);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.5vw;
+            color: var(--brand-blue);
+        }
+
+        .icon-box svg {
+            width: 2.5vw;
+            height: 2.5vw;
+        }
+
+        .card-title {
+            font-size: clamp(1.3rem, 2.2vw, 3rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1.8vw;
+            line-height: 1.3;
+        }
+
+        .card-content {
+            font-size: clamp(0.95rem, 1.35vw, 1.8rem);
+            line-height: 1.85;
+            color: var(--text-body);
+        }
+
+        .card-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card-content li {
+            margin-bottom: 1.2vw;
+            position: relative;
+            padding-left: 1.8vw;
+        }
+
+        .card-content li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.75em;
+            width: 0.6vw;
+            height: 0.6vw;
+            background-color: var(--brand-blue);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 2.5vw;
+            border-top: 1px solid var(--border-color);
+            font-size: clamp(0.7rem, 1.1vw, 1.4rem);
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        /* 4K polish */
+        @media (min-width: 2560px) {
+            .main-title { border-left-width: 20px; }
+            .info-card { border-top-width: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ppt-slide">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="main-title">规划 - 部门管理和思考</h1>
+        </header>
+
+        <!-- Main Grid: 3 Management Pillars -->
+        <main class="content-grid">
+            
+            <!-- Item 1: Innovation & Tech -->
+            <section class="info-card">
+                <div class="icon-box">
+                    <!-- AI/Tech/Innovation Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.674a1 1 0 00.908-.588l3.358-7.606A7.001 7.001 0 007 10c0 1.954.8 3.723 2.082 5.003l1.103 1.103a1 1 0 01.378.894V17z" />
+                    </svg>
+                </div>
+                <div class="card-title">创新和科技</div>
+                <div class="card-content">
+                    <ul>
+                        <li>AI 编码实践的重构</li>
+                        <li>部门(甚至公司) AI 文化的共识建立</li>
+                        <li>技术生产力工具链的代际升级</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 2: People Management -->
+            <section class="info-card">
+                <div class="icon-box">
+                    <!-- People/Development Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                </div>
+                <div class="card-title">人员管理和发展</div>
+                <div class="card-content">
+                    <ul>
+                        <li>关键岗位的职责调配</li>
+                        <li>建立高效人才流动与激励机制</li>
+                        <li>团队整体活力的持续提高</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 3: Empowerment -->
+            <section class="info-card">
+                <div class="icon-box">
+                    <!-- Enablement/Network Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                    </svg>
+                </div>
+                <div class="card-title">赋能</div>
+                <div class="card-content">
+                    <ul>
+                        <li>业务视角的全部门培养</li>
+                        <li>业务部门的深度交流与互通</li>
+                        <li>从被动支持向主动赋能的转型</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Fixed Bottom Footer -->
+        <footer class="footer">
+            Express Company Technology & Data and Application Solution
+        </footer>
+    </div>
+
+</body>
+</html>

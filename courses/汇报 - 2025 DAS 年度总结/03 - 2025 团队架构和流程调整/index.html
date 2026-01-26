@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>团队管理工作 - 汇报单页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #2563eb;
+            --text-main: #0f172a;
+            --text-body: #475569;
+            --border-color: #f1f5f9;
+            --icon-bg: #eff6ff;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 16:9 Ratio - Filling top/left/right fully */
+        .ppt-slide {
+            width: 100vw;
+            height: 56.25vw; /* Maintain 16:9 height */
+            background-color: #ffffff;
+            box-sizing: border-box;
+            padding: 4vw 5vw;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            margin-bottom: 5vw;
+        }
+
+        .main-title {
+            font-size: clamp(2rem, 4vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-main);
+            border-left: 0.8vw solid var(--brand-blue);
+            padding-left: 1.5vw;
+            line-height: 1;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3vw;
+            flex-grow: 1;
+        }
+
+        .info-card {
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            padding: 2.5vw;
+            display: flex;
+            flex-direction: column;
+            border-top: 0.4vw solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .info-card:hover {
+            border-top-color: var(--brand-blue);
+            box-shadow: 0 1vw 3vw rgba(0, 0, 0, 0.03);
+            transform: translateY(-0.5vw);
+        }
+
+        .icon-box {
+            width: 4vw;
+            height: 4vw;
+            background-color: var(--icon-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2vw;
+            color: var(--brand-blue);
+        }
+
+        .icon-box svg {
+            width: 2.2vw;
+            height: 2.2vw;
+        }
+
+        .card-title {
+            font-size: clamp(1.2rem, 2vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1.5vw;
+        }
+
+        .card-content {
+            font-size: clamp(0.9rem, 1.25vw, 1.6rem);
+            line-height: 1.8;
+            color: var(--text-body);
+        }
+
+        .card-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card-content li {
+            margin-bottom: 1vw;
+            position: relative;
+            padding-left: 1.5vw;
+        }
+
+        .card-content li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.7em;
+            width: 0.5vw;
+            height: 0.5vw;
+            background-color: var(--brand-blue);
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 2vw;
+            border-top: 1px solid var(--border-color);
+            font-size: clamp(0.7rem, 1vw, 1.3rem);
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        /* 4K+ Screen Polish */
+        @media (min-width: 2560px) {
+            .main-title { border-left-width: 15px; }
+            .info-card { border-top-width: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ppt-slide">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="main-title">2025 团队架构变化和流程调整</h1>
+        </header>
+
+        <!-- Main Grid: 3 Equal Infographic Columns -->
+        <main class="content-grid">
+            
+            <!-- Item 1: Organization -->
+            <section class="info-card">
+                <div class="icon-box">
+                    <!-- Users/Hierarchy Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </div>
+                <div class="card-title">组织架构变化</div>
+                <div class="card-content">
+                    <ul>
+                        <li>团队组织架构高效整合合并</li>
+                        <li>研发全链路流程整合与优化</li>
+                        <li>人员核心职责开展部分轮换</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 2: Cost Optimization -->
+            <section class="info-card">
+                <div class="icon-box">
+                    <!-- Chart Down Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+                    </svg>
+                </div>
+                <div class="card-title">成本和效率</div>
+                <div class="card-content">
+                    <ul>
+                        <li>通过工具赋能提升自动化水平</li>
+                        <li>研发流程合并，工时统筹管理，关键研发指标统一管理</li>
+                        <li>进一步优化商业工具和产品的使用场景，降低成本</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 3: Knowledge Sharing -->
+            <section class="info-card">
+                <div class="icon-box">
+                    <!-- Lightbulb Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.674a1 1 0 00.908-.588l3.358-7.606A7.001 7.001 0 007 10c0 1.954.8 3.723 2.082 5.003l1.103 1.103a1 1 0 01.378.894V17z" />
+                    </svg>
+                </div>
+                <div class="card-title">知识分享</div>
+                <div class="card-content">
+                    <ul>
+                        <li>累计开展四次团队内深度分享</li>
+                        <li>探索存量知识库管理和利用的最佳实践（业务流程，需求，测试案例等）</li>
+                        <li>多维度拓宽技术团队整体知识面，和行业发展与时俱进</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Fixed Bottom Footer -->
+        <footer class="footer">
+            Express Company Technology & Data and Application Solution
+        </footer>
+    </div>
+
+</body>
+</html>

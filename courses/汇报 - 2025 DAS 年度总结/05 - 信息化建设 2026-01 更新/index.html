@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信息化建设阶段性更新 2026-01</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #2563eb;
+            --success-blue: #1d4ed8;
+            --active-blue: #60a5fa;
+            --plan-gray: #94a3b8;
+            --text-main: #0f172a;
+            --text-body: #475569;
+            --border-color: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 16:9 Fixed Ratio Container - Filling top/left/right fully */
+        .ppt-slide {
+            width: 100vw;
+            height: 56.25vw; /* Maintain 16:9 height */
+            background-color: #ffffff;
+            box-sizing: border-box;
+            padding: 3vw 4vw;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            margin-bottom: 2.5vw;
+        }
+
+        .main-title {
+            font-size: clamp(1.8rem, 3vw, 3.5rem);
+            font-weight: 700;
+            color: var(--text-main);
+            border-left: 0.8vw solid var(--brand-blue);
+            padding-left: 1.5vw;
+            line-height: 1;
+        }
+
+        /* Section Title Style */
+        .section-title {
+            font-size: clamp(1rem, 1.5vw, 2rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1.5vw;
+            display: flex;
+            align-items: center;
+            gap: 0.8vw;
+        }
+
+        .section-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        /* Goals Layout */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5vw;
+            margin-bottom: 3vw;
+        }
+
+        .goal-card {
+            padding: 1.5vw;
+            border: 1px solid var(--border-color);
+            background: #fcfdfe;
+            border-radius: 8px;
+            display: flex;
+            gap: 1vw;
+            align-items: flex-start;
+        }
+
+        .goal-icon {
+            flex-shrink: 0;
+            width: 2.5vw;
+            height: 2.5vw;
+            color: var(--brand-blue);
+            opacity: 0.8;
+        }
+
+        .goal-text {
+            font-size: clamp(0.8rem, 1vw, 1.4rem);
+            line-height: 1.5;
+            color: var(--text-body);
+            font-weight: 500;
+        }
+
+        /* Roadmap Layout */
+        .roadmap-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5vw;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .milestone-node {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-dot {
+            width: 1.8vw;
+            height: 1.8vw;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2vw;
+            background: #ffffff;
+            border: 0.3vw solid #e2e8f0;
+            color: #e2e8f0;
+        }
+
+        .node-completed .status-dot {
+            border-color: var(--success-blue);
+            background: var(--success-blue);
+            color: white;
+        }
+
+        .node-active .status-dot {
+            border-color: var(--active-blue);
+            background: white;
+            color: var(--active-blue);
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 1.5vw;
+            border-radius: 12px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-top: 0.4vw solid #e2e8f0;
+        }
+
+        .node-active .info-card { border-top-color: var(--active-blue); }
+        .node-completed .info-card { border-top-color: var(--success-blue); background: #f8fafc; }
+        .node-planned .info-card { border-top-color: var(--plan-gray); opacity: 0.7; }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2vw 0.7vw;
+            border-radius: 4px;
+            font-size: clamp(0.6rem, 0.8vw, 1rem);
+            font-weight: 700;
+            margin-bottom: 0.8vw;
+            width: fit-content;
+        }
+
+        .tag-done { background: #dbeafe; color: #1e40af; }
+        .tag-doing { background: #eff6ff; color: #2563eb; }
+        .tag-plan { background: #f1f5f9; color: #475569; }
+
+        .card-title {
+            font-size: clamp(0.9rem, 1.2vw, 1.6rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.8vw;
+            line-height: 1.4;
+        }
+
+        .card-content {
+            font-size: clamp(0.75rem, 0.9vw, 1.2rem);
+            line-height: 1.6;
+            color: var(--text-body);
+        }
+
+        .goal-badge {
+            margin-top: auto;
+            padding-top: 0.8vw;
+            font-weight: 700;
+            color: var(--brand-blue);
+            font-size: clamp(0.8rem, 1vw, 1.3rem);
+            display: flex;
+            align-items: center;
+            gap: 0.4vw;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 1.5vw;
+            border-top: 1px solid var(--border-color);
+            font-size: clamp(0.7rem, 0.9vw, 1.2rem);
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        svg { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="ppt-slide">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="main-title">信息化建设阶段性更新 2026-01</h1>
+        </header>
+
+        <!-- Goals Section -->
+        <section>
+            <h2 class="section-title">信息化建设目标</h2>
+            <div class="goals-grid">
+                <div class="goal-card">
+                    <div class="goal-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    </div>
+                    <div class="goal-text">完整整理 EC 关键业务能力和业务流程</div>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    </div>
+                    <div class="goal-text">清晰定义业务与应用系统关系，指导架构长期规划</div>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div class="goal-text">目标运营线上化、信息化，最终实现数字化</div>
+                </div>
+                <div class="goal-card">
+                    <div class="goal-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    </div>
+                    <div class="goal-text">定位业务全景中的运营痛点和信息化盲点</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section class="flex-grow flex flex-col">
+            <h2 class="section-title">时间和计划</h2>
+            <div class="roadmap-container">
+                <!-- Node 1: Completed -->
+                <div class="milestone-node node-completed">
+                    <div class="status-dot">
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <div class="info-card">
+                        <span class="tag tag-done">已完成</span>
+                        <h3 class="card-title">存量系统流程梳理</h3>
+                        <div class="card-content">完成现有业务系统关键业务流程的全面梳理与文档化。</div>
+                    </div>
+                </div>
+
+                <!-- Node 2: Doing A -->
+                <div class="milestone-node node-active">
+                    <div class="status-dot">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <div class="info-card">
+                        <span class="tag tag-doing">进行中</span>
+                        <h3 class="card-title">业务架构重构</h3>
+                        <div class="card-content">通过 Workshop 与访谈，进行领域重构，形成可持续维护的知识库。</div>
+                        <div class="goal-badge">目标 2026Q2</div>
+                    </div>
+                </div>
+
+                <!-- Node 3: Doing B -->
+                <div class="milestone-node node-active">
+                    <div class="status-dot">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <div class="info-card">
+                        <span class="tag tag-doing">进行中</span>
+                        <h3 class="card-title">应用架构整合</h3>
+                        <div class="card-content">制定应用整合计划，推进统一运营平台建设及容器化改造，降低成本。</div>
+                        <div class="goal-badge">目标 2026Q2</div>
+                    </div>
+                </div>
+
+                <!-- Node 4: Planned -->
+                <div class="milestone-node node-planned">
+                    <div class="status-dot">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                    </div>
+                    <div class="info-card">
+                        <span class="tag tag-plan">规划中</span>
+                        <h3 class="card-title">一体化管理框架</h3>
+                        <div class="card-content">探索业务科技一体化的企业架构（EA）管理框架与长效治理机制。</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fixed Bottom Footer -->
+        <footer class="footer">
+            Express Company Technology & Data and Application Solution
+        </footer>
+    </div>
+
+</body>
+</html>
