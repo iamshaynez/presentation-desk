@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, ChevronRight, Monitor, X, Pen } from 'lucide-react';
+import { Menu, Maximize2, Minimize2, Save, Eye, EyeOff, ChevronLeft, ChevronRight, Monitor, X, Pen, Download, Loader2 } from 'lucide-react';
 import { ApiResponse, UnitContent } from '@/types';
 import { Mermaid } from '@/components/Mermaid';
 import { CanvasBoard } from '@/components/CanvasBoard';
@@ -23,6 +23,7 @@ export function CourseViewer() {
   const [showNotePreview, setShowNotePreview] = useState(true);
   const [saving, setSaving] = useState(false);
   const [isMarking, setIsMarking] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [iframeHeight, setIframeHeight] = useState<number | undefined>(undefined);
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -229,6 +230,34 @@ export function CourseViewer() {
     }
   };
 
+  const handleExportPdf = async () => {
+    if (!courseName) return;
+    setIsExporting(true);
+    try {
+        const response = await fetch(`/api/courses/${encodeURIComponent(courseName)}/export-pdf`);
+        if (!response.ok) {
+             const data = await response.json();
+             alert(data.error || 'Export failed');
+             return;
+        }
+        
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${courseName}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    } catch (e) {
+        console.error(e);
+        alert('Export failed');
+    } finally {
+        setIsExporting(false);
+    }
+  };
+
   const handleMenuClick = () => {
     // If browser is full, we shouldn't even see the menu button normally, but just in case
     if (isBrowserFull) {
@@ -289,6 +318,15 @@ export function CourseViewer() {
             </button>
             <div className="flex-1 font-medium text-lg">{unitName}</div>
             <div className="flex items-center gap-2">
+                <button
+                    onClick={handleExportPdf}
+                    disabled={isExporting}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-zinc-700 hover:bg-gray-200 dark:hover:bg-zinc-600 rounded text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed mr-2"
+                    title="Export Course to PDF"
+                >
+                    {isExporting ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
+                    <span>Export PDF</span>
+                </button>
                 <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Presentation Mode</span>
                 <button 
                     onClick={() => setIsPresentationMode(!isPresentationMode)}

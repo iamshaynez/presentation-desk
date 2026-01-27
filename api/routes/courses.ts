@@ -2,6 +2,8 @@ import { Router } from 'express';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import puppeteer from 'puppeteer';
+import { PDFDocument } from 'pdf-lib';
 
 const router = Router();
 
@@ -57,6 +59,106 @@ router.get('/:courseName', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Failed to list units' });
+  }
+});
+
+// Export PDF
+router.get('/:courseName/export-pdf', async (req, res) => {
+  const { courseName } = req.params;
+  const coursePath = path.join(COURSES_ROOT, courseName);
+
+  console.log(`Starting PDF export for course: ${courseName}`);
+
+  try {
+    if (!await fileExists(coursePath)) {
+        return res.status(404).json({ success: false, error: 'Course not found' });
+    }
+
+    // Get all units
+    const entries = await fs.readdir(coursePath, { withFileTypes: true });
+    const units = entries
+      .filter(entry => entry.isDirectory())
+      .map(entry => entry.name)
+      // Ensure sorting matches typical file system order
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+
+    if (units.length === 0) {
+        return res.status(400).json({ success: false, error: 'No units found in course' });
+    }
+
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
+    const mergedPdf = await PDFDocument.create();
+    let hasContent = false;
+
+    // Process units sequentially
+    for (const unitName of units) {
+        const unitPath = path.join(coursePath, unitName);
+        const files = await fs.readdir(unitPath);
+        const htmlFile = files.find(f => f.toLowerCase() === 'index.html');
+
+        if (htmlFile) {
+            console.log(`Processing unit: ${unitName}`);
+            const page = await browser.newPage();
+            
+            // Set viewport to 16:9 aspect ratio (e.g., 1920x1080)
+            await page.setViewport({ width: 1920, height: 1080 });
+
+            // Construct URL
+            const encodedCourse = encodeURIComponent(courseName);
+            const encodedUnit = encodeURIComponent(unitName);
+            const encodedHtml = encodeURIComponent(htmlFile);
+            const url = `http://localhost:3001/courses-static/${encodedCourse}/${encodedUnit}/${encodedHtml}`;
+
+            try {
+                // Wait for network idle to ensure resources are loaded
+                await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
+                
+                // Generate PDF
+                const pdfBuffer = await page.pdf({
+                    printBackground: true,
+                    format: 'A4',
+                    landscape: true,
+                    margin: { top: 0, right: 0, bottom: 0, left: 0 }
+                });
+
+                // Merge into final document
+                const unitPdf = await PDFDocument.load(pdfBuffer);
+                const copiedPages = await mergedPdf.copyPages(unitPdf, unitPdf.getPageIndices());
+                copiedPages.forEach((page) => mergedPdf.addPage(page));
+                hasContent = true;
+
+            } catch (err) {
+                console.error(`Failed to process unit ${unitName}:`, err);
+            } finally {
+                await page.close();
+            }
+        }
+    }
+
+    await browser.close();
+
+    if (!hasContent) {
+        return res.status(400).json({ success: false, error: 'No HTML content found to export' });
+    }
+
+    const finalPdfBytes = await mergedPdf.save();
+    
+    // Send response
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(courseName)}.pdf"`);
+    res.setHeader('Content-Length', finalPdfBytes.length);
+    res.send(Buffer.from(finalPdfBytes));
+
+  } catch (error) {
+    console.error('PDF Export Error:', error);
+    // If headers already sent, we can't send JSON error, but usually we catch before streaming starts
+    if (!res.headersSent) {
+        res.status(500).json({ success: false, error: 'Failed to export PDF' });
+    }
   }
 });
 
