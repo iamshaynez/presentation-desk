@@ -25,7 +25,6 @@ presentation-desk/
 ├── courses/               # Data Root (Content Storage)
 │   └── [Course Name]/     # Level 1: Course Directory
 │       └── [Unit Name]/   # Level 2: Unit/Topic Directory
-│           ├── Readme.md  # Teaching content (Markdown)
 │           ├── Update.md  # User notes (Markdown, Writable)
 │           └── [Image]    # Presentation slide (*.png, *.jpg, *.svg)
 │
@@ -51,9 +50,8 @@ presentation-desk/
 *   **Course Structure**:
     *   **Level 1**: Course Name (Folder)
     *   **Level 2**: Unit/Topic Name (Folder)
-        *   `Readme.md`: Teaching content (Read-only in UI)
         *   `Update.md`: User notes (Read/Write in UI)
-        *   `*.png/jpg/svg`: Presentation image (First found image is displayed)
+        *   `index.html`: Presentation Page, iframe view in CourseView
 
 ## 4. Key Conventions
 *   **Static Files**: The `courses` directory is served statically at `/courses-static`.
