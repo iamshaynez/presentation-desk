@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何系统性的设计 AI 实习生可以做的工作？</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --accent: #0ea5e9;
+            --bg-card: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* 16:9 Slide Container */
+        .slide-container {
+            width: 100vw;
+            height: 56.25vw;
+            background: #ffffff;
+            padding: 3vw 4vw;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Typography */
+        .main-title {
+            font-size: clamp(2rem, 3.2vw, 4.5rem);
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1.1;
+            margin-bottom: 0.5vw;
+            letter-spacing: -0.05vw;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 1.2vw, 1.6rem);
+            color: #64748b;
+            margin-bottom: 2.5vw;
+            font-weight: 400;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Grid Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5vw;
+            flex-grow: 1;
+            margin-bottom: 2vw;
+        }
+
+        /* Cards */
+        .feature-card {
+            background: #fff;
+            border: 0.15vw solid var(--border);
+            border-radius: 1vw;
+            padding: 1.5vw;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0.4vw 1.5vw -0.5vw rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-0.3vw);
+            box-shadow: 0 1vw 2vw -0.5vw rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e1;
+        }
+
+        .card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8vw;
+            margin-bottom: 1.2vw;
+        }
+
+        .icon-box {
+            width: 3.5vw;
+            height: 3.5vw;
+            border-radius: 0.8vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5vw;
+            margin-bottom: 0.5vw;
+        }
+
+        .card-title {
+            font-size: clamp(1.1rem, 1.5vw, 2rem);
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .card-desc {
+            font-size: clamp(0.75rem, 0.95vw, 1.2rem);
+            color: #64748b;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin-bottom: 1.5vw;
+        }
+
+        /* Tool Box within Card */
+        .tool-box {
+            background: var(--bg-card);
+            border-radius: 0.6vw;
+            padding: 1vw;
+            border: 1px solid var(--border);
+        }
+
+        .tool-label {
+            font-size: clamp(0.6rem, 0.75vw, 1rem);
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5vw;
+            display: flex;
+            align-items: center;
+            gap: 0.3vw;
+        }
+
+        .tool-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tool-item {
+            font-size: clamp(0.7rem, 0.9vw, 1.2rem);
+            color: #334155;
+            font-weight: 600;
+            padding: 0.2vw 0;
+            display: flex;
+            align-items: center;
+            gap: 0.4vw;
+        }
+        
+        .tool-item::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Footer Section */
+        .footer-section {
+            margin-top: auto;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 1.5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .scenario-pill {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 0.6vw 1.2vw;
+            border-radius: 2vw;
+            font-size: clamp(0.75rem, 0.95vw, 1.3rem);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.6vw;
+        }
+
+        .brand-text {
+            font-size: clamp(0.7rem, 0.9vw, 1.2rem);
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        /* Specific Colors for Columns */
+        .col-1 .icon-box { background: #dbeafe; color: #2563eb; }
+        .col-2 .icon-box { background: #dcfce7; color: #16a34a; }
+        .col-3 .icon-box { background: #ffedd5; color: #ea580c; }
+        .col-4 .icon-box { background: #f3e8ff; color: #9333ea; }
+        
+        .col-1 .card-title { color: #1e3a8a; }
+        .col-2 .card-title { color: #14532d; }
+        .col-3 .card-title { color: #7c2d12; }
+        .col-4 .card-title { color: #581c87; }
+
+        /* SVG Sizing */
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Header -->
+        <header>
+            <h1 class="main-title">如何系统性的设计 <span class="text-blue-600">AI 实习生</span>的工作？</h1>
+            <div class="subtitle">
+                只有在 <span class="font-bold text-slate-700">知识、信息、介质、逻辑</span> 四个维度均有确信的 <span class="bg-slate-100 px-[0.4vw] py-[0.1vw] rounded text-slate-800 font-mono text-[0.9em] border border-slate-200">Tool</span> 支撑，任务才具备 AI 落地可行性。
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            
+            <!-- Dimension 1 -->
+            <div class="feature-card col-1">
+                <div class="card-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    </div>
+                    <div class="card-title">知识依赖</div>
+                </div>
+                <div class="card-desc">
+                    任务是依靠通用知识、方法论，还是企业内独有的规则或者隐性知识？
+                </div>
+                <div class="tool-box">
+                    <div class="tool-label">
+                        <svg style="width:1em;height:1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        关键工具
+                    </div>
+                    <ul class="tool-list">
+                        <li class="tool-item">知识库 (RAG)</li>
+                        <li class="tool-item">企业文档资料</li>
+                        <li class="tool-item">提示词规则 (Prompt)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Dimension 2 -->
+            <div class="feature-card col-2">
+                <div class="card-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    </div>
+                    <div class="card-title">信息依赖</div>
+                </div>
+                <div class="card-desc">
+                    依赖外部实时信息、动态数据，还是完全靠大模型内置的训练信息？
+                </div>
+                <div class="tool-box">
+                    <div class="tool-label">
+                        <svg style="width:1em;height:1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        关键工具
+                    </div>
+                    <ul class="tool-list">
+                        <li class="tool-item">Web Search 联网</li>
+                        <li class="tool-item">API 系统对接</li>
+                        <li class="tool-item">人工提供数据</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Dimension 3 -->
+            <div class="feature-card col-3">
+                <div class="card-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <div class="card-title">介质依赖</div>
+                </div>
+                <div class="card-desc">
+                    输入输出的数据载体格式？数据库 / Excel / PDF？如何进行格式流转？
+                </div>
+                <div class="tool-box">
+                    <div class="tool-label">
+                        <svg style="width:1em;height:1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        关键工具
+                    </div>
+                    <ul class="tool-list">
+                        <li class="tool-item">文件解析器</li>
+                        <li class="tool-item">数据库连接器</li>
+                        <li class="tool-item">格式转换工具</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Dimension 4 -->
+            <div class="feature-card col-4">
+                <div class="card-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <div class="card-title">逻辑依赖</div>
+                </div>
+                <div class="card-desc">
+                    需要复杂数据统计计算，还是严格的逻辑规则推理？流程是否非线性？
+                </div>
+                <div class="tool-box">
+                    <div class="tool-label">
+                        <svg style="width:1em;height:1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        关键工具
+                    </div>
+                    <ul class="tool-list">
+                        <li class="tool-item">代码解释器</li>
+                        <li class="tool-item">逻辑推理引擎</li>
+                        <li class="tool-item">Function Call</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-section">
+            <div class="scenario-pill">
+                <svg style="width:1.2em;height:1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span>核心观点：从小到简单的翻译工作，大到行业核心价值范式，均可用此框架解构。</span>
+            </div>
+            <div class="brand-text">Express Company & Technology and AI Innovation</div>
+        </div>
+    </div>
+
+</body>
+</html>

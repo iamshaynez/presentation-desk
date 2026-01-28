@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大语言模型的缺陷 - 事实确认和幻觉</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --warning-color: #e67e22;
+            --danger-color: #e74c3c;
+            --text-color: #333;
+            --bg-color: #ffffff;
+            --card-bg: #f8f9fa;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 顶部对齐，防止被截断 */
+            background-color: #f0f2f5; /* 外部背景稍暗，突出主体 */
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* 保持单页效果 */
+        }
+
+        .slide-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            max-width: 177.78vh; /* 16/9 * 100vh */
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 3% 4%;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        header {
+            margin-bottom: 2%;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 1%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        h1 {
+            font-size: 2.8vw; /* 响应式字体 */
+            color: var(--primary-color);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2vw;
+            color: #7f8c8d;
+            font-weight: 400;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            gap: 2%;
+            padding: 1% 0;
+        }
+
+        .card {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #e1e4e8;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: var(--accent-color);
+        }
+
+        .icon-box {
+            width: 8vw;
+            height: 8vw;
+            margin-bottom: 1.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .icon-box svg {
+            width: 50%;
+            height: 50%;
+        }
+
+        .card h2 {
+            font-size: 1.6vw;
+            color: var(--primary-color);
+            margin: 0 0 1vw 0;
+        }
+
+        .card p {
+            font-size: 1vw;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0 0 1.5vw 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .example-box {
+            background-color: white;
+            border-left: 4px solid var(--accent-color);
+            padding: 1vw;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0 8px 8px 0;
+            margin-top: auto;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            font-size: 0.9vw;
+            color: #7f8c8d;
+            margin-bottom: 0.5vw;
+            display: block;
+        }
+
+        .example-text {
+            font-size: 0.95vw;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* 特定卡片样式微调 */
+        .card:nth-child(1) .icon-box svg { fill: var(--accent-color); }
+        .card:nth-child(1) .example-box { border-left-color: var(--accent-color); }
+
+        .card:nth-child(2) .icon-box svg { fill: var(--warning-color); }
+        .card:nth-child(2) .example-box { border-left-color: var(--warning-color); }
+
+        .card:nth-child(3) .icon-box svg { fill: var(--danger-color); }
+        .card:nth-child(3) .example-box { border-left-color: var(--danger-color); }
+
+        footer {
+            margin-top: auto;
+            text-align: right;
+            font-size: 1vw;
+            color: #95a5a6;
+            border-top: 1px solid #eee;
+            padding-top: 1.5%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        footer svg {
+            width: 1.2vw;
+            height: 1.2vw;
+            margin-right: 0.5vw;
+            fill: #95a5a6;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <header>
+            <h1>大语言模型的缺陷 - 事实确认和幻觉</h1>
+            <div class="subtitle">AI 模型能力边界认知</div>
+        </header>
+
+        <div class="content">
+            <!-- 卡片 1：知识截止 -->
+            <div class="card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                </div>
+                <h2>时效性滞后</h2>
+                <p>模型依赖于预训练数据，存在知识截止日期（Knowledge Cutoff）。它无法像搜索引擎一样实时获取最新的新闻、天气或数据。</p>
+                <div class="example-box">
+                    <span class="example-title">💡 现实示例</span>
+                    <span class="example-text">“请问昨晚的世界杯决赛谁赢了？”<br>模型可能回答：“截至我训练的时间（2023年），我无法提供未来的比赛结果。”</span>
+                </div>
+            </div>
+
+            <!-- 卡片 2：事实错误 -->
+            <div class="card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                </div>
+                <h2>事实性错误</h2>
+                <p>模型并非知识库，它是基于概率预测下一个字的。在处理复杂逻辑、数学计算或冷门知识时，可能会生成不准确的内容。</p>
+                <div class="example-box">
+                    <span class="example-title">💡 现实示例</span>
+                    <span class="example-text">简单的数学题“9876 x 5432 等于多少？”，模型可能会自信地给出一个看似接近但最后几位数字完全错误的答案。</span>
+                </div>
+            </div>
+
+            <!-- 卡片 3：AI 幻觉 -->
+            <div class="card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.6-2.22-1.6-1.5 0-2.18.77-2.18 1.48 0 .8.42 1.42 2.67 1.99 2.8.67 4.18 1.58 4.18 3.82 0 2.05-1.47 3.17-3.34 3.45z"/>
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                    </svg> <!-- 使用类似"虚假"或"魔法"的隐喻图标，这里暂用货币符号变形示意"不仅是钱，更像是一种虚构的价值"，或者换一个更合适的 -->
+                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none;"> <!-- 备用 --> </svg>
+                </div>
+                 <!-- 修正上面的图标为更合适的"迷雾/幻觉"意向，使用"Auto-fix"图标变体或"Magic" -->
+                 <script>
+                    // 替换第三个图标为 Magic wand 风格，更符合幻觉
+                    document.querySelector('.card:nth-child(3) svg').innerHTML = '<path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2 6.4 4.5 5 7zM19 2l-1.4 2.5L15 5.9l2.6 1.4L19 9.8l1.4-2.5L23 5.9l-2.6-1.4zM12 16l4-8-8 4 4 8z"/>';
+                 </script>
+                <h2>AI 幻觉 (Hallucination)</h2>
+                <p>模型会“一本正经地胡说八道”。当它不知道答案时，可能会编造看似合理但完全不存在的事实、引用或代码。</p>
+                <div class="example-box">
+                    <span class="example-title">💡 现实示例</span>
+                    <span class="example-text">“请帮我总结一下《2025年火星殖民法案》。”<br>模型可能会详细列出该法案的条款，尽管这个法案根本不存在。</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            Express Company & Technology and AI Innovation
+        </footer>
+    </div>
+</body>
+</html>

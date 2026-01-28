@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大语言模型的缺陷 - 非逻辑性</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* 16:9 容器 */
+        .ppt-slide {
+            width: 100vw;
+            height: 56.25vw;
+            box-sizing: border-box;
+            padding: 3vw 4vw;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            position: relative;
+        }
+
+        /* 装饰线条 */
+        .accent-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0.4vw;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+        }
+
+        /* 头部区域 */
+        .header-section {
+            flex-shrink: 0;
+            margin-bottom: 2vw;
+        }
+
+        .main-title {
+            font-size: clamp(1.8rem, 3.2vw, 4rem);
+            font-weight: 900;
+            color: #1e293b;
+            line-height: 1.2;
+            letter-spacing: -0.05vw;
+        }
+
+        .subtitle-bar {
+            height: 0.4vw;
+            width: 5vw;
+            background-color: #3b82f6;
+            margin-top: 1vw;
+            border-radius: 1vw;
+        }
+
+        .intro-text {
+            margin-top: 1.5vw;
+            color: #64748b;
+            font-size: clamp(0.9rem, 1.2vw, 1.6rem);
+            max-width: 85vw;
+            line-height: 1.6;
+        }
+
+        /* 内容网格 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5vw;
+            flex: 1;
+            min-height: 0;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: #ffffff;
+            border: 0.1vw solid #e2e8f0;
+            border-radius: 1vw;
+            padding: 1.5vw;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0.5vw 1.5vw rgba(0, 0, 0, 0.03);
+        }
+
+        .icon-box {
+            width: 3vw;
+            height: 3vw;
+            background: #eff6ff;
+            border-radius: 0.6vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1vw;
+            color: #3b82f6;
+        }
+
+        .icon-box svg {
+            width: 1.8vw;
+            height: 1.8vw;
+        }
+
+        .card-title {
+            font-size: clamp(1rem, 1.4vw, 1.8rem);
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 0.5vw 0;
+        }
+
+        .card-subtitle {
+            font-size: clamp(0.7rem, 0.9vw, 1.2rem);
+            color: #94a3b8;
+            margin-bottom: 1.2vw;
+            font-style: italic;
+        }
+
+        .comparison-box {
+            background: #f8fafc;
+            padding: 1vw;
+            border-radius: 0.8vw;
+            margin-bottom: 0.8vw;
+            border-left: 0.3vw solid transparent;
+        }
+
+        .box-llm { border-left-color: #ef4444; }
+        .box-logic { border-left-color: #22c55e; }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2vw 0.6vw;
+            border-radius: 0.3vw;
+            font-size: clamp(0.6rem, 0.75vw, 1rem);
+            font-weight: 700;
+            margin-bottom: 0.4vw;
+        }
+
+        .tag-llm { background: #fee2e2; color: #991b1b; }
+        .tag-logic { background: #dcfce7; color: #166534; }
+
+        .box-text {
+            font-size: clamp(0.7rem, 0.9vw, 1.2rem);
+            color: #334155;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* 核心启示 */
+        .summary-section {
+            margin-top: 1.5vw;
+            padding: 1.2vw 1.5vw;
+            background: #f0f9ff;
+            border-radius: 1vw;
+            display: flex;
+            align-items: center;
+            border: 0.1vw solid #bfdbfe;
+            gap: 1.5vw;
+        }
+
+        .summary-icon svg {
+            width: 2.5vw;
+            height: 2.5vw;
+            stroke: #2563eb;
+        }
+
+        .summary-content h4 {
+            margin: 0 0 0.3vw 0;
+            font-size: clamp(0.9rem, 1.1vw, 1.5rem);
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+
+        .summary-content p {
+            margin: 0;
+            font-size: clamp(0.8rem, 1vw, 1.3rem);
+            color: #1e40af;
+            line-height: 1.5;
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: auto;
+            padding-top: 1vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 0.1vw solid #e2e8f0;
+            font-size: clamp(0.6rem, 0.8vw, 1rem);
+            color: #94a3b8;
+        }
+
+        .footer-left {
+            font-weight: 500;
+            letter-spacing: 0.1vw;
+            text-transform: uppercase;
+        }
+        
+        .footer-center {
+            font-weight: 700;
+            color: #64748b;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="ppt-slide">
+        <div class="accent-line"></div>
+
+        <!-- Header -->
+        <div class="header-section">
+            <h1 class="main-title">大语言模型的缺陷 - 非逻辑性</h1>
+            <div class="subtitle-bar"></div>
+            <p class="intro-text">
+                LLM 本质上是基于统计相关性的“概率预测机”，而非基于符号规则的“逻辑推理机”。在处理严格逻辑任务时，模型常因追求语言流畅性而牺牲事实准确性，产生直觉上合理但逻辑谬误的“幻觉”。
+            </p>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            
+            <!-- Case 1 -->
+            <div class="card">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <h3 class="card-title">案例一：字面统计幻觉</h3>
+                <p class="card-subtitle">“Strawberry 有几个字母 r？”</p>
+                
+                <div class="comparison-box box-llm">
+                    <span class="tag tag-llm">LLM 常见回答</span>
+                    <p class="box-text">“有两个 r。”<br>（Token 化导致模型“看不见”字符内部结构）</p>
+                </div>
+                <div class="comparison-box box-logic">
+                    <span class="tag tag-logic">真实逻辑</span>
+                    <p class="box-text">3 个。<br>需要字符级精确计数，而非词汇级概率检索。</p>
+                </div>
+            </div>
+
+            <!-- Case 2 -->
+            <div class="card">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+                </div>
+                <h3 class="card-title">案例二：线性诱导谬误</h3>
+                <p class="card-subtitle">“晾干3件衣服需3小时，晾干30件需多久？”</p>
+                
+                <div class="comparison-box box-llm">
+                    <span class="tag tag-llm">LLM 常见回答</span>
+                    <p class="box-text">“30 小时。”<br>（盲目套用数学线性增长模式）</p>
+                </div>
+                <div class="comparison-box box-logic">
+                    <span class="tag tag-logic">真实逻辑</span>
+                    <p class="box-text">3 小时。<br>物理世界中“晾衣服”通常是并行过程。</p>
+                </div>
+            </div>
+
+            <!-- Case 3 -->
+            <div class="card">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <h3 class="card-title">案例三：关系传递失效</h3>
+                <p class="card-subtitle">“Sally 有 3 个兄弟，每个兄弟有 2 个姐妹。”</p>
+                
+                <div class="comparison-box box-llm">
+                    <span class="tag tag-llm">LLM 常见回答</span>
+                    <p class="box-text">“6 个姐妹。”<br>（简单的乘法运算 3x2）</p>
+                </div>
+                <div class="comparison-box box-logic">
+                    <span class="tag tag-logic">真实逻辑</span>
+                    <p class="box-text">1 个姐妹（即 Sally 自己）。<br>需构建一致的人物关系图谱。</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-section">
+            <div class="summary-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </div>
+            <div class="summary-content">
+                <h4>核心启示</h4>
+                <p>在涉及严密逻辑推理（如数学证明、代码调试、复杂规划）的场景中，不可盲目信赖 LLM 的直接输出。应采用“思维链（CoT）”引导推理，或让 LLM 生成代码/工具调用来执行逻辑计算。</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-left">Internal Training Material</div>
+            <div class="footer-center">Express Company & Technology and AI Innovation</div>
+            <div class="footer-right">2025 AI Education Series</div>
+        </div>
+    </div>
+
+</body>
+</html>

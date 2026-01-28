@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大语言模型的优势</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #2563eb;
+            --brand-green: #059669;
+            --brand-purple: #7c3aed;
+            --brand-orange: #ea580c;
+            --text-main: #0f172a;
+            --text-body: #475569;
+            --border-color: #e2e8f0;
+            --bg-card: #f8fafc;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 16:9 Fixed Ratio - Fully fill top/left/right */
+        .ppt-slide {
+            width: 100vw;
+            height: 56.25vw; /* Maintain 16:9 height */
+            background-color: #ffffff;
+            box-sizing: border-box;
+            padding: 3vw 4vw;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            margin-bottom: 2vw;
+        }
+
+        .main-title {
+            font-size: clamp(1.8rem, 3.2vw, 4rem);
+            font-weight: 800;
+            color: var(--text-main);
+            border-left: 0.8vw solid var(--brand-blue);
+            padding-left: 1.5vw;
+            line-height: 1.1;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1.5vw;
+            flex-grow: 1;
+            margin-bottom: 2vw;
+        }
+
+        .feature-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5vw;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0.4vw;
+            height: 100%;
+            background: var(--card-color);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+            margin-bottom: 1vw;
+        }
+
+        .feature-icon {
+            width: 2.5vw;
+            height: 2.5vw;
+            color: var(--card-color);
+            flex-shrink: 0;
+        }
+
+        .feature-title {
+            font-size: clamp(1.2rem, 1.8vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .feature-desc {
+            font-size: clamp(0.9rem, 1.1vw, 1.6rem);
+            color: var(--text-body);
+            line-height: 1.6;
+            margin-bottom: 0.8vw;
+            font-weight: 500;
+        }
+
+        .feature-detail {
+            font-size: clamp(0.75rem, 0.95vw, 1.3rem);
+            color: #64748b;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        /* Conclusion Section */
+        .conclusion-section {
+            background: linear-gradient(to right, #eff6ff, #ffffff);
+            border-radius: 12px;
+            border: 1px solid #dbeafe;
+            padding: 1.5vw 2vw;
+            display: flex;
+            align-items: center;
+            gap: 2vw;
+            margin-top: auto; /* Push to bottom before footer */
+            margin-bottom: 1.5vw;
+        }
+
+        .conclusion-icon {
+            width: 3.5vw;
+            height: 3.5vw;
+            color: var(--brand-blue);
+            flex-shrink: 0;
+        }
+
+        .conclusion-text {
+            flex-grow: 1;
+        }
+
+        .conclusion-main {
+            font-size: clamp(1rem, 1.4vw, 2rem);
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 0.4vw;
+        }
+
+        .conclusion-sub {
+            font-size: clamp(0.8rem, 1.1vw, 1.5rem);
+            color: #3b82f6;
+            font-weight: 500;
+        }
+
+        .footer {
+            padding-top: 1vw;
+            border-top: 1px solid var(--border-color);
+            font-size: clamp(0.75rem, 0.9vw, 1.2rem);
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="ppt-slide">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="main-title">大语言模型的巨大优势</h1>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="content-grid">
+            
+            <!-- 1. General Knowledge -->
+            <section class="feature-card" style="--card-color: var(--brand-blue);">
+                <div class="feature-header">
+                    <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h2 class="feature-title">海量通用知识</h2>
+                </div>
+                <div class="feature-desc">上知天文，下知地理，通晓商业常识。</div>
+                <div class="feature-detail">
+                    就像一本活体百科全书，阅读了互联网上几乎所有的公开文本。从量子力学原理到莎士比亚十四行诗，从全球风土人情到最新商业趋势，皆可娓娓道来。
+                </div>
+            </section>
+
+            <!-- 2. Specialized Knowledge -->
+            <section class="feature-card" style="--card-color: var(--brand-purple);">
+                <div class="feature-header">
+                    <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    <h2 class="feature-title">海量专有知识</h2>
+                </div>
+                <div class="feature-desc">掌握各行各业的方法论与分析框架。</div>
+                <div class="feature-detail">
+                    无论是SWOT分析、波特五力模型，还是软件设计模式，它都能快速列出标准框架。但见解通常较为“平庸”，缺乏在实战泥坑中摸爬滚打出的独到经验。
+                </div>
+            </section>
+
+            <!-- 3. Language Capability -->
+            <section class="feature-card" style="--card-color: var(--brand-green);">
+                <div class="feature-header">
+                    <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                    <h2 class="feature-title">卓越语言能力</h2>
+                </div>
+                <div class="feature-desc">多国语言精通，风格随需切换。</div>
+                <div class="feature-detail">
+                    它是语言大师，可以瞬间从严谨的法律条文切换到幽默的脱口秀风格，从流利的中文切换到地道的法语，甚至能用特定角色的口吻撰写文案。
+                </div>
+            </section>
+
+            <!-- 4. 24/7 Availability (Supplement) -->
+            <section class="feature-card" style="--card-color: var(--brand-orange);">
+                <div class="feature-header">
+                    <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <h2 class="feature-title">不知疲倦的助手</h2>
+                </div>
+                <div class="feature-desc">7x24小时待命，秒级响应。</div>
+                <div class="feature-detail">
+                    无论是在凌晨3点突发灵感，还是假期需要紧急处理文档，它永远在线，没有任何情绪波动。它是一个随叫随到的超级外脑。
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Conclusion -->
+        <section class="conclusion-section">
+            <svg class="conclusion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+            <div class="conclusion-text">
+                <div class="conclusion-main">结论：它是一个知识渊博，但沟通能力不足的“超级实习生”。</div>
+                <div class="conclusion-sub">它拥有海量知识，但不懂你的具体背景和意图。它需要一位 <span style="color: #ea580c; font-weight: 700;">优秀的导师</span>（你）通过精准的提示词来引导，去伪存真，将知识转化为价值。</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            Express Company & Technology and AI Innovation
+        </footer>
+    </div>
+
+</body>
+</html>

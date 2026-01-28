@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大语言模型的缺陷 - 无计算能力</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-red: #ef4444;
+            --brand-blue: #2563eb;
+            --text-main: #0f172a;
+            --text-body: #475569;
+            --bg-card: #f8fafc;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 16:9 Fixed Ratio Container */
+        .ppt-slide {
+            width: 100vw;
+            height: 56.25vw;
+            background-color: #ffffff;
+            box-sizing: border-box;
+            padding: 3vw 4vw;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 3vw;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1vw;
+        }
+
+        .main-title {
+            font-size: clamp(2rem, 3.5vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 1.5vw;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 1.5vw, 2rem);
+            color: var(--text-body);
+            margin-top: 0.5vw;
+            font-weight: 400;
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4vw;
+            flex-grow: 1;
+        }
+
+        /* Section Styles */
+        .section-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5vw;
+        }
+
+        .section-title {
+            font-size: clamp(1.2rem, 2vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+            border-left: 0.6vw solid var(--brand-blue);
+            padding-left: 1vw;
+        }
+
+        .section-title.warning {
+            border-left-color: var(--brand-red);
+        }
+
+        .card-content {
+            background: var(--bg-card);
+            border-radius: 1.5vw;
+            padding: 2vw;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Illustration & Text */
+        .concept-box {
+            display: flex;
+            align-items: center;
+            gap: 1.5vw;
+            margin-bottom: 2vw;
+        }
+
+        .icon-box {
+            width: 5vw;
+            height: 5vw;
+            flex-shrink: 0;
+            color: var(--brand-blue);
+        }
+
+        .warning .icon-box {
+            color: var(--brand-red);
+        }
+
+        .text-desc {
+            font-size: clamp(0.9rem, 1.3vw, 1.8rem);
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Example List */
+        .example-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5vw;
+        }
+
+        .example-item {
+            background: #ffffff;
+            padding: 1.2vw;
+            border-radius: 1vw;
+            border: 1px dashed var(--brand-red);
+            display: flex;
+            align-items: flex-start;
+            gap: 1vw;
+        }
+
+        .example-icon {
+            width: 2vw;
+            height: 2vw;
+            color: var(--brand-red);
+            flex-shrink: 0;
+            margin-top: 0.2vw;
+        }
+
+        .example-text {
+            font-size: clamp(0.8rem, 1.2vw, 1.6rem);
+            color: var(--text-body);
+        }
+
+        .example-query {
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 0.2vw 0.5vw;
+            border-radius: 0.3vw;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            padding-top: 1.5vw;
+            font-size: clamp(0.7rem, 1vw, 1.2rem);
+            color: #94a3b8;
+            text-align: right;
+            border-top: 1px solid var(--border-color);
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ppt-slide">
+        <header class="header">
+            <h1 class="main-title">
+                <div style="width: 4vw; height: 4vw; color: var(--brand-red);">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                大语言模型的缺陷 - 无计算能力
+            </h1>
+            <p class="subtitle">为什么“最强大脑”连简单的数学题都会算错？</p>
+        </header>
+
+        <main class="content-grid">
+            <!-- Left: Mechanism -->
+            <section class="section-card">
+                <h2 class="section-title">
+                    本质原理：是文科生，不是理科生
+                </h2>
+                <div class="card-content">
+                    <div class="concept-box">
+                        <div class="icon-box">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        </div>
+                        <div class="text-desc">
+                            LLM 的本质是 <span class="highlight">Next Token Prediction（下一个词预测）</span>。它是在根据概率做“文字接龙”，而不是在运行逻辑代码。
+                        </div>
+                    </div>
+                    <div class="concept-box">
+                        <div class="icon-box" style="opacity: 0.5;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="text-desc">
+                            它<span class="highlight">没有内置计算器</span>。对于它来说，“1+1=2”是因为它读过这句话，而不是因为它进行了运算。
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right: Real World Failures -->
+            <section class="section-card">
+                <h2 class="section-title warning">
+                    典型翻车现场
+                </h2>
+                <div class="card-content" style="background: #fff1f2; border-color: #fecdd3;">
+                    <div class="example-list">
+                        <div class="example-item">
+                            <div class="example-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </div>
+                            <div class="example-text">
+                                <strong>大数乘法幻觉：</strong><br>
+                                问：<span class="example-query">23,894 * 1,203 = ?</span><br>
+                                LLM 可能会自信地给出一个看似合理但完全错误的数字，因为它在模仿数字的格式，而非计算数值。
+                            </div>
+                        </div>
+
+                        <div class="example-item">
+                            <div class="example-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </div>
+                            <div class="example-text">
+                                <strong>字数统计困难（Tokenizer 限制）：</strong><br>
+                                问：<span class="example-query">单词 "Strawberry" 中有几个 "r"？</span><br>
+                                许多模型会回答 "2个"，因为在 Tokenizer 眼中，"Strawberry" 可能被拆分为 "Straw" 和 "berry"，它“看”不到字母层面的构成。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            Express Company & Technology and AI Innovation
+        </footer>
+    </div>
+
+</body>
+</html>
