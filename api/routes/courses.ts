@@ -22,7 +22,7 @@ async function fileExists(filePath: string) {
   }
 }
 
-// Get all courses
+// Get all categories (Level 1)
 router.get('/', async (req, res) => {
   try {
     // Check if courses root exists
@@ -31,6 +31,27 @@ router.get('/', async (req, res) => {
     }
 
     const entries = await fs.readdir(COURSES_ROOT, { withFileTypes: true });
+    const categories = entries
+      .filter(entry => entry.isDirectory())
+      .map(entry => entry.name);
+    res.json({ success: true, data: categories });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Failed to list categories' });
+  }
+});
+
+// Get courses in a category (Level 2)
+router.get('/:category', async (req, res) => {
+  const { category } = req.params;
+  const categoryPath = path.join(COURSES_ROOT, category);
+
+  try {
+    if (!await fileExists(categoryPath)) {
+        return res.status(404).json({ success: false, error: 'Category not found' });
+    }
+
+    const entries = await fs.readdir(categoryPath, { withFileTypes: true });
     const courses = entries
       .filter(entry => entry.isDirectory())
       .map(entry => entry.name);
@@ -41,10 +62,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get units for a course
-router.get('/:courseName', async (req, res) => {
-  const { courseName } = req.params;
-  const coursePath = path.join(COURSES_ROOT, courseName);
+// Get units for a course (Level 3)
+router.get('/:category/:courseName', async (req, res) => {
+  const { category, courseName } = req.params;
+  const coursePath = path.join(COURSES_ROOT, category, courseName);
 
   try {
     if (!await fileExists(coursePath)) {
@@ -63,11 +84,11 @@ router.get('/:courseName', async (req, res) => {
 });
 
 // Export PDF
-router.get('/:courseName/export-pdf', async (req, res) => {
-  const { courseName } = req.params;
-  const coursePath = path.join(COURSES_ROOT, courseName);
+router.get('/:category/:courseName/export-pdf', async (req, res) => {
+  const { category, courseName } = req.params;
+  const coursePath = path.join(COURSES_ROOT, category, courseName);
 
-  console.log(`Starting PDF export for course: ${courseName}`);
+  console.log(`Starting PDF export for course: ${courseName} in category: ${category}`);
 
   try {
     if (!await fileExists(coursePath)) {
@@ -108,10 +129,11 @@ router.get('/:courseName/export-pdf', async (req, res) => {
             await page.setViewport({ width: 1920, height: 1080 });
 
             // Construct URL
+            const encodedCategory = encodeURIComponent(category);
             const encodedCourse = encodeURIComponent(courseName);
             const encodedUnit = encodeURIComponent(unitName);
             const encodedHtml = encodeURIComponent(htmlFile);
-            const url = `http://localhost:3001/courses-static/${encodedCourse}/${encodedUnit}/${encodedHtml}`;
+            const url = `http://localhost:3001/courses-static/${encodedCategory}/${encodedCourse}/${encodedUnit}/${encodedHtml}`;
 
             try {
                 // Wait for network idle to ensure resources are loaded
@@ -163,9 +185,9 @@ router.get('/:courseName/export-pdf', async (req, res) => {
 });
 
 // Get unit content
-router.get('/:courseName/:unitName', async (req, res) => {
-  const { courseName, unitName } = req.params;
-  const unitPath = path.join(COURSES_ROOT, courseName, unitName);
+router.get('/:category/:courseName/:unitName', async (req, res) => {
+  const { category, courseName, unitName } = req.params;
+  const unitPath = path.join(COURSES_ROOT, category, courseName, unitName);
 
   try {
     if (!await fileExists(unitPath)) {
@@ -185,20 +207,11 @@ router.get('/:courseName/:unitName', async (req, res) => {
       fileExists(updatePath).then(exists => exists ? fs.readFile(updatePath, 'utf-8') : '')
     ]);
 
-    // Note: The client should construct the full URL or we provide a relative path
-    // that the client can prefix with the static file serve path.
-    // We will serve courses folder at /courses-static
-    
     // Encode components to handle spaces and special characters in URL
+    const encodedCategory = encodeURIComponent(category);
     const encodedCourseName = encodeURIComponent(courseName);
     const encodedUnitName = encodeURIComponent(unitName);
-    // For static files served by express.static, we don't need to double encode if the browser handles it,
-    // but here we are constructing a URL path.
-    // express.static serves files directly. If we request /courses-static/A B/C.png, express looks for "A B/C.png".
-    // Browser will request /courses-static/A%20B/C.png.
-    // So we should return the path with encoded segments.
     
-    // HOWEVER, if imageFile itself has spaces, we need to be careful.
     const encodedImageFile = imageFile ? encodeURIComponent(imageFile) : null;
     const encodedHtmlFile = htmlFile ? encodeURIComponent(htmlFile) : null;
 
@@ -207,8 +220,8 @@ router.get('/:courseName/:unitName', async (req, res) => {
       data: {
         readme,
         update,
-        image: encodedImageFile ? `/courses-static/${encodedCourseName}/${encodedUnitName}/${encodedImageFile}` : null,
-        html: encodedHtmlFile ? `/courses-static/${encodedCourseName}/${encodedUnitName}/${encodedHtmlFile}` : null
+        image: encodedImageFile ? `/courses-static/${encodedCategory}/${encodedCourseName}/${encodedUnitName}/${encodedImageFile}` : null,
+        html: encodedHtmlFile ? `/courses-static/${encodedCategory}/${encodedCourseName}/${encodedUnitName}/${encodedHtmlFile}` : null
       }
     });
   } catch (error) {
@@ -218,10 +231,10 @@ router.get('/:courseName/:unitName', async (req, res) => {
 });
 
 // Update update.md
-router.post('/:courseName/:unitName/update', async (req, res) => {
-  const { courseName, unitName } = req.params;
+router.post('/:category/:courseName/:unitName/update', async (req, res) => {
+  const { category, courseName, unitName } = req.params;
   const { content } = req.body;
-  const unitPath = path.join(COURSES_ROOT, courseName, unitName);
+  const unitPath = path.join(COURSES_ROOT, category, courseName, unitName);
   const updatePath = path.join(unitPath, 'Update.md');
 
   try {
@@ -237,9 +250,9 @@ router.post('/:courseName/:unitName/update', async (req, res) => {
 });
 
 // Get canvas data
-router.get('/:courseName/:unitName/canvas', async (req, res) => {
-  const { courseName, unitName } = req.params;
-  const unitPath = path.join(COURSES_ROOT, courseName, unitName);
+router.get('/:category/:courseName/:unitName/canvas', async (req, res) => {
+  const { category, courseName, unitName } = req.params;
+  const unitPath = path.join(COURSES_ROOT, category, courseName, unitName);
   const canvasPath = path.join(unitPath, 'canvas.json');
 
   try {
@@ -265,10 +278,10 @@ router.get('/:courseName/:unitName/canvas', async (req, res) => {
 });
 
 // Save canvas data
-router.post('/:courseName/:unitName/canvas', async (req, res) => {
-  const { courseName, unitName } = req.params;
+router.post('/:category/:courseName/:unitName/canvas', async (req, res) => {
+  const { category, courseName, unitName } = req.params;
   const { content } = req.body; // content should be JSON object
-  const unitPath = path.join(COURSES_ROOT, courseName, unitName);
+  const unitPath = path.join(COURSES_ROOT, category, courseName, unitName);
   const canvasPath = path.join(unitPath, 'canvas.json');
 
   try {

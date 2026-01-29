@@ -7,8 +7,9 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<CourseList />} />
-        <Route path="/course/:courseName" element={<CourseViewer />} />
-        <Route path="/course/:courseName/:unitName" element={<CourseViewer />} />
+        <Route path="/category/:categoryName" element={<CourseList />} />
+        <Route path="/course/:category/:courseName" element={<CourseViewer />} />
+        <Route path="/course/:category/:courseName/:unitName" element={<CourseViewer />} />
       </Routes>
     </Router>
   );

@@ -4,6 +4,7 @@ import { Maximize2, Minimize2, Save, Eraser, Trash2, Pen, Square, Circle, Minus 
 import clsx from 'clsx';
 
 interface CanvasBoardProps {
+  category: string;
   courseName: string;
   unitName: string;
 }
@@ -26,7 +27,7 @@ const STROKE_WIDTHS = [
 
 type Tool = 'pen' | 'eraser' | 'rectangle' | 'circle' | 'line';
 
-export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
+export function CanvasBoard({ category, courseName, unitName }: CanvasBoardProps) {
     const canvasRef = useRef<ReactSketchCanvasRef>(null);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -92,7 +93,7 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
     // Load initial data
     useEffect(() => {
         setLoading(true);
-        fetch(`/api/courses/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}/canvas`)
+        fetch(`/api/courses/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}/canvas`)
             .then(res => res.json())
             .then(data => {
                 if (data.success && data.data && canvasRef.current) {
@@ -101,7 +102,7 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
             })
             .catch(err => console.error(err))
             .finally(() => setLoading(false));
-    }, [courseName, unitName]);
+    }, [category, courseName, unitName]);
 
     const handleSave = async () => {
         if (!canvasRef.current) return;
@@ -110,7 +111,7 @@ export function CanvasBoard({ courseName, unitName }: CanvasBoardProps) {
         try {
             const paths = await canvasRef.current.exportPaths();
             
-            await fetch(`/api/courses/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}/canvas`, {
+            await fetch(`/api/courses/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}/canvas`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ content: paths })

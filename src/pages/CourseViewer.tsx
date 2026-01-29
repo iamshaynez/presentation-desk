@@ -10,7 +10,7 @@ import { ReactSketchCanvas, ReactSketchCanvasRef } from 'react-sketch-canvas';
 import clsx from 'clsx';
 
 export function CourseViewer() {
-  const { courseName, unitName } = useParams();
+  const { category, courseName, unitName } = useParams();
   const navigate = useNavigate();
   const [units, setUnits] = useState<string[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -89,29 +89,29 @@ export function CourseViewer() {
 
   // Fetch units
   useEffect(() => {
-    if (!courseName) return;
-    fetch(`/api/courses/${encodeURIComponent(courseName)}`)
+    if (!category || !courseName) return;
+    fetch(`/api/courses/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}`)
       .then(res => res.json())
       .then((data: ApiResponse<string[]>) => {
         if (data.success) {
           setUnits(data.data);
           // Redirect to first unit if none selected
           if (!unitName && data.data.length > 0) {
-            navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(data.data[0])}`, { replace: true });
+            navigate(`/course/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(data.data[0])}`, { replace: true });
           }
         }
       });
-  }, [courseName, unitName, navigate]);
+  }, [category, courseName, unitName, navigate]);
 
   // Fetch content
   useEffect(() => {
-    if (!courseName || !unitName) return;
+    if (!category || !courseName || !unitName) return;
     
     // Reset content while loading
     setContent(null);
     setIframeHeight(undefined);
     
-    fetch(`/api/courses/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}`)
+    fetch(`/api/courses/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}`)
       .then(res => res.json())
       .then((data: ApiResponse<UnitContent>) => {
         if (data.success) {
@@ -119,7 +119,7 @@ export function CourseViewer() {
           setNoteContent(data.data.update);
         }
       });
-  }, [courseName, unitName]);
+  }, [category, courseName, unitName]);
 
   // Global Keyboard Shortcuts
   useEffect(() => {
@@ -143,7 +143,7 @@ export function CourseViewer() {
 
       // Shift + ArrowUp/ArrowDown: Navigate units
       if (e.shiftKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
-        if (!courseName || !unitName || units.length === 0) return;
+        if (!category || !courseName || !unitName || units.length === 0) return;
         
         e.preventDefault(); // Prevent default scrolling
         
@@ -152,23 +152,23 @@ export function CourseViewer() {
 
         if (e.key === 'ArrowUp' && currentIndex > 0) {
           const prevUnit = units[currentIndex - 1];
-          navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(prevUnit)}`);
+          navigate(`/course/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(prevUnit)}`);
         } else if (e.key === 'ArrowDown' && currentIndex < units.length - 1) {
           const nextUnit = units[currentIndex + 1];
-          navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(nextUnit)}`);
+          navigate(`/course/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(nextUnit)}`);
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [sidebarOpen, isFullscreen, isBrowserFull, activeTab, units, unitName, courseName, navigate, hasDrawings]);
+  }, [sidebarOpen, isFullscreen, isBrowserFull, activeTab, units, unitName, courseName, category, navigate, hasDrawings]);
 
   const saveNotes = async () => {
-    if (!courseName || !unitName) return;
+    if (!category || !courseName || !unitName) return;
     setSaving(true);
     try {
-      await fetch(`/api/courses/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}/update`, {
+      await fetch(`/api/courses/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(unitName)}/update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: noteContent })
@@ -216,25 +216,25 @@ export function CourseViewer() {
   };
 
   const handleNavigate = (direction: 'prev' | 'next') => {
-    if (!courseName || !unitName || units.length === 0) return;
+    if (!category || !courseName || !unitName || units.length === 0) return;
     
     const currentIndex = units.indexOf(unitName);
     if (currentIndex === -1) return;
 
     if (direction === 'prev' && currentIndex > 0) {
       const prevUnit = units[currentIndex - 1];
-      navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(prevUnit)}`);
+      navigate(`/course/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(prevUnit)}`);
     } else if (direction === 'next' && currentIndex < units.length - 1) {
       const nextUnit = units[currentIndex + 1];
-      navigate(`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(nextUnit)}`);
+      navigate(`/course/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(nextUnit)}`);
     }
   };
 
   const handleExportPdf = async () => {
-    if (!courseName) return;
+    if (!category || !courseName) return;
     setIsExporting(true);
     try {
-        const response = await fetch(`/api/courses/${encodeURIComponent(courseName)}/export-pdf`);
+        const response = await fetch(`/api/courses/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/export-pdf`);
         if (!response.ok) {
              const data = await response.json();
              alert(data.error || 'Export failed');
@@ -269,7 +269,7 @@ export function CourseViewer() {
     setSidebarOpen(!sidebarOpen);
   };
 
-  if (!courseName) return null;
+  if (!courseName || !category) return null;
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-zinc-900 overflow-hidden text-gray-900 dark:text-gray-100">
@@ -288,7 +288,7 @@ export function CourseViewer() {
             {units.map(unit => (
               <Link
                 key={unit}
-                to={`/course/${encodeURIComponent(courseName)}/${encodeURIComponent(unit)}`}
+                to={`/course/${encodeURIComponent(category)}/${encodeURIComponent(courseName)}/${encodeURIComponent(unit)}`}
                 className={clsx(
                   "block p-2 rounded mb-1 truncate text-sm transition-colors",
                   unit === unitName 
@@ -301,7 +301,7 @@ export function CourseViewer() {
             ))}
           </div>
           <div className="p-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800">
-              <Link to="/" className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+              <Link to={`/category/${encodeURIComponent(category)}`} className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
                   <ChevronLeft size={16} /> Back to Courses
               </Link>
           </div>
@@ -548,8 +548,8 @@ export function CourseViewer() {
                     )}
                 </div>
               )}
-              {activeTab === 'canvas' && (
-                  <CanvasBoard courseName={courseName} unitName={unitName} />
+              {activeTab === 'canvas' && unitName && (
+                  <CanvasBoard category={category} courseName={courseName} unitName={unitName} />
               )}
             </div>
           </div>
