@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融的初心 - 信息图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Continuous floating animation for visual interest */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Smooth reveal animation for sections */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient Borders without complex JS */
+        .grad-card {
+            position: relative;
+            background: white;
+            border-radius: 1.5rem;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: transform 0.3s ease;
+        }
+        .grad-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Using simplified tabs */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Hero Section -->
+    <header class="relative py-20 px-6 overflow-hidden border-b border-gray-50 text-center">
+        <!-- Floating shapes for "dynamic" feel -->
+        <div class="absolute top-0 left-0 -ml-10 mt-10 w-40 h-40 bg-blue-100 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-float"></div>
+        <div class="absolute bottom-0 right-0 -mr-10 mb-10 w-40 h-40 bg-pink-100 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-tight">
+                金融的<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500">初心</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-500 font-light leading-relaxed">
+                跨越鸿沟，让每一份纯粹的<span class="text-blue-600 font-bold">资源</span>，<br class="hidden md:block">
+                精准遇见改变世界的<span class="text-pink-500 font-bold">想法</span>。
+            </p>
+        </div>
+    </header>
+
+    <!-- The Two People Section -->
+    <section class="py-16 px-6 max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Resource Holder -->
+            <div class="p-10 rounded-[2.5rem] bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 shadow-sm hover:shadow-md transition-all">
+                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg shadow-blue-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-blue-900">资源持有者</h3>
+                <p class="text-blue-700/70 leading-relaxed">
+                    拥有金钱、资产与盈余。他们需要将现在的财富，通过可信的渠道，转化为未来的保障或增量。
+                </p>
+            </div>
+
+            <!-- Idea Owner -->
+            <div class="p-10 rounded-[2.5rem] bg-gradient-to-br from-pink-50 to-rose-50 border border-pink-100 shadow-sm hover:shadow-md transition-all">
+                <div class="w-12 h-12 bg-pink-500 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg shadow-pink-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-rose-900">想法 (Idea) 开拓者</h3>
+                <p class="text-rose-700/70 leading-relaxed">
+                    怀揣创意、技术或愿景。他们需要启动的“燃料”，将脑海中的蓝图变为触手可及的产业实体。
+                </p>
+            </div>
+        </div>
+
+        <!-- The Core Concept Banner -->
+        <div class="mt-12 p-8 rounded-3xl bg-gray-900 text-white relative overflow-hidden text-center shadow-xl">
+            <div class="absolute inset-0 opacity-20 pointer-events-none">
+                <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <circle cx="10" cy="10" r="30" fill="white" />
+                    <circle cx="90" cy="90" r="30" fill="white" />
+                </svg>
+            </div>
+            <p class="text-xl md:text-2xl font-bold italic relative z-10">
+                “金融：促进金钱的融通，让实体经济更少阻碍，更快发展。”
+            </p>
+        </div>
+    </section>
+
+    <!-- History Timeline Section -->
+    <section class="py-16 bg-gray-50 border-y border-gray-100 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-12">
+                <h2 class="text-3xl font-bold">金融文明的深度调查</h2>
+                <!-- Simple Tab Switcher -->
+                <div class="flex bg-white p-1 rounded-full shadow-sm border mt-4 md:mt-0">
+                    <button onclick="showTab('cn')" id="btn-cn" class="px-6 py-2 rounded-full font-bold text-sm transition-all bg-gray-900 text-white">中国史</button>
+                    <button onclick="showTab('global')" id="btn-global" class="px-6 py-2 rounded-full font-bold text-sm transition-all text-gray-500 hover:text-gray-900">全球视野</button>
+                </div>
+            </div>
+
+            <!-- China History Content -->
+            <div id="tab-cn" class="tab-content active space-y-6">
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/4 text-blue-600 font-black text-4xl">1023</div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold mb-2">北宋：交子铺户的信用符号</h4>
+                        <p class="text-gray-500">为了解决四川铁钱过于沉重、难以跨地域流通的问题，商人以私人信用为背书发行交子。这是世界上最早的纸币原型，金融第一次成功地用“符号”取代了“实物重量”，极大释放了实体商贸的半径。</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/4 text-emerald-500 font-black text-4xl">1823</div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold mb-2">清代：日升昌与晋商票号</h4>
+                        <p class="text-gray-500">“汇通天下”不仅仅是口号。晋商通过严密的密押系统（加密防伪）和异地结算网络，让白银不再需要经历漫长而危险的骡马押运。金融成了信息的传递，而非实物的搬运。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global History Content -->
+            <div id="tab-global" class="tab-content space-y-6">
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/4 text-indigo-500 font-black text-4xl">1602</div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold mb-2">荷兰：东印度公司与风险碎裂</h4>
+                        <p class="text-gray-500">远洋航行九死一生。荷兰人发明了“股份制”，将巨大的风险碎裂给全社会分担，让普通市民也能参与全球探险的收益分配。这是资本第一次实现“民主化”聚合。</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/4 text-amber-500 font-black text-4xl">1850</div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold mb-2">工业革命：现代银行的杠杆作用</h4>
+                        <p class="text-gray-500">铁路和钢铁需要巨量的前期资本积累。现代银行体系通过吸收储蓄并精准信贷，将未来的预期收益提前“变现”给当下的实业，直接缩短了人类进入工业文明的时间。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mechanisms Grid -->
+    <section class="py-16 px-6 max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-black mb-4">金融对实业的加速逻辑</h2>
+            <div class="h-1.5 w-16 bg-gradient-to-r from-blue-600 to-pink-500 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-8 rounded-3xl border border-gray-100 bg-white shadow-sm hover:border-blue-200 text-center transition-all">
+                <div class="inline-flex w-14 h-14 bg-blue-50 text-blue-600 items-center justify-center rounded-2xl mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h4 class="text-lg font-bold mb-2">时空折叠</h4>
+                <p class="text-sm text-gray-400">将未来的利润贴现到今天，让实体经济可以“提前开工”。</p>
+            </div>
+            <div class="p-8 rounded-3xl border border-gray-100 bg-white shadow-sm hover:border-purple-200 text-center transition-all">
+                <div class="inline-flex w-14 h-14 bg-purple-50 text-purple-600 items-center justify-center rounded-2xl mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h4 class="text-lg font-bold mb-2">风险碎裂</h4>
+                <p class="text-sm text-gray-400">将单一主权无法承受的失败概率，平摊给成千上万个账户。</p>
+            </div>
+            <div class="p-8 rounded-3xl border border-gray-100 bg-white shadow-sm hover:border-pink-200 text-center transition-all">
+                <div class="inline-flex w-14 h-14 bg-pink-50 text-pink-600 items-center justify-center rounded-2xl mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h4 class="text-lg font-bold mb-2">高效投票</h4>
+                <p class="text-sm text-gray-400">资本的每一次注资，都是对实体经济未来增长点的一次社会投票。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Footer -->
+    <footer class="py-16 text-center bg-gray-900 text-white px-6">
+        <h2 class="text-3xl font-bold mb-6">回归初心，融通未来</h2>
+        <p class="max-w-xl mx-auto text-gray-400 leading-relaxed mb-10">
+            当资本不再为自旋而存在，而是为赋能每一个伟大的想法而流动时，这才是金融对人类文明最高的贡献。
+        </p>
+        <div class="text-xs text-gray-600 tracking-widest uppercase">
+            © 2024 金融深度研究实验室
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * Simple tab switcher to avoid heavy JS libraries
+         */
+        function showTab(type) {
+            const tabs = ['cn', 'global'];
+            tabs.forEach(tab => {
+                const content = document.getElementById('tab-' + tab);
+                const btn = document.getElementById('btn-' + tab);
+                if (tab === type) {
+                    content.classList.add('active');
+                    btn.classList.add('bg-gray-900', 'text-white');
+                    btn.classList.remove('text-gray-500');
+                } else {
+                    content.classList.remove('active');
+                    btn.classList.remove('bg-gray-900', 'text-white');
+                    btn.classList.add('text-gray-500');
+                }
+            });
+        }
+
+        /**
+         * Simple scroll reveal using IntersectionObserver (native browser feature)
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section, header').forEach(el => {
+                el.classList.add('reveal');
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

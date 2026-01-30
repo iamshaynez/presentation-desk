@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>货币的时间价值 - 信息图</title>
+    <style>
+        :root {
+            --primary: #2563EB;      /* 蓝色 - 理性/金融 */
+            --secondary: #F59E0B;    /* 金色 - 财富 */
+            --danger: #EF4444;       /* 红色 - 风险/通胀 */
+            --success: #10B981;      /* 绿色 - 增长 */
+            --dark: #1F2937;
+            --light: #F3F4F6;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background-color: #F9FAFB;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--white);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Common Sections --- */
+        section {
+            padding: 40px 30px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        h2 svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        /* --- Section 1: The Concept --- */
+        .concept-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .money-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: var(--card-radius);
+            text-align: center;
+            width: 180px;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .money-card.now {
+            border-color: var(--success);
+            background: #ECFDF5;
+        }
+
+        .money-card.future {
+            border-color: var(--secondary);
+            background: #FFFBEB;
+        }
+
+        .money-val {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .arrow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .arrow-line {
+            height: 2px;
+            width: 100px;
+            background: var(--primary);
+            position: relative;
+        }
+
+        .arrow-line::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 10px solid var(--primary);
+        }
+
+        .concept-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #4B5563;
+        }
+
+        .highlight {
+            color: var(--danger);
+            font-weight: bold;
+            background: #FEE2E2;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* --- Section 2: Four Drivers --- */
+        .drivers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .driver-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: var(--card-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .driver-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .driver-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .d-blue { background: #DBEAFE; color: var(--primary); }
+        .d-red { background: #FEE2E2; color: var(--danger); }
+        .d-yellow { background: #FEF3C7; color: var(--secondary); }
+        .d-green { background: #D1FAE5; color: var(--success); }
+
+        .driver-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .driver-desc {
+            font-size: 0.9rem;
+            color: #6B7280;
+            line-height: 1.4;
+        }
+
+        /* --- Section 3: Math & Compounding --- */
+        .math-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .formula-box {
+            background: var(--dark);
+            color: var(--white);
+            padding: 20px;
+            border-radius: var(--card-radius);
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.3rem;
+            margin: 10px 0;
+            color: var(--secondary);
+        }
+
+        .rule-72 {
+            background: #FFF7ED;
+            border: 2px dashed var(--secondary);
+            padding: 20px;
+            border-radius: var(--card-radius);
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+
+        .rule-badge {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--secondary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* --- Section 4: Real World Traps --- */
+        .trap-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .trap-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .trap-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .trap-header {
+            background: var(--dark);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .trap-content {
+            padding: 20px;
+        }
+
+        .comparison {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #F9FAFB;
+            border-radius: 8px;
+        }
+
+        .vs-badge {
+            background: var(--dark);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .result-box {
+            background: #FEF2F2;
+            border-left: 4px solid var(--danger);
+            padding: 10px 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .result-title {
+            color: var(--danger);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--dark);
+            color: #9CA3AF;
+            padding: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer strong {
+            color: var(--white);
+        }
+        
+        /* SVG Shapes */
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HEADER -->
+    <header>
+        <h1>货币的时间价值</h1>
+        <div class="subtitle">为什么今天的 100 元 > 明天的 100 元？</div>
+        <div style="margin-top: 10px; font-size: 3rem; opacity: 0.2; position: absolute; right: 20px; top: 10px;">
+            <!-- Simple Decorative Coin -->
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: white;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v12M16 8l-4 4-4-4M16 16l-4-4-4 4"></path> <!-- Abstract Currency Symbol -->
+            </svg>
+        </div>
+    </header>
+
+    <!-- SECTION 1: CONCEPT -->
+    <section>
+        <h2>
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            核心概念：钱能生钱
+        </h2>
+        
+        <div class="concept-visual">
+            <div class="money-card now">
+                <span class="money-val" style="color: var(--success);">¥100</span>
+                <span>现在 (PV)</span>
+            </div>
+            
+            <div class="arrow-container">
+                <span style="font-size: 0.9rem; margin-bottom: 5px;">时间 + 利率 (5%)</span>
+                <div class="arrow-line"></div>
+                <span style="font-size: 0.8rem; color: #9CA3AF; margin-top: 5px;">让渡使用权的补偿</span>
+            </div>
+            
+            <div class="money-card future">
+                <span class="money-val" style="color: var(--secondary);">¥105</span>
+                <span>一年后 (FV)</span>
+            </div>
+        </div>
+
+        <div class="concept-text">
+            “这多出的 <span class="highlight">5元</span>，就是货币在时间流逝中产生的价值。”
+        </div>
+    </section>
+
+    <!-- SECTION 2: 4 DRIVERS -->
+    <section style="background-color: #FAFAFA;">
+        <h2>
+            <svg class="svg-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            为什么未来的钱“不值钱”？
+        </h2>
+        <p style="text-align: center; margin-bottom: 20px; color: #666;">决定资金价格（利率）的四大要素</p>
+        
+        <div class="drivers-grid">
+            <!-- Card 1 -->
+            <div class="driver-card">
+                <div class="driver-icon d-blue">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <div class="driver-title">机会成本</div>
+                <div class="driver-desc">持有现金意味着放弃了投资其他项目获取回报的机会。</div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="driver-card">
+                <div class="driver-icon d-red">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div class="driver-title">通货膨胀</div>
+                <div class="driver-desc">物价上涨，同样的钱在未来能买到的东西会变少。</div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="driver-card">
+                <div class="driver-icon d-yellow">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div class="driver-title">风险溢价</div>
+                <div class="driver-desc">未来充满不确定性（违约、跑路），风险越高，要求的补偿越高。</div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="driver-card">
+                <div class="driver-icon d-green">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <div class="driver-title">流动性偏好</div>
+                <div class="driver-desc">人们更喜欢落袋为安。若要推迟消费，必须给予奖励。</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: MATH -->
+    <section>
+        <h2>
+            <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            计算的力量：复利
+        </h2>
+
+        <div class="math-container">
+            <div class="formula-box">
+                <div style="font-size: 0.9rem; color: #9CA3AF; text-transform: uppercase; letter-spacing: 1px;">复利公式</div>
+                <div class="formula">FV = PV × (1 + r)ⁿ</div>
+                <div style="font-size: 0.8rem; opacity: 0.8; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                    PV=本金, r=利率, n=期数<br>
+                    <span style="color: var(--success);">时间越长，增长越快（指数级）</span>
+                </div>
+            </div>
+
+            <div class="rule-72">
+                <div class="rule-badge">速算技巧：72法则</div>
+                <h3 style="margin: 10px 0; color: var(--secondary);">多久资产翻倍？</h3>
+                <div style="font-size: 1.5rem; font-weight: bold; margin: 10px 0;">
+                    72 ÷ <span style="color: var(--primary);">年利率(%)</span>
+                </div>
+                <p style="font-size: 0.9rem; color: #666;">
+                    例：若年利率为 <span style="color: var(--primary); font-weight: bold;">8%</span>，<br>
+                    72 ÷ 8 = <span style="font-weight: bold;">9年</span> 后资产翻倍。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: TRAPS -->
+    <section style="background-color: #FAFAFA;">
+        <h2>
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            避坑指南：生活中的应用
+        </h2>
+
+        <div class="trap-container">
+            <!-- Trap 1 -->
+            <div class="trap-card">
+                <div class="trap-header" style="background: linear-gradient(to right, #EF4444, #B91C1C);">
+                    陷阱 1：免息分期 vs 现金折扣
+                </div>
+                <div class="trap-content">
+                    <p style="margin-bottom: 15px; font-size: 0.9rem;">商品价格 3000元。你选哪个？</p>
+                    
+                    <div class="comparison">
+                        <div style="text-align: center;">
+                            <div style="font-weight: bold; color: var(--primary);">24期免息</div>
+                            <div style="font-size: 0.8rem;">0首付, ¥125/月</div>
+                        </div>
+                        <div class="vs-badge">VS</div>
+                        <div style="text-align: center;">
+                            <div style="font-weight: bold; color: var(--success);">付现 9折</div>
+                            <div style="font-size: 0.8rem;">立省 ¥300</div>
+                        </div>
+                    </div>
+
+                    <div class="result-box">
+                        <span class="result-title">真相：免息更贵！</span>
+                        放弃¥300折扣 = 支付隐形利息。<br>
+                        实际年化利率高达 <span style="font-weight: bold; font-size: 1.1rem;">10.8%</span>！除非你能理财赚回10.8%，否则付现更划算。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trap 2 -->
+            <div class="trap-card">
+                <div class="trap-header" style="background: linear-gradient(to right, #3B82F6, #1E40AF);">
+                    场景 2：房贷还款方式
+                </div>
+                <div class="trap-content">
+                    <p style="margin-bottom: 15px; font-size: 0.9rem;">都是还30年，怎么选？</p>
+                    
+                    <div class="comparison">
+                        <div style="text-align: center;">
+                            <div style="font-weight: bold;">等额本息</div>
+                            <div style="font-size: 0.8rem;">每月还款固定</div>
+                        </div>
+                        <div class="vs-badge">VS</div>
+                        <div style="text-align: center;">
+                            <div style="font-weight: bold;">等额本金</div>
+                            <div style="font-size: 0.8rem;">首月多，逐月减</div>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 0.9rem; color: #4B5563; margin-top: 10px;">
+                        <ul style="list-style-position: inside; padding-left: 5px;">
+                            <li><strong>等额本金</strong>：总利息少，但前期压力大。</li>
+                            <li><strong>等额本息</strong>：占用银行资金久。如果你会理财（收益率>房贷利率），选这个反而划算（利用时间价值）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p style="font-size: 1.2rem; margin-bottom: 10px; color: var(--white);">
+            “在长期，唯有跑赢通胀，财富才能保值。”
+        </p>
+        <p>基于 <strong>现金流折现 (DCF)</strong> 模型制作</p>
+    </footer>
+</div>
+
+</body>
+</html>
