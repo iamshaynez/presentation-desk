@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>权益类产品全景图 Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* iframe 适配修复 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            width: 100%;
+            overflow-x: hidden; /* 防止横向滚动条 */
+        }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f9fafb; /* bg-gray-50 */
+            color: #333;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<!-- 移除 body 的 padding，改用内部容器控制，防止盒模型计算溢出 -->
+<body class="w-full">
+
+    <!-- Main Container: 移除 min-h-screen，改为 h-auto -->
+    <div class="max-w-6xl mx-auto bg-white h-auto card-shadow rounded-none md:rounded-3xl overflow-hidden border border-gray-100 my-0 md:my-8">
+        
+        <!-- Header Section -->
+        <header class="text-center py-16 px-4 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
+            <!-- Decorative Background Blobs -->
+            <div class="absolute top-0 left-0 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute top-0 right-0 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 translate-x-1/2 -translate-y-1/2"></div>
+
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight gradient-text leading-tight">权益类产品全景图</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium">从柠檬水摊到华尔街：一图看懂股票投资的本质逻辑</p>
+        </header>
+
+        <!-- Content Grid -->
+        <div class="p-6 md:p-10 space-y-12">
+
+            <!-- Section 1: 什么是股票 (Definition) -->
+            <section>
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="p-3 bg-blue-100 rounded-xl text-blue-600 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800">股票的本质：不仅仅是代码</h2>
+                </div>
+
+                <!-- Official Definition Card -->
+                <div class="bg-slate-800 text-white p-6 rounded-2xl mb-8 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative z-10">
+                        <p class="text-xs text-blue-300 uppercase tracking-widest font-bold mb-3 border-b border-slate-600 pb-2 inline-block">正式定义 Definition</p>
+                        <blockquote class="text-lg md:text-2xl font-serif leading-relaxed">
+                            "权益（Equity），即所有者权益，是指企业资产扣除负债后，由所有者享有的<span class="text-blue-300 font-bold border-b-2 border-blue-300">剩余权益</span>。"
+                        </blockquote>
+                        <p class="text-sm text-slate-400 mt-3 text-right">—— 会计恒等式：资产 = 负债 + <strong>所有者权益</strong></p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Concept Card: The Queue -->
+                    <div class="bg-blue-50 rounded-2xl p-6 border-l-8 border-blue-500 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                        <h3 class="text-xl font-bold text-blue-800 mb-2">剩余索取权 (Residual Claim)</h3>
+                        <p class="text-gray-600 mb-4">就像自助餐排队，股东排在最后。先付税收、工资、债主，剩下的才归你。</p>
+                        
+                        <!-- Visualizing the Queue -->
+                        <div class="flex items-center justify-center space-x-2 mt-6 bg-white p-4 rounded-xl shadow-sm overflow-x-auto">
+                            <div class="flex flex-col items-center flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs font-bold text-white mb-1">1</div>
+                                <span class="text-xs text-gray-500">税务/员工</span>
+                            </div>
+                            <div class="h-0.5 w-6 bg-gray-300 flex-shrink-0"></div>
+                            <div class="flex flex-col items-center flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-xs font-bold text-white mb-1">2</div>
+                                <span class="text-xs text-gray-500">债权人</span>
+                            </div>
+                            <div class="h-0.5 w-6 bg-gray-300 flex-shrink-0"></div>
+                            <div class="flex flex-col items-center flex-shrink-0">
+                                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-sm font-bold text-white mb-1 shadow-lg transform scale-110">你</div>
+                                <span class="text-xs font-bold text-blue-600">股东</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-blue-400 mt-2 text-center">风险最高，收益上限也最高</p>
+                    </div>
+
+                    <!-- Concept Card: Public vs Private -->
+                    <div class="bg-indigo-50 rounded-2xl p-6 border-l-8 border-indigo-500 hover:-translate-y-1 transition-transform duration-300">
+                        <h3 class="text-xl font-bold text-indigo-800 mb-4">公开 vs 私有：生态差异</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <div class="text-indigo-600 font-bold mb-1">私有市场 (PE/VC)</div>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <p>🏢 柠檬水初创摊</p>
+                                    <p>🔒 流动性极低（难卖）</p>
+                                    <p>🕶️ 信息不透明</p>
+                                    <p>⏳ 看重长期战略</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-sm border-2 border-indigo-100">
+                                <div class="text-purple-600 font-bold mb-1">公开市场 (Stocks)</div>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <p>📈 上市大集团</p>
+                                    <p>🌊 流动性极高（秒卖）</p>
+                                    <p>📢 透明的金鱼缸</p>
+                                    <p>⚡ 受季度财报压力</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: 投资获得什么 (Investment Rights) -->
+            <section>
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-8 border border-orange-100">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">我们要的是什么？</h2>
+                        <p class="text-gray-500">权益的一体三面：所有权的权利束</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Right 1 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm text-center transform transition hover:scale-105">
+                            <div class="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4 text-orange-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg">收益权</h3>
+                            <p class="text-sm text-gray-500 mt-2">分红拿现金，或者利润再投入带来股价上涨。</p>
+                        </div>
+
+                        <!-- Right 2 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm text-center transform transition hover:scale-105">
+                            <div class="w-16 h-16 mx-auto bg-amber-100 rounded-full flex items-center justify-center mb-4 text-amber-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg">控制权</h3>
+                            <p class="text-sm text-gray-500 mt-2">投票选董事。即使是小股东，也能像Engine No.1那样撼动巨头。</p>
+                        </div>
+
+                        <!-- Right 3 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm text-center transform transition hover:scale-105">
+                            <div class="w-16 h-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-4 text-yellow-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg">知情权</h3>
+                            <p class="text-sm text-gray-500 mt-2">解决信息不对称。财报必须公开，不能藏着掖着。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: 定价模型 (Pricing Models) -->
+            <section>
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="p-3 bg-green-100 rounded-xl text-green-600 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 36v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800">股票到底值多少钱？</h2>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- P/E Ratio -->
+                    <div class="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-green-100 rounded-full opacity-50"></div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">P/E 市盈率模型</h3>
+                        <p class="text-green-600 font-bold mb-4 uppercase tracking-wider text-sm">通俗版：回本周期</p>
+                        
+                        <div class="bg-gray-50 p-4 rounded-xl mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-bold text-gray-600">摊位A (稳定)</span>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">P/E = 10倍</span>
+                            </div>
+                            <p class="text-sm text-gray-500">每年赚100，卖1000。<br>你需要 <span class="font-bold text-gray-800">10年</span> 回本。</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-bold text-gray-600">摊位B (高增长)</span>
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">P/E = 50倍</span>
+                            </div>
+                            <p class="text-sm text-gray-500">每年赚100，卖5000？<br>因为明年可能赚200，后年赚500！<br><span class="text-xs text-gray-400">这就是为什么科技股P/E高。</span></p>
+                        </div>
+                    </div>
+
+                    <!-- DCF Model -->
+                    <div class="bg-gray-900 text-white rounded-3xl p-8 shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-blue-600 rounded-full filter blur-3xl opacity-20"></div>
+                        <h3 class="text-2xl font-bold mb-2">DCF 现金流折现</h3>
+                        <p class="text-blue-300 font-bold mb-4 uppercase tracking-wider text-sm">通俗版：金鹅与时间机器</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="text-sm text-gray-300"><strong class="text-white">今天的1块钱 > 明年的1块钱</strong><br>因为有利息和通胀。</p>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                                <p class="text-sm text-gray-300"><strong class="text-white">估值公式</strong><br>把这只鹅未来下的所有金蛋，用“时间机器”折算成今天的价格，加在一起。</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-3 bg-gray-800 rounded-lg border border-gray-700">
+                            <p class="text-xs text-center text-gray-400">这就是为什么加息(折现率变高)会杀估值！</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: 价格波动 (Fluctuations) -->
+            <section>
+                <div class="flex items-center space-x-4 mb-6">
+                     <div class="p-3 bg-red-100 rounded-xl text-red-600 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800">K线为什么会跳动？</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Factor 1 -->
+                    <div class="bg-white p-6 rounded-2xl border-t-4 border-blue-500 shadow-sm">
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">🌍 基本面 (地心引力)</h4>
+                        <p class="text-sm text-gray-600">长期的决定因素。公司赚钱多了，现金流强了，价格最终会回归价值。</p>
+                    </div>
+                    <!-- Factor 2 -->
+                    <div class="bg-white p-6 rounded-2xl border-t-4 border-purple-500 shadow-sm">
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">🏦 宏观 (潮汐)</h4>
+                        <p class="text-sm text-gray-600">央行放水(降息)，水涨船高；央行收水(加息)，资产缩水。</p>
+                    </div>
+                    <!-- Factor 3 -->
+                    <div class="bg-white p-6 rounded-2xl border-t-4 border-pink-500 shadow-sm">
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">🎭 情绪 (风)</h4>
+                        <p class="text-sm text-gray-600">短期的剧烈波动。贪婪、恐惧、羊群效应。想想GME逼空大战。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer Section: Fun Facts -->
+            <div class="bg-gray-100 rounded-3xl p-8 mt-12">
+                <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                    <span class="mr-2">💡</span> 股市冷知识
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-4 rounded-xl flex items-start space-x-4">
+                        <div class="text-4xl">🎁</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">日本的股东优待</h4>
+                            <p class="text-xs text-gray-500 mt-1">在日本买股票会收到礼物！买吉野家股票送牛肉饭券，买迪士尼股票送门票。这让散户更愿意长期持有。</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl flex items-start space-x-4">
+                        <div class="text-4xl">🍕</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">披萨切分理论</h4>
+                            <p class="text-xs text-gray-500 mt-1">股票拆分（1股变4股）就像把披萨切成更多块。你并没有变富，只是手里的碎片变多了。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white text-center py-8">
+            <p class="text-sm opacity-60">© 2026 金融基础系列讲座素材 | 基于《权益类资产全景深度解析》生成</p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融市场的逻辑架构与运行机制 - 信息图</title>
+    <!-- 使用 Tailwind CSS 进行快速样式构建 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 自定义字体和一些细节调整 */
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .infographic-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+        }
+        /* 定制颜色类 */
+        .theme-blue { color: #2563EB; }
+        .bg-theme-blue { background-color: #2563EB; }
+        .border-theme-blue { border-color: #2563EB; }
+        
+        .theme-orange { color: #EA580C; }
+        .bg-theme-orange { background-color: #EA580C; }
+        .border-theme-orange { border-color: #EA580C; }
+
+        .theme-red { color: #DC2626; }
+        .bg-theme-red { background-color: #DC2626; }
+        .border-theme-red { border-color: #DC2626; }
+
+        .theme-green { color: #059669; }
+        .bg-theme-green { background-color: #059669; }
+        .border-theme-green { border-color: #059669; }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="infographic-container">
+        
+        <!-- Header Section -->
+        <header class="bg-gray-900 text-white p-12 text-center relative overflow-hidden">
+            <div class="relative z-10">
+                <div class="text-sm font-bold tracking-widest uppercase text-blue-400 mb-2">FINANCE 101</div>
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">金融市场的逻辑架构</h1>
+                <p class="text-xl text-gray-300 font-light max-w-2xl mx-auto">
+                    从宏观经济脉搏到微观企业透视<br>
+                    <span class="text-sm opacity-80 mt-2 block">一图读懂：货币 · 汇率 · 风险 · 财报</span>
+                </p>
+            </div>
+            <!-- Decorative BG Circles -->
+            <div class="absolute top-0 left-0 w-32 h-32 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        </header>
+
+        <!-- Section 1: Macro Economy -->
+        <section class="p-8 md:p-12 border-b border-gray-100">
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/3 text-center">
+                    <div class="inline-block p-6 bg-blue-50 rounded-full mb-4">
+                        <!-- SVG: Water Tap -->
+                        <svg class="w-20 h-20 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">宏观机器</h2>
+                    <p class="text-blue-600 font-medium mt-1">货币与信贷周期</p>
+                </div>
+                <div class="md:w-2/3 space-y-6">
+                    <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 card-shadow">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2 flex items-center">
+                            <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">1</span>
+                            央行是水龙头
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            经济像水利系统。<strong>央行</strong>掌管总阀门（利率）。<br>
+                            <span class="text-blue-600 font-semibold">经济干旱（衰退）</span> ➔ 拧开水龙头（降息） ➔ 资金成本低 ➔ 刺激消费。<br>
+                            <span class="text-blue-600 font-semibold">洪水泛滥（通胀）</span> ➔ 关紧水龙头（加息） ➔ 资金成本高 ➔ 抑制投机。
+                        </p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-700 mb-1">交易的本质</h4>
+                            <p class="text-xs text-gray-500">一个人的支出 = 另一个人的收入。支出驱动经济增长。</p>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-700 mb-1">政策时滞</h4>
+                            <p class="text-xs text-gray-500">现在拧开水龙头，水流可能需要6-16个月才能流到田间地头。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: FX & Trade -->
+        <section class="p-8 md:p-12 border-b border-gray-100 bg-orange-50/30">
+            <div class="flex flex-col md:flex-row-reverse gap-8 items-center">
+                <div class="md:w-1/3 text-center">
+                    <div class="inline-block p-6 bg-orange-100 rounded-full mb-4">
+                        <!-- SVG: Burger -->
+                        <svg class="w-20 h-20 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 11l7-7 7 7M5 19l7-7 7 7"></path> <!-- Abstract Arrows replacing burger for scale metaphor -->
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">汇率天平</h2>
+                    <p class="text-orange-500 font-medium mt-1">巨无霸 vs 演唱会</p>
+                </div>
+                <div class="md:w-2/3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Long Term Card -->
+                        <div class="bg-white p-5 rounded-lg shadow border-t-4 border-orange-400">
+                            <h3 class="font-bold text-gray-800 text-lg mb-2">长期：汉堡经济学</h3>
+                            <p class="text-xs text-gray-500 mb-2">购买力平价 (PPP)</p>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-orange-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span><strong>巨无霸指数：</strong>如果瑞士的汉堡折算后比美国贵38%，说明瑞郎被高估。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-orange-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>长期趋势会回归商品实际购买力。</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Short Term Card -->
+                        <div class="bg-white p-5 rounded-lg shadow border-t-4 border-orange-400">
+                            <h3 class="font-bold text-gray-800 text-lg mb-2">短期：演唱会效应</h3>
+                            <p class="text-xs text-gray-500 mb-2">供需与情绪</p>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-orange-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    <span><strong>供需博弈：</strong>想买美国资产就要买美元，像抢演唱会门票一样推高汇率。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 text-orange-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    <span>投机者（黄牛）会放大情绪波动。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Risk Management -->
+        <section class="p-8 md:p-12 border-b border-gray-100">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 inline-block px-4 py-1 border-2 border-red-500 rounded text-red-600">风险管理的艺术：盾与剑</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Strategy 1 -->
+                <div class="bg-red-50 p-6 rounded-xl text-center hover:bg-red-100 transition-colors">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-2xl">🥚</div>
+                    <h3 class="font-bold text-gray-800">分散投资</h3>
+                    <p class="text-xs text-red-500 font-bold uppercase tracking-wide mb-2">不要把鸡蛋放在一个篮子里</p>
+                    <p class="text-sm text-gray-600">关键在于<strong>低相关性</strong>。比如股票（晴天卖伞）+ 债券（雨天卖雨衣），无论天气如何都能盈利。</p>
+                </div>
+
+                <!-- Strategy 2 -->
+                <div class="bg-red-50 p-6 rounded-xl text-center hover:bg-red-100 transition-colors">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-2xl">🛡️</div>
+                    <h3 class="font-bold text-gray-800">对冲 (Hedging)</h3>
+                    <p class="text-xs text-red-500 font-bold uppercase tracking-wide mb-2">购买保险</p>
+                    <p class="text-sm text-gray-600">转移风险，换取<strong>确定性</strong>。例如航空公司锁定燃油价格。代价是可能错失油价下跌的红利。</p>
+                </div>
+
+                <!-- Strategy 3 -->
+                <div class="bg-red-50 p-6 rounded-xl text-center hover:bg-red-100 transition-colors">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-2xl">🌽</div>
+                    <h3 class="font-bold text-gray-800">期货</h3>
+                    <p class="text-xs text-red-500 font-bold uppercase tracking-wide mb-2">未来的契约</p>
+                    <p class="text-sm text-gray-600">农民卖空期货锁定秋收价格。实体企业将风险扔进“垃圾桶”，投机者在里面淘宝。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Corporate Finance (Anatomy) -->
+        <section class="p-8 md:p-12 bg-green-50/20">
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/4 text-center">
+                    <div class="inline-block p-4 border-2 border-green-500 rounded-lg mb-2">
+                        <!-- Simple Stickman SVG for Anatomy -->
+                        <svg class="w-24 h-24 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="4" r="2" stroke-width="2"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v8m0 0l-3 3m3-3l3 3M12 8l-4 2m4-2l4 2"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">财报解剖学</h2>
+                    <p class="text-green-600 font-medium">透视企业X光片</p>
+                </div>
+
+                <div class="md:w-3/4 grid gap-4">
+                    <!-- Bone -->
+                    <div class="flex items-center bg-white p-4 rounded-lg shadow-sm border-l-8 border-gray-400">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-xl mr-4">🦴</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">资产负债表 = <span class="text-gray-500">骨骼</span></h3>
+                            <p class="text-sm text-gray-600">Asset = Debt + Equity。如果负债太多（D/E > 2），骨骼脆弱容易折断。</p>
+                        </div>
+                    </div>
+
+                    <!-- Muscle -->
+                    <div class="flex items-center bg-white p-4 rounded-lg shadow-sm border-l-8 border-red-400">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-xl mr-4">💪</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">利润表 = <span class="text-red-500">肌肉</span></h3>
+                            <p class="text-sm text-gray-600">营收是块头，利润是力量。市盈率(P/E)衡量肌肉性价比。</p>
+                        </div>
+                    </div>
+
+                    <!-- Blood -->
+                    <div class="flex items-center bg-white p-4 rounded-lg shadow-sm border-l-8 border-green-500">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-xl mr-4">🩸</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">现金流量表 = <span class="text-green-600">血液</span></h3>
+                            <p class="text-sm text-gray-600">最致命的指标。肌肉发达（有利润）但严重贫血（无现金流）= 暴雷前兆。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cheat Sheet Section -->
+        <section class="p-8 md:p-12 bg-gray-800 text-white rounded-b-lg">
+            <h2 class="text-xl font-bold mb-6 text-center text-yellow-400">📊 核心指标速查表</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-700">
+                            <th class="pb-3">指标</th>
+                            <th class="pb-3">全称</th>
+                            <th class="pb-3">通俗含义</th>
+                            <th class="pb-3 text-right">参考标准</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-gray-700/50">
+                            <td class="py-3 font-bold text-yellow-400">P/E</td>
+                            <td class="py-3">市盈率</td>
+                            <td class="py-3">几年能回本？</td>
+                            <td class="py-3 text-right font-mono text-green-400">15-20倍</td>
+                        </tr>
+                        <tr class="border-b border-gray-700/50">
+                            <td class="py-3 font-bold text-yellow-400">P/B</td>
+                            <td class="py-3">市净率</td>
+                            <td class="py-3">花多少钱买1块钱净资产</td>
+                            <td class="py-3 text-right font-mono text-green-400"> &lt; 1 (破净)</td>
+                        </tr>
+                        <tr class="border-b border-gray-700/50">
+                            <td class="py-3 font-bold text-yellow-400">ROE</td>
+                            <td class="py-3">净资产收益率</td>
+                            <td class="py-3">巴菲特最爱：赚钱效率</td>
+                            <td class="py-3 text-right font-mono text-green-400">&gt; 20% (优秀)</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 font-bold text-yellow-400">D/E</td>
+                            <td class="py-3">负债权益比</td>
+                            <td class="py-3">借了多少钱（杠杆）</td>
+                            <td class="py-3 text-right font-mono text-green-400">&lt; 2.0 (健康)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="p-6 text-center text-gray-400 text-xs bg-gray-100">
+            <p>内容来源：金融讲座内容准备指南 | 视觉设计：Canvas AI</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
