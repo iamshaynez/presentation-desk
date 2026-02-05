@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent 技术架构全景图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* 直接在 CSS 中定义字体，移除 JS 依赖以修复 ReferenceError */
+        body {
+            background-color: #ffffff;
+            color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Noto Sans SC', sans-serif; /* 显式定义字体 */
+        }
+        
+        /* 卡片基础样式 */
+        .bento-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .bento-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* 装饰性背景 */
+        .bg-dots {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* 渐变文字 */
+        .text-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 技术标签样式 */
+        .tech-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.25rem;
+            background-color: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* 简单的连接线动画 */
+        .connection-line {
+            stroke-dasharray: 10;
+            animation: dash 30s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -1000; }
+        }
+    </style>
+</head>
+<body class="h-auto w-full p-6 md:p-10 bg-dots">
+
+    <div class="max-w-6xl mx-auto space-y-6">
+
+        <!-- 1. Header Area -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-slate-200 pb-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-bold tracking-widest uppercase">
+                    <span>Architecture Overview</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+                    AI Agent <br><span class="text-gradient">智能体技术全景</span>
+                </h1>
+                <p class="text-slate-500 max-w-xl text-sm md:text-base pt-2">
+                    从“概率生成”向“认知行动”的计算范式跃迁。解构以 LLM 为核心的自主智能系统架构。
+                </p>
+            </div>
+            <div class="hidden md:block text-right">
+                <div class="text-xs text-slate-400 font-mono mb-1">DESIGN PATTERN</div>
+                <div class="text-2xl font-bold font-mono text-slate-700">AGI-001</div>
+            </div>
+        </header>
+
+        <!-- 2. Core Formula Bar -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bento-card p-5 bg-slate-50 flex flex-col justify-center border-l-4 border-l-violet-500">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Core</span>
+                <div class="text-2xl font-bold text-slate-800">Agent =</div>
+            </div>
+            <div class="bento-card p-5 flex items-center gap-3">
+                <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                </div>
+                <div>
+                    <div class="font-bold text-slate-800">LLM</div>
+                    <div class="text-xs text-slate-500">大脑与推理中枢</div>
+                </div>
+            </div>
+            <div class="bento-card p-5 flex items-center gap-3">
+                <div class="p-2 bg-amber-100 rounded-lg text-amber-600">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 13V2l8 4-8 4"/><path d="M20.66 6S23 12 6.85 12c0 0-5.71 2.5-5.71 9M4 22h16"/></svg>
+                </div>
+                <div>
+                    <div class="font-bold text-slate-800">Planning</div>
+                    <div class="text-xs text-slate-500">感知、规划与反思</div>
+                </div>
+            </div>
+            <div class="bento-card p-5 flex items-center gap-3">
+                <div class="p-2 bg-emerald-100 rounded-lg text-emerald-600">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <div>
+                    <div class="font-bold text-slate-800">Tools</div>
+                    <div class="text-xs text-slate-500">API与执行能力</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Main Architecture Grid -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Left: Workflow (Vertical) -->
+            <div class="lg:col-span-3 space-y-4">
+                <div class="bento-card p-6 h-full bg-slate-900 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            核心循环
+                        </h3>
+                        <p class="text-sm text-slate-400 mb-6">Autonomous Loop</p>
+                    </div>
+                    
+                    <div class="space-y-6 relative">
+                        <!-- Line -->
+                        <div class="absolute left-3.5 top-2 bottom-2 w-0.5 bg-slate-700"></div>
+
+                        <div class="relative pl-10">
+                            <span class="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-blue-500 border-4 border-slate-900"></span>
+                            <div class="text-sm font-bold text-blue-300">Perceive (感知)</div>
+                            <div class="text-xs text-slate-500 mt-1">接收多模态输入</div>
+                        </div>
+                        <div class="relative pl-10">
+                            <span class="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-violet-500 border-4 border-slate-900"></span>
+                            <div class="text-sm font-bold text-violet-300">Brain (决策)</div>
+                            <div class="text-xs text-slate-500 mt-1">推理与任务拆解</div>
+                        </div>
+                        <div class="relative pl-10">
+                            <span class="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-emerald-500 border-4 border-slate-900"></span>
+                            <div class="text-sm font-bold text-emerald-300">Act (行动)</div>
+                            <div class="text-xs text-slate-500 mt-1">调用工具/代码</div>
+                        </div>
+                         <div class="relative pl-10">
+                            <span class="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-amber-500 border-4 border-slate-900"></span>
+                            <div class="text-sm font-bold text-amber-300">Reflect (反思)</div>
+                            <div class="text-xs text-slate-500 mt-1">评估结果并修正</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center: The Components (Detailed) -->
+            <div class="lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Planning Module -->
+                <div class="bento-card p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-indigo-50 rounded-lg">
+                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        </div>
+                        <span class="tech-tag">Reasoning</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">规划 (Planning)</h3>
+                    <p class="text-sm text-slate-600 mb-4">将模糊目标转化为可执行步骤。</p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                            <div class="text-xs font-bold text-slate-700 mb-1">思维链 (CoT)</div>
+                            <div class="text-xs text-slate-500">Step-by-step reasoning 提升复杂任务准确率。</div>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                            <div class="text-xs font-bold text-slate-700 mb-1">自我反思 (Self-Reflection)</div>
+                            <div class="text-xs text-slate-500">ReAct, Reflexion 框架，从错误中学习并修正轨迹。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Module -->
+                <div class="bento-card p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-pink-50 rounded-lg">
+                            <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                        </div>
+                        <span class="tech-tag">Storage</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">记忆 (Memory)</h3>
+                    <p class="text-sm text-slate-600 mb-4">克服 Transformer 窗口限制，维持长期状态。</p>
+                    
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+                            <span><b>短期记忆:</b> 上下文窗口 (In-Context Learning)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+                            <span><b>长期记忆:</b> 向量数据库 (Vector DB/RAG)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+                            <span><b>程序化记忆:</b> SQL 数据库 / 知识图谱</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tools Module -->
+                <div class="bento-card p-6 md:col-span-2 bg-gradient-to-r from-slate-50 to-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-emerald-100 rounded-lg">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                        </div>
+                        <span class="tech-tag">Execution</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">工具使用 (Action Space)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                        <div class="border border-slate-200 rounded p-3 bg-white">
+                            <div class="font-bold text-slate-700 text-sm mb-1">Function Calling</div>
+                            <p class="text-xs text-slate-500">OpenAI JSON Schema 标准，将自然语言转为 API 调用参数。</p>
+                        </div>
+                        <div class="border border-slate-200 rounded p-3 bg-white">
+                            <div class="font-bold text-slate-700 text-sm mb-1">Code Interpreter</div>
+                            <p class="text-xs text-slate-500">沙箱 Python 环境。解决数学计算、数据分析、图表绘制。</p>
+                        </div>
+                        <div class="border border-slate-200 rounded p-3 bg-white">
+                            <div class="font-bold text-slate-700 text-sm mb-1">Retrieval</div>
+                            <p class="text-xs text-slate-500">搜索互联网或企业私有文档，获取最新外部信息。</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Frameworks & Trends -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Frameworks List -->
+            <div class="bento-card p-6 md:col-span-2">
+                <h3 class="text-lg font-bold text-slate-900 mb-4">主流开发框架生态</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- LangGraph -->
+                    <div class="group cursor-default">
+                        <div class="h-1 w-full bg-orange-400 rounded-full mb-3 group-hover:w-1/2 transition-all"></div>
+                        <h4 class="font-bold text-slate-800">LangGraph</h4>
+                        <div class="text-xs text-orange-600 font-mono my-1">Stateful Graph</div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            基于图论的编排。允许循环、条件跳转，适合构建复杂的、有状态的生产级 Agent。
+                        </p>
+                    </div>
+                    <!-- AutoGen -->
+                    <div class="group cursor-default">
+                        <div class="h-1 w-full bg-blue-400 rounded-full mb-3 group-hover:w-1/2 transition-all"></div>
+                        <h4 class="font-bold text-slate-800">AutoGen</h4>
+                        <div class="text-xs text-blue-600 font-mono my-1">Multi-Agent Conversation</div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            微软出品。将 Agent 视为对话者，通过群聊模式自动协作，代码生成能力强。
+                        </p>
+                    </div>
+                    <!-- CrewAI -->
+                    <div class="group cursor-default">
+                        <div class="h-1 w-full bg-red-400 rounded-full mb-3 group-hover:w-1/2 transition-all"></div>
+                        <h4 class="font-bold text-slate-800">CrewAI</h4>
+                        <div class="text-xs text-red-600 font-mono my-1">Role-Based</div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            角色扮演模式。定义 Role、Goal、Task，模拟人类团队的层级化工作流。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future Trend -->
+            <div class="bento-card p-6 bg-slate-900 text-white flex flex-col justify-center text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 z-0"></div>
+                <div class="relative z-10">
+                    <div class="inline-block p-3 rounded-full bg-white/10 mb-3">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">MCP Protocol</h3>
+                    <p class="text-xs text-slate-300 mb-4">Model Context Protocol</p>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Anthropic 提出的开放标准。
+                        旨在标准化 LLM 与数据源（如 Linear, GitHub, Google Drive）的连接方式，打破数据孤岛。
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-slate-400 text-xs py-4 border-t border-slate-100 mt-4">
+            Generated for Technical Architecture Reference · 2025
+        </footer>
+
+    </div>
+</body>
+</html>

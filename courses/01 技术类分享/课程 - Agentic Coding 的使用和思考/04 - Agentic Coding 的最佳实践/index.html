@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Coding 最佳实践</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="h-auto w-full p-4 md:p-8 flex justify-center items-start bg-slate-50/50">
+
+    <!-- Main Container -->
+    <div class="max-w-5xl w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 h-auto">
+        
+        <!-- Header Section -->
+        <div class="bg-white p-8 md:p-12 border-b border-slate-100 relative overflow-hidden">
+            <!-- Background Decorative Blob -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+            
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider rounded-full">Engineering Guide</span>
+                    <span class="text-slate-400 text-xs font-medium">v1.0</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight">
+                    Agentic Coding <br class="md:hidden" />
+                    <span class="gradient-text">最佳实践指南</span>
+                </h1>
+                <p class="text-lg text-slate-500 max-w-2xl leading-relaxed">
+                    从“氛围编程 (Vibe Coding)”的黑盒玄学，走向系统化的工程实践。在复杂软件工程中，依靠上下文治理与精确控制，突破模型能力的边界。
+                </p>
+            </div>
+        </div>
+
+        <!-- The Premise Section: Vibe vs Agentic -->
+        <div class="p-8 bg-slate-50 border-b border-slate-100">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Vibe Coding -->
+                <div class="flex-1 bg-white p-5 rounded-xl border border-rose-100 shadow-sm opacity-70 hover:opacity-100 transition-opacity">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-rose-100 rounded-lg text-rose-600">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-700">Vibe Coding (氛围编程)</h3>
+                    </div>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        只看结果不看过程的“黑盒”模式。依赖直觉，缺乏控制。在处理真实世界软件工程的复杂度时，往往因上下文丢失而导致不可维护。
+                    </p>
+                </div>
+
+                <!-- Arrow -->
+                <div class="hidden md:flex items-center justify-center text-slate-300">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+
+                <!-- Agentic Coding -->
+                <div class="flex-1 bg-white p-5 rounded-xl border border-indigo-100 shadow-md ring-1 ring-indigo-50">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-indigo-100 rounded-lg text-indigo-600">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Agentic Coding (代理编程)</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        系统化的工程实践。强调上下文的精确管理、原子化的工作流以及对模型边界的清晰认知。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Practices Grid -->
+        <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Column 1: Prompt Engineering -->
+            <div class="card-hover flex flex-col h-full bg-white rounded-2xl border border-slate-200 p-6 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                
+                <div class="mb-5 flex items-center justify-between">
+                    <div class="p-3 bg-blue-50 rounded-xl text-blue-600">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                    </div>
+                    <span class="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">基础层</span>
+                </div>
+                
+                <h2 class="text-xl font-bold text-slate-800 mb-4">结构化提示词</h2>
+                
+                <div class="space-y-4 flex-grow">
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <h4 class="font-semibold text-sm text-slate-700 mb-1 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>准确性优先
+                        </h4>
+                        <p class="text-xs text-slate-500">拒绝模糊指令。使用标准结构（Role, Context, Instruction, Constraint, Output）构建 Prompt。</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <h4 class="font-semibold text-sm text-slate-700 mb-1 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>分层配置管理
+                        </h4>
+                        <p class="text-xs text-slate-500 mb-2">利用工具特性进行分级存储：</p>
+                        <ul class="text-[11px] space-y-1 text-slate-500 ml-2">
+                            <li class="flex items-center gap-1.5">
+                                <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l8-4 8 4v14"/></svg>
+                                <span>公司级/全用户级 (规范)</span>
+                            </li>
+                            <li class="flex items-center gap-1.5">
+                                <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                                <span>项目级 (特定架构/依赖)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Context Management -->
+            <div class="card-hover flex flex-col h-full bg-white rounded-2xl border border-slate-200 p-6 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
+                
+                <div class="mb-5 flex items-center justify-between">
+                    <div class="p-3 bg-purple-50 rounded-xl text-purple-600">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <span class="text-xs font-bold text-purple-500 bg-purple-50 px-2 py-1 rounded">核心层</span>
+                </div>
+                
+                <h2 class="text-xl font-bold text-slate-800 mb-4">上下文治理</h2>
+                
+                <div class="space-y-4 flex-grow">
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <h4 class="font-semibold text-sm text-slate-700 mb-1 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>信噪比控制
+                        </h4>
+                        <p class="text-xs text-slate-500">理解上下文窗口限制与召回率的关系。无论是 200k 还是 2m，过多的无关信息都会降低推理质量。</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <h4 class="font-semibold text-sm text-slate-700 mb-1 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>显式引用 (Reference)
+                        </h4>
+                        <p class="text-xs text-slate-500 mb-2">不要让 AI 猜。手动将最重要的信息注入主流程：</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 bg-white border border-slate-200 rounded text-[10px] text-slate-600 font-mono">@Docs</span>
+                            <span class="px-2 py-0.5 bg-white border border-slate-200 rounded text-[10px] text-slate-600 font-mono">@Interface</span>
+                            <span class="px-2 py-0.5 bg-white border border-slate-200 rounded text-[10px] text-slate-600 font-mono">@Utils</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 p-3 rounded-lg border border-purple-100">
+                        <h4 class="font-semibold text-sm text-purple-700 mb-1 flex items-center gap-2">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            定期重置
+                        </h4>
+                        <p class="text-xs text-purple-600">单次任务结束后及时清空上下文 (New Chat)，防止幻觉累积。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Coding Workflow -->
+            <div class="card-hover flex flex-col h-full bg-white rounded-2xl border border-slate-200 p-6 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+                
+                <div class="mb-5 flex items-center justify-between">
+                    <div class="p-3 bg-emerald-50 rounded-xl text-emerald-600">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 3l-7.5 7.5M4 20l7.5-7.5M4 20V15M4 20H9"/></svg>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded">执行层</span>
+                </div>
+                
+                <h2 class="text-xl font-bold text-slate-800 mb-4">编码工作流</h2>
+                
+                <div class="space-y-4 flex-grow">
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <h4 class="font-semibold text-sm text-slate-700 mb-1 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>原子化 (Atomic)
+                        </h4>
+                        <p class="text-xs text-slate-500">一次只做一个功能点。每完成一个小闭环立即进行 <code class="bg-slate-200 px-1 rounded">git commit</code>。保持“半自动”而非“全自动”。</p>
+                    </div>
+
+                    <div class="bg-rose-50 p-3 rounded-lg border border-rose-100">
+                        <h4 class="font-semibold text-sm text-rose-700 mb-1 flex items-center gap-2">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                            及时止损 (Undo > Fix)
+                        </h4>
+                        <p class="text-xs text-rose-600">如果 AI 跑偏或代码越改越乱，<strong class="font-bold">不要试图修复它</strong>。立即回退 (Discard) 状态，优化 Prompt 后重试。越涂越黑会导致上下文彻底污染。</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                        <h4 class="font-semibold text-sm text-slate-700 mb-1 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>边界意识
+                        </h4>
+                        <p class="text-xs text-slate-500">感知当前模型的逻辑推理上限。对于超复杂的重构，将其拆解为多个微任务分步执行。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-slate-50 p-6 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs gap-4">
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                <span>Agentic Coding 是一种人机协作的纪律，而非对机器的盲目信任。</span>
+            </div>
+            <div class="font-mono opacity-50">Generated for Developers</div>
+        </div>
+    </div>
+
+</body>
+</html>

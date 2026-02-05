@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Agent 交互架构图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: white;
+        }
+        /* 自定义虚线动画 */
+        @keyframes flow-animation {
+            0% { stroke-dashoffset: 20; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .flow-line {
+            stroke-dasharray: 6;
+            animation: flow-animation 1s linear infinite;
+        }
+        /* 卡片悬停效果 */
+        .hover-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hover-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="h-auto w-full flex justify-center items-start p-4 md:p-8 bg-white text-slate-800">
+
+    <div class="max-w-4xl w-full flex flex-col items-center gap-2">
+        
+        <!-- 标题区域 -->
+        <header class="text-center mb-6">
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-2">Coding Agent <span class="text-indigo-600">交互架构</span></h1>
+            <p class="text-slate-500 font-medium">从用户意图到机器执行的 Prompt 流向全景</p>
+        </header>
+
+        <!-- 顶部：用户指令层 (User Space) -->
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+            
+            <!-- User Prompt 卡片 -->
+            <div class="flex flex-col items-center">
+                <div class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-2xl p-6 w-full shadow-lg border-2 border-blue-400 hover-card relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-xl tracking-wide">USER PROMPT</h3>
+                    </div>
+                    <p class="text-blue-100 text-sm leading-relaxed font-medium">
+                        用户主体意图。作为最高指令，直接指挥 Agent 的核心逻辑，定义本次工作的最终目标。
+                    </p>
+                    <div class="mt-4 bg-white/10 rounded px-3 py-1.5 text-xs inline-block font-mono border border-white/20">
+                        INPUT: "帮我写一个贪吃蛇游戏..."
+                    </div>
+                </div>
+                <!-- 连接点 -->
+                <div class="h-8 w-0.5 bg-indigo-200 dashed-connector"></div>
+            </div>
+
+            <!-- User Skill Prompt 卡片 -->
+            <div class="flex flex-col items-center">
+                <div class="bg-gradient-to-br from-orange-400 to-amber-500 text-white rounded-2xl p-6 w-full shadow-lg border-2 border-orange-300 hover-card relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor"><path d="M14.7 10.7l-4.2 4.2c-.4.4-1 .4-1.4 0l-4.2-4.2c-.4-.4-.4-1 0-1.4l4.2-4.2c.4-.4 1-.4 1.4 0l4.2 4.2c.4.4.4 1 0 1.4zM22 12c0 5.5-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2s10 4.5 10 10z"/></svg>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-xl tracking-wide">USER SKILL PROMPT</h3>
+                    </div>
+                    <p class="text-orange-100 text-sm leading-relaxed font-medium">
+                        用户自定义工具。定义特定的逻辑或规则，作为 Agent 的扩展技能在细分任务中被调用。
+                    </p>
+                    <div class="mt-4 bg-white/10 rounded px-3 py-1.5 text-xs inline-block font-mono border border-white/20">
+                        DEF: "当遇到数据库操作时，使用..."
+                    </div>
+                </div>
+                 <!-- 连接点 -->
+                 <div class="h-8 w-0.5 bg-orange-200 dashed-connector"></div>
+            </div>
+        </div>
+
+        <!-- 中间连接层 (Visual Connector) -->
+        <div class="w-full relative h-12 -mt-2 mb-2 hidden md:block">
+            <svg class="w-full h-full absolute top-0 left-0" preserveAspectRatio="none">
+                <!-- Left Flow (Blue) -->
+                <path d="M220,0 C220,20 400,0 440,40" vector-effect="non-scaling-stroke" 
+                      fill="none" stroke="#6366f1" stroke-width="3" stroke-dasharray="6" class="opacity-30" />
+                <path d="M220,0 C220,20 400,0 440,36" vector-effect="non-scaling-stroke" 
+                      fill="none" stroke="#6366f1" stroke-width="3" marker-end="url(#arrowBlue)" />
+
+                <!-- Right Flow (Orange) -->
+                <path d="M680,0 C680,30 680,30 680,40" vector-effect="non-scaling-stroke" 
+                      fill="none" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrowOrange)" />
+                
+                <defs>
+                    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                        <path d="M0,0 L10,5 L0,10" fill="#4f46e5" />
+                    </marker>
+                    <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                        <path d="M0,0 L10,5 L0,10" fill="#d97706" />
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- 底部：Agent 组件层 (System Space) -->
+        <div class="w-full bg-slate-50 border border-slate-200 rounded-3xl p-6 md:p-8 relative shadow-inner">
+            <div class="absolute top-4 left-6 text-slate-400 font-bold text-sm tracking-widest uppercase flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                Coding Agent Container
+            </div>
+
+            <!-- Agent 内部结构 -->
+            <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                <!-- 核心 Agent (Core) -->
+                <div class="lg:col-span-8 flex flex-col">
+                    <div class="bg-white border-2 border-indigo-100 rounded-2xl p-6 shadow-sm flex-1 relative overflow-hidden">
+                        <!-- 装饰背景 -->
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-50 rounded-full blur-3xl"></div>
+
+                        <div class="flex items-start gap-4 relative z-10">
+                            <div class="p-3 bg-indigo-100 text-indigo-600 rounded-xl shrink-0">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                                    Agent Core
+                                    <span class="text-xs font-normal bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full border border-indigo-200">System Prompt</span>
+                                </h2>
+                                <p class="text-slate-500 mt-2 text-sm">
+                                    Agent 的大脑。包含内置的 System Prompt，负责理解 User Prompt 的意图，规划任务，并根据需要调用下方的 Skills。
+                                </p>
+                                
+                                <!-- 注入点示意 -->
+                                <div class="mt-4 p-3 bg-indigo-50 rounded-lg border border-indigo-100 flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                                    <span class="text-xs text-indigo-800 font-mono">注入: USER PROMPT (作为当前 Goal)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 规划连线 -->
+                        <div class="mt-6 border-t border-dashed border-slate-200 pt-4">
+                            <div class="flex items-center gap-2 text-xs text-slate-400 font-semibold uppercase mb-3">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                                Orchestration (任务编排)
+                            </div>
+                            <!-- 模拟代码流 -->
+                            <div class="space-y-2 font-mono text-xs text-slate-500">
+                                <div class="flex gap-2"><span class="text-purple-500">plan</span> = <span class="text-blue-600">analyze</span>(user_prompt)</div>
+                                <div class="flex gap-2"><span class="text-purple-500">tools</span> = [file_gen, web_search, <span class="text-orange-500 font-bold">user_skill</span>]</div>
+                                <div class="flex gap-2"><span class="text-purple-500">execute</span>(plan, tools)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills 模块 (Skills) -->
+                <div class="lg:col-span-4 flex flex-col gap-3">
+                    <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider pl-1">Available Skills</h4>
+                    
+                    <!-- 内置 Skill 1 -->
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 opacity-80">
+                        <div class="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-slate-700 text-sm">File Gen</div>
+                            <div class="text-[10px] text-slate-400">System Skill Prompt</div>
+                        </div>
+                    </div>
+
+                    <!-- 内置 Skill 2 -->
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3 opacity-80">
+                        <div class="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-slate-700 text-sm">Web Search</div>
+                            <div class="text-[10px] text-slate-400">System Skill Prompt</div>
+                        </div>
+                    </div>
+
+                    <!-- 用户自定义 Skill (高亮) -->
+                    <div class="bg-orange-50 p-3 rounded-xl border-2 border-orange-300 shadow-md flex items-center gap-3 transform scale-105 origin-left relative">
+                        <!-- 连接线示意 -->
+                        <div class="absolute -top-6 left-1/2 w-0.5 h-6 bg-orange-300 md:hidden"></div> 
+
+                        <div class="p-2 bg-orange-100 text-orange-600 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-slate-800 text-sm">Custom Logic</div>
+                            <div class="text-[10px] text-orange-600 font-semibold">User Skill Prompt</div>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="flex h-3 w-3 relative">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 说明注脚 -->
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 w-full text-xs text-slate-500 border-t border-slate-100 pt-6">
+            <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                <span>用户目标 (Prompt)</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-orange-500"></div>
+                <span>用户技能 (Skill)</span>
+            </div>
+             <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-indigo-600"></div>
+                <span>核心调度 (Core)</span>
+            </div>
+             <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                <span>系统能力 (Tools)</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

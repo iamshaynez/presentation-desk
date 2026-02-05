@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Agent Tool Inventory</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .tool-card {
+            transition: all 0.2s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* Custom scrollbar for clean aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-auto min-h-screen p-4 md:p-8 bg-slate-50">
+
+    <div class="max-w-5xl mx-auto">
+        
+        <!-- Header -->
+        <header class="mb-10 text-center md:text-left flex flex-col md:flex-row items-center justify-between border-b border-slate-200 pb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-800 tracking-tight flex items-center gap-3">
+                    <span class="bg-slate-900 text-white p-2 rounded-lg"><i data-lucide="bot" class="w-6 h-6"></i></span>
+                    Agent 工具库清单
+                </h1>
+                <p class="text-slate-500 mt-2 text-sm font-medium">Coding Agent 预装标准系统调用接口 (System Interface)</p>
+            </div>
+            <div class="mt-4 md:mt-0 flex gap-2">
+                <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-mono text-slate-500 flex items-center gap-1">
+                    <div class="w-2 h-2 rounded-full bg-green-500"></div> Active
+                </span>
+                <span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-mono text-slate-500">v2.0 Protocol</span>
+            </div>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Category 1: File System (The Hands) -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="p-1.5 bg-blue-100 rounded text-blue-600"><i data-lucide="folder-open" class="w-4 h-4"></i></div>
+                    <h2 class="font-bold text-slate-700">文件系统操作 (File System)</h2>
+                </div>
+                
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden tool-card">
+                    <!-- Tool Item -->
+                    <div class="p-4 border-b border-slate-100 group hover:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-1">
+                            <code class="text-sm font-bold text-blue-600 font-mono bg-blue-50 px-2 py-0.5 rounded">fs.read_file</code>
+                            <span class="text-xs text-slate-400 font-mono">Input: path</span>
+                        </div>
+                        <p class="text-sm text-slate-600">读取指定路径的文件完整内容。通常支持行号标记以辅助后续编辑。</p>
+                    </div>
+
+                    <!-- Tool Item -->
+                    <div class="p-4 border-b border-slate-100 group hover:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-1">
+                            <code class="text-sm font-bold text-blue-600 font-mono bg-blue-50 px-2 py-0.5 rounded">fs.write_file</code>
+                            <span class="text-xs text-slate-400 font-mono">Input: path, content</span>
+                        </div>
+                        <p class="text-sm text-slate-600">创建新文件或<span class="text-red-500">完全覆盖</span>现有文件内容。适用于初始化或重写。</p>
+                    </div>
+
+                    <!-- Tool Item -->
+                    <div class="p-4 border-b border-slate-100 group hover:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-1">
+                            <code class="text-sm font-bold text-purple-600 font-mono bg-purple-50 px-2 py-0.5 rounded">fs.apply_diff</code>
+                            <span class="text-xs text-slate-400 font-mono">Input: path, search, replace</span>
+                        </div>
+                        <p class="text-sm text-slate-600">智能编辑工具。通过匹配独特的代码块（Search Block）并将其替换为新代码（Replace Block）来修改文件，避免上下文丢失。</p>
+                    </div>
+
+                     <!-- Tool Item -->
+                     <div class="p-4 group hover:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-1">
+                            <code class="text-sm font-bold text-blue-600 font-mono bg-blue-50 px-2 py-0.5 rounded">fs.list_dir</code>
+                            <span class="text-xs text-slate-400 font-mono">Input: path, recursive?</span>
+                        </div>
+                        <p class="text-sm text-slate-600">获取目录结构树。帮助 Agent 理解项目架构和文件位置。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 2: Terminal & Shell (The Environment) -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="p-1.5 bg-slate-800 rounded text-white"><i data-lucide="terminal-square" class="w-4 h-4"></i></div>
+                    <h2 class="font-bold text-slate-700">终端执行 (Terminal Execution)</h2>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden tool-card">
+                    <!-- Tool Item -->
+                    <div class="p-4 border-b border-slate-100 group hover:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-1">
+                            <code class="text-sm font-bold text-slate-700 font-mono bg-slate-100 px-2 py-0.5 rounded">shell.execute</code>
+                            <span class="text-xs text-slate-400 font-mono">Input: command</span>
+                        </div>
+                        <p class="text-sm text-slate-600">在系统 Shell (Bash/Zsh) 中执行命令。用于安装依赖、运行测试、启动服务器或 git 操作。</p>
+                        <div class="mt-2 flex gap-2">
+                             <span class="text-[10px] uppercase bg-green-100 text-green-700 px-1.5 rounded">Stream Output</span>
+                             <span class="text-[10px] uppercase bg-orange-100 text-orange-700 px-1.5 rounded">User Approval</span>
+                        </div>
+                    </div>
+
+                    <!-- Tool Item -->
+                    <div class="p-4 group hover:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-1">
+                            <code class="text-sm font-bold text-slate-700 font-mono bg-slate-100 px-2 py-0.5 rounded">bg.run_server</code>
+                            <span class="text-xs text-slate-400 font-mono">Input: command</span>
+                        </div>
+                        <p class="text-sm text-slate-600">以后台模式运行长时间进程（如 <code class="text-xs bg-slate-100 p-0.5">npm start</code>），并允许 Agent 随时检查日志或终止进程。</p>
+                    </div>
+                </div>
+                
+                <!-- Category 3: Analysis & Navigation (The Eyes) -->
+                <div class="flex items-center gap-2 mb-2 mt-6">
+                    <div class="p-1.5 bg-emerald-100 rounded text-emerald-600"><i data-lucide="scan-search" class="w-4 h-4"></i></div>
+                    <h2 class="font-bold text-slate-700">代码导航与分析 (Analysis)</h2>
+                </div>
+                
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden tool-card">
+                    <!-- Tool Item -->
+                    <div class="p-4 border-b border-slate-100 group hover:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-1">
+                            <code class="text-sm font-bold text-emerald-600 font-mono bg-emerald-50 px-2 py-0.5 rounded">code.search / grep</code>
+                            <span class="text-xs text-slate-400 font-mono">Input: regex, path</span>
+                        </div>
+                        <p class="text-sm text-slate-600">在代码库中进行正则表达式搜索。用于定位函数定义、变量引用或特定字符串。</p>
+                    </div>
+                     <!-- Tool Item -->
+                     <div class="p-4 group hover:bg-slate-50 transition-colors">
+                        <div class="flex justify-between items-start mb-1">
+                            <code class="text-sm font-bold text-emerald-600 font-mono bg-emerald-50 px-2 py-0.5 rounded">lsp.get_definitions</code>
+                            <span class="text-xs text-slate-400 font-mono">Input: file, symbol</span>
+                        </div>
+                        <p class="text-sm text-slate-600">利用语言服务器协议 (LSP) 获取类、函数或变量的类型定义和签名信息。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Advanced Capabilities -->
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Category 4: Browser & Vision (The Senses) -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="p-1.5 bg-pink-100 rounded text-pink-600"><i data-lucide="monitor" class="w-4 h-4"></i></div>
+                    <h2 class="font-bold text-slate-700">浏览器与视觉 (Browser/Vision)</h2>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden tool-card">
+                    <div class="p-4 border-b border-slate-100 flex items-center gap-3">
+                        <code class="text-sm font-bold text-pink-600 font-mono bg-pink-50 px-2 py-0.5 rounded">browser.launch</code>
+                        <span class="text-sm text-slate-600">启动无头或有头浏览器环境 (Puppeteer/Playwright)。</span>
+                    </div>
+                    <div class="p-4 border-b border-slate-100 flex items-center gap-3">
+                        <code class="text-sm font-bold text-pink-600 font-mono bg-pink-50 px-2 py-0.5 rounded">browser.screenshot</code>
+                        <span class="text-sm text-slate-600">捕获当前页面截图，通过 Vision Model 分析 UI 布局错误。</span>
+                    </div>
+                    <div class="p-4 border-b border-slate-100 flex items-center gap-3">
+                        <code class="text-sm font-bold text-pink-600 font-mono bg-pink-50 px-2 py-0.5 rounded">browser.click</code>
+                        <span class="text-sm text-slate-600">模拟用户点击坐标或 DOM 元素，进行端到端测试。</span>
+                    </div>
+                     <div class="p-4 flex items-center gap-3">
+                        <code class="text-sm font-bold text-pink-600 font-mono bg-pink-50 px-2 py-0.5 rounded">console.get_logs</code>
+                        <span class="text-sm text-slate-600">获取浏览器控制台报错日志。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 5: External & MCP (The Extensions) -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="p-1.5 bg-orange-100 rounded text-orange-600"><i data-lucide="plug-2" class="w-4 h-4"></i></div>
+                    <h2 class="font-bold text-slate-700">MCP 扩展与连接 (External)</h2>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden tool-card">
+                    <div class="p-4 border-b border-slate-100">
+                        <div class="flex items-center gap-2 mb-1">
+                            <i data-lucide="database" class="w-4 h-4 text-orange-400"></i>
+                            <span class="font-bold text-slate-700 text-sm">Database Connector</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <code class="text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded border border-orange-100">db.get_schema</code>
+                            <code class="text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded border border-orange-100">db.run_query</code>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 border-b border-slate-100">
+                        <div class="flex items-center gap-2 mb-1">
+                            <i data-lucide="git-branch" class="w-4 h-4 text-orange-400"></i>
+                            <span class="font-bold text-slate-700 text-sm">GitHub/GitLab MCP</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <code class="text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded border border-orange-100">pr.create</code>
+                            <code class="text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded border border-orange-100">issue.get_details</code>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-orange-50/30">
+                        <p class="text-xs text-orange-800 flex items-start gap-2">
+                            <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5"></i>
+                            MCP (Model Context Protocol) 允许 Agent 动态加载任何自定义 API 工具。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="mt-12 text-center text-slate-400 text-xs py-4 border-t border-slate-100">
+            <p>Generated for Code Agent Architecture Study</p>
+        </footer>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

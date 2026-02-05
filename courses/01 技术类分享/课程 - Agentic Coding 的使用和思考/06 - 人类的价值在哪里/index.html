@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工智能时代：人类的价值</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            /* 确保背景纯白，符合要求 */
+            background-color: #ffffff; 
+            color: #1f2937;
+        }
+
+        /* 隐藏滚动条但保持滚动功能 (Chrome/Safari/Webkit) */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-hoverable {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-hoverable:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="w-full h-auto p-4 md:p-8 antialiased">
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto">
+
+        <!-- Header Section -->
+        <header class="text-center mb-10 relative">
+            <div class="inline-block p-1 px-3 mb-3 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold tracking-wider uppercase">
+                Future of Work
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black mb-4 leading-tight">
+                AI 时代，<br class="md:hidden" />
+                <span class="gradient-text bg-gradient-to-r from-blue-600 to-indigo-600">人类的价值</span>在哪里？
+            </h1>
+            <p class="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto">
+                当 AI 成为基础设施，我们的核心竞争力将回归到“思考”与“连接”的本源。
+            </p>
+            
+            <!-- Decorative Line -->
+            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-6 rounded-full"></div>
+        </header>
+
+        <!-- Content Grid 
+             Fix: 增加了 gap-y-12 以修复移动端两组内容间隔过小的问题
+             Fix: 使用 gap-x-8 增加桌面端两列之间的呼吸感
+        -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 relative z-10">
+
+            <!-- Left Column: Coding Domain -->
+            <div class="flex flex-col gap-6">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 bg-blue-100 rounded-lg text-blue-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Coding 领域</h2>
+                </div>
+
+                <!-- Card 1 -->
+                <div class="card-hoverable bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10 flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        </div>
+                        <!-- Fix: 添加 flex-1 min-w-0 防止长文本溢出 flex 容器 -->
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">软件工程</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                AI 可以写代码，但难以掌控全局。<span class="font-semibold text-blue-600">复杂度管理</span>与<span class="font-semibold text-blue-600">系统控制</span>是人类工程师的护城河。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card-hoverable bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10 flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">底层原理与兜底</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                操作系统、网络、数据库的深层机制。当 AI 遇到<span class="font-semibold text-cyan-600">边缘场景 (Edge Cases)</span> 时，需要人类进行最终的判断与修复。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-hoverable bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10 flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">理解与抽象</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                真实世界的<span class="font-semibold text-indigo-600">业务建模</span>能力，以及通过 Prompt 将模糊需求转化为系统性表达的能力。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Other Domains -->
+            <div class="flex flex-col gap-6">
+                <!-- Fix: 移除硬编码的 mt-4，改为依赖父级 Grid 的 gap-y，并保持与左列顶部对齐 -->
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 bg-orange-100 rounded-lg text-orange-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">通用能力域</h2>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card-hoverable bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10 flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">元方法论</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                比通识更底层的逻辑。为何同样的工具（Coding/AI），不同人产出迥异？<span class="font-semibold text-orange-600">方法论</span>决定上限。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="card-hoverable bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10 flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 flex items-center justify-center text-white shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">量化与提炼</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-2">
+                                万物皆可建模，皆可量化。将混沌的现实提炼为 AI 可理解的逻辑。
+                            </p>
+                            <div class="inline-flex items-center gap-2 px-2 py-1 bg-purple-50 rounded text-xs text-purple-700 font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                                推荐书目：《如何量化一切》
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="card-hoverable bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10 flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-teal-400 to-green-500 flex items-center justify-center text-white shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">跨领域融合</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                技术门槛大幅降低，使得<span class="font-semibold text-teal-600">极高的跨界能力</span>成为可能。你可以同时是程序员、艺术家和产品经理。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer / Conclusion -->
+        <div class="mt-12 p-6 bg-slate-900 rounded-2xl text-white text-center shadow-xl relative overflow-hidden">
+            <!-- decorative circles -->
+            <div class="absolute -top-10 -left-10 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-500 opacity-20 rounded-full blur-2xl"></div>
+            
+            <h3 class="text-xl font-bold mb-2 relative z-10">源头思考总结</h3>
+            <p class="text-slate-300 text-sm md:text-base relative z-10">
+                人的价值不再是“执行”与“重复”，而是<span class="text-yellow-400 font-bold">定义问题</span>、<span class="text-yellow-400 font-bold">构建模型</span>与<span class="text-yellow-400 font-bold">驾驭复杂性</span>。
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>
