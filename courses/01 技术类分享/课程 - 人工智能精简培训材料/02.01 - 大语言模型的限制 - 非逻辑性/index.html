@@ -229,16 +229,16 @@
                 <div class="icon-box">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 </div>
-                <h3 class="card-title">案例一：字面统计幻觉</h3>
-                <p class="card-subtitle">“Strawberry 有几个字母 r？”</p>
+                <h3 class="card-title">案例一：洗车还是走路</h3>
+                <p class="card-subtitle">“我要去洗车，洗车店离我家50米，我应该开车还是走路？”</p>
                 
                 <div class="comparison-box box-llm">
                     <span class="tag tag-llm">LLM 常见回答</span>
-                    <p class="box-text">“有两个 r。”<br>（Token 化导致模型“看不见”字符内部结构）</p>
+                    <p class="box-text">“非常近，应该走路。”<br> 从文字概率上洗车和买菜是一样的出行目标。</p>
                 </div>
                 <div class="comparison-box box-logic">
                     <span class="tag tag-logic">真实逻辑</span>
-                    <p class="box-text">3 个。<br>需要字符级精确计数，而非词汇级概率检索。</p>
+                    <p class="box-text">开车，洗车限定了出行方式的隐藏逻辑。</p>
                 </div>
             </div>
 
@@ -256,7 +256,7 @@
                 </div>
                 <div class="comparison-box box-logic">
                     <span class="tag tag-logic">真实逻辑</span>
-                    <p class="box-text">3 小时。<br>物理世界中“晾衣服”通常是并行过程。</p>
+                    <p class="box-text">3 小时。物理世界中“晾衣服”通常是并行过程。</p>
                 </div>
             </div>
 
@@ -266,7 +266,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 </div>
                 <h3 class="card-title">案例三：关系传递失效</h3>
-                <p class="card-subtitle">“Sally 有 3 个兄弟，每个兄弟有 2 个姐妹。”</p>
+                <p class="card-subtitle">“Sally 有 3 个兄弟，每个兄弟有 2 个姐妹，Sally 有多少姐妹？”</p>
                 
                 <div class="comparison-box box-llm">
                     <span class="tag tag-llm">LLM 常见回答</span>
@@ -274,7 +274,7 @@
                 </div>
                 <div class="comparison-box box-logic">
                     <span class="tag tag-logic">真实逻辑</span>
-                    <p class="box-text">1 个姐妹（即 Sally 自己）。<br>需构建一致的人物关系图谱。</p>
+                    <p class="box-text">1 个姐妹（即 Sally 自己）。需构建一致的人物关系图谱。</p>
                 </div>
             </div>
 

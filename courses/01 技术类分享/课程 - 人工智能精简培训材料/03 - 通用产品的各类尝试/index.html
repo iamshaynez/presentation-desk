@@ -76,18 +76,19 @@
             font-weight: 700;
         }
 
-        /* Tools Grid */
+        /* Tools Grid (Right) */
         .tools-grid {
+            flex: 1;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5vw;
-            flex-grow: 1;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1vw;
+            padding: 0.5vw 0;
         }
 
         .tool-card {
             border: 1px solid var(--border-color);
-            border-radius: 1vw;
-            padding: 1.5vw;
+            border-radius: 0.8vw;
+            padding: 1vw;
             background: #ffffff;
             display: flex;
             flex-direction: column;
@@ -98,16 +99,16 @@
         .tool-header {
             display: flex;
             flex-direction: column;
-            gap: 1vw;
-            margin-bottom: 1vw;
+            gap: 0.6vw;
+            margin-bottom: 0.8vw;
             align-items: flex-start;
         }
 
         .icon-box {
-            width: 3.5vw;
-            height: 3.5vw;
+            width: 2.5vw;
+            height: 2.5vw;
             background-color: var(--brand-light);
-            border-radius: 0.8vw;
+            border-radius: 0.6vw;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -115,31 +116,124 @@
         }
 
         .icon-box svg {
-            width: 2vw;
-            height: 2vw;
+            width: 1.5vw;
+            height: 1.5vw;
         }
 
         .tool-title {
-            font-size: clamp(1.2rem, 1.5vw, 2rem);
+            font-size: clamp(0.9rem, 1.1vw, 1.3rem);
             font-weight: 700;
             color: var(--text-main);
         }
 
         .tool-desc {
-            font-size: clamp(0.8rem, 1vw, 1.2rem);
+            font-size: clamp(0.7rem, 0.8vw, 1rem);
             color: var(--text-body);
-            line-height: 1.6;
+            line-height: 1.4;
         }
 
         .tool-list {
-            margin-top: 1vw;
-            padding-left: 1.2vw;
-            font-size: clamp(0.75rem, 0.9vw, 1.1rem);
+            margin-top: 0.6vw;
+            padding-left: 0.8vw;
+            font-size: clamp(0.65rem, 0.7vw, 0.9rem);
             color: #64748b;
         }
         
         .tool-list li {
-            margin-bottom: 0.5vw;
+            margin-bottom: 0.3vw;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: flex;
+            gap: 2vw;
+            flex-grow: 1;
+        }
+
+        /* Tech Stack (Left) */
+        .tech-stack {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .stack-title {
+            font-size: clamp(1rem, 1.5vw, 2rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.8vw;
+            text-align: center;
+        }
+
+        .stack-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6vw;
+        }
+
+        .stack-layer {
+            border-radius: 0.6vw;
+            padding: 1vw;
+            transition: all 0.3s ease;
+        }
+
+        .stack-layer:hover {
+            transform: translateY(-0.3vw);
+            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
+        }
+
+        .product-layer {
+            background: linear-gradient(135deg, #e0f2fe, #dbeafe);
+            border-left: 0.4vw solid #3b82f6;
+        }
+
+        .tool-layer {
+            background: linear-gradient(135deg, #f0fdfa, #ecfccb);
+            border-left: 0.4vw solid #10b981;
+        }
+
+        .model-layer {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 0.4vw solid #f59e0b;
+        }
+
+        .infra-layer {
+            background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+            border-left: 0.4vw solid #8b5cf6;
+        }
+
+        .layer-content {
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+        }
+
+        .layer-icon {
+            font-size: 2vw;
+            flex-shrink: 0;
+        }
+
+        .layer-title {
+            font-size: clamp(0.9rem, 1vw, 1.3rem);
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 0.2vw 0;
+        }
+
+        .layer-desc {
+            font-size: clamp(0.7rem, 0.8vw, 1rem);
+            color: var(--text-body);
+            margin: 0 0 0.2vw 0;
+        }
+
+        .layer-examples {
+            font-size: clamp(0.65rem, 0.7vw, 0.9rem);
+            color: #64748b;
+            margin: 0;
+            padding-left: 0.8vw;
+        }
+
+        .layer-examples li {
+            margin-bottom: 0.15vw;
         }
 
         /* Footer */
@@ -172,8 +266,72 @@
             </div>
         </div>
 
-        <!-- Main Content: Tools Grid -->
-        <div class="tools-grid">
+        <!-- Main Content: Left-Right Layout -->
+        <div class="main-content">
+            <!-- AI Technology Stack (Left) -->
+            <div class="tech-stack">
+                <h2 class="stack-title">AI 技术栈层次结构</h2>
+                <div class="stack-layers">
+                    <!-- 产品层 -->
+                    <div class="stack-layer product-layer">
+                        <div class="layer-content">
+                            <div class="layer-icon">🏢</div>
+                            <h3 class="layer-title">产品层</h3>
+                            <p class="layer-desc">面向最终用户的应用界面，提供具体功能</p>
+                            <ul class="layer-examples">
+                                <li>DeepSeek App</li>
+                                <li>千问</li>
+                                <li>豆包</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- 工具层 -->
+                    <div class="stack-layer tool-layer">
+                        <div class="layer-content">
+                            <div class="layer-icon">🧰</div>
+                            <h3 class="layer-title">工具层</h3>
+                            <p class="layer-desc">扩展模型能力的外部工具和服务</p>
+                            <ul class="layer-examples">
+                                <li>联网搜索</li>
+                                <li>代码执行</li>
+                                <li>文件解析 Excel，Word，Pdf</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- 模型层 -->
+                    <div class="stack-layer model-layer">
+                        <div class="layer-content">
+                            <div class="layer-icon">🤖</div>
+                            <h3 class="layer-title">模型层</h3>
+                            <p class="layer-desc">大语言模型核心，处理自然语言理解与生成</p>
+                            <ul class="layer-examples">
+                                <li>DeepSeek-3.2, Kimi 2.5, GLM-5.0, Doubao</li>
+                                <li>Qwen-3.5-32b-a3b</li>
+                                <li>Gemini-3-Pro 等</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- GPU基础设施层 -->
+                    <div class="stack-layer infra-layer">
+                        <div class="layer-content">
+                            <div class="layer-icon">💻</div>
+                            <h3 class="layer-title">GPU 基础设施层</h3>
+                            <p class="layer-desc">提供计算资源支持模型训练与推理</p>
+                            <ul class="layer-examples">
+                                <li>NVIDIA H100/A100</li>
+                                <li>云计算平台</li>
+                                <li>分布式计算</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools Grid (Right) -->
+            <div class="tools-grid">
             <!-- Tool 1: Web Search -->
             <div class="tool-card">
                 <div class="tool-header">
@@ -253,6 +411,7 @@
                     <li>数据库查询与 API 调用</li>
                 </ul>
             </div>
+        </div>
         </div>
 
         <!-- Footer -->

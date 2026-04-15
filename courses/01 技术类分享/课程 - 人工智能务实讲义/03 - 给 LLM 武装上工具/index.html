@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给 LLM 配上外挂的努力</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    </style>
+</head>
+<body class="bg-white p-4 sm:p-8 h-auto flex justify-center items-start w-full">
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-10 h-auto">
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-6 flex items-center justify-center gap-3">
+                <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                给 LLM 配上外挂的努力
+            </h1>
+            <p class="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto bg-blue-50/50 p-5 rounded-xl border border-blue-100 shadow-sm">
+                因为 LLM 是一个有各种限制，也没有接触任何现实世界信息媒介的文科大脑，因此大部分的产品，都是围绕这样一个大脑 + 一堆外挂构建出来的。
+            </p>
+        </header>
+
+        <!-- Timeline Section -->
+        <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-blue-100 before:via-purple-100 before:to-orange-100">
+            
+            <!-- 1.0 版本 -->
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full border-4 border-white bg-blue-500 text-white shadow-md shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                </div>
+                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-gradient-to-br from-blue-50 to-white p-6 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-blue-800 text-xl">1.0 版本: ChatBot 形态</h3>
+                        <span class="text-xs font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">2023-2025 主流</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">ChatGPT，Qwen，豆包的初级版本都是这样。</p>
+                    <div class="bg-white p-3 rounded-lg border border-blue-50 text-sm text-gray-700 font-medium shadow-sm flex gap-2">
+                        <span class="text-blue-500 font-bold shrink-0">本质：</span>
+                        <span>LLM + 具体的外挂（联网，计算，Excel，Word，Pdf 等）</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2.0 版本 -->
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full border-4 border-white bg-purple-500 text-white shadow-md shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-gradient-to-br from-purple-50 to-white p-6 rounded-2xl shadow-sm border border-purple-100 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-purple-800 text-xl">2.0 版本：Agent + 外挂形态</h3>
+                        <span class="text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">2025-2026 主流</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">例如 DeepResearch，PPT 制作工具等。</p>
+                    <div class="bg-white p-3 rounded-lg border border-purple-50 text-sm text-gray-700 font-medium shadow-sm flex gap-2">
+                        <span class="text-purple-500 font-bold shrink-0">本质：</span>
+                        <span>预定好的外挂们，用 Agent 的自评估循环，实现更复杂任务的完成。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3.0 版本 -->
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full border-4 border-white bg-orange-500 text-white shadow-md shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                </div>
+                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-gradient-to-br from-orange-50 to-white p-6 rounded-2xl shadow-sm border border-orange-100 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-orange-800 text-xl">3.0 版本：Coworker 形态</h3>
+                        <span class="text-xs font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">极其早期</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">OpenClaw（小龙虾 🦞）代表的 Coworker 形态，可自己生产外挂，因此显得更万能。</p>
+                    <div class="bg-white p-3 rounded-lg border border-orange-50 text-sm text-gray-700 font-medium shadow-sm flex gap-2">
+                        <span class="text-orange-500 font-bold shrink-0">局限：</span>
+                        <span>极高的复杂度和极低的 Token 效率。</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
